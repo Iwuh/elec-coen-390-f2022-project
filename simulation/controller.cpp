@@ -27,16 +27,14 @@ void Controller::TriggerInnerSensor()
 
 void Controller::Start(std::atomic_bool& stopFlag)
 {
-    // Event is set to true when a sensor is triggered
-    // Sensor is set to 1 or 2 based on which sensor was triggered
-    event = false;
-    sensor = 0;
-
     while (!stopFlag)
     {
-        // Wait until a sensor is triggered
+        // Wait until a sensor is triggered or the stop flag is set.
         std::unique_lock lock(mutex);
-        signal.wait(lock, [this]{ return event; });
+        if (!signal.wait_for(lock, std::chrono::seconds(5), [this]{ return event; }))
+        {
+            continue;
+        }
 
         long long currTime = GetTime();
         if (sensor == 1)

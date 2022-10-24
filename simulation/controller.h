@@ -15,13 +15,19 @@ public:
     // Starts the controller. Should be run in a thread.
     void Start(std::atomic_bool& stopFlag);
 
+    std::vector<long long> GetS1Triggers() {return S1_triggers;}
+    std::vector<long long> GetS2Triggers() {return S2_triggers;}
+    std::vector<std::pair<long long, int>> GetEventHistory() {return EventHistory;}
+
 private:
     long long GetTime();
 
     std::condition_variable signal;
     std::mutex mutex;
-    int sensor;
-    bool event;
+    // Event is set to true when a sensor is triggered
+    // Sensor is set to 1 or 2 based on which sensor was triggered
+    int sensor = 0;
+    bool event = false;
 
     // Store unmatched S1 triggers
     std::vector<long long> S1_triggers;
