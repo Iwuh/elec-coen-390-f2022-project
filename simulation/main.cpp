@@ -41,5 +41,37 @@ int main()
     stop = true;
     t.join();
     
+    auto remainingS1Triggers = c.GetS1Triggers();
+    std::cout << "Remaining outer sensor triggers: ";
+    for (long long &i : remainingS1Triggers)
+    {
+        std::cout << i << ' ';
+    }
+    std::cout << std::endl;
+
+    auto remainingS2Triggers = c.GetS2Triggers();
+    std::cout << "Remaining inner sensor triggers: ";
+    for (long long &i : remainingS2Triggers)
+    {
+        std::cout << i << ' ';
+    }
+    std::cout << std::endl;
+
+    auto events = c.GetEventHistory();
+    std::cout << "Events: ";
+    for (std::pair<long long, int> &p : events)
+    {
+        std::cout << '(' << std::get<0>(p) << ", ";
+        if (std::get<1>(p) == 1)
+        {
+            std::cout << "Left) ";
+        }
+        else
+        {
+            std::cout << "Entered) ";
+        }
+    }
+    std::cout << std::endl;
+
     return 0;
 }
