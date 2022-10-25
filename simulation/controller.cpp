@@ -9,6 +9,7 @@
 
 void Controller::TriggerOuterSensor()
 {
+    // Set event state and notify condition variable to simulate asynchronous interrupt
     std::unique_lock lock(mutex);
     event = true;
     sensor = 1;
@@ -18,6 +19,7 @@ void Controller::TriggerOuterSensor()
 
 void Controller::TriggerInnerSensor()
 {
+    // Set event state and notify condition variable to simulate asynchronous interrupt
     std::unique_lock lock(mutex);
     event = true;
     sensor = 2;
@@ -30,6 +32,7 @@ void Controller::Start(std::atomic_bool& stopFlag)
     while (!stopFlag)
     {
         // Wait until a sensor is triggered or the stop flag is set.
+        // Simulates how the controller will respond to sensor triggers via interrupts.
         std::unique_lock lock(mutex);
         if (!signal.wait_for(lock, std::chrono::seconds(5), [this]{ return event; }))
         {
@@ -37,7 +40,7 @@ void Controller::Start(std::atomic_bool& stopFlag)
         }
 
         long long currTime = GetTime();
-        if (sensor == 1)
+        if (sensor == 1) // outer
         {
             // Search S2_triggers for the first timestamp more than MIN_TH microseconds ago but fewer than MAX_TH microseconds ago.
             auto iter = std::find_if(S2_triggers.begin(), S2_triggers.end(), [currTime](long long &ts){ return (currTime - ts >= MIN_TH && currTime - ts <= MAX_TH); });
@@ -45,21 +48,21 @@ void Controller::Start(std::atomic_bool& stopFlag)
             {
                 // If we found a match, remove it and push a leave event
                 S2_triggers.erase(iter);
-                EventHistory.push_back(std::make_pair(currTime, 1));
+                EventHistory.push_back(std::make_pair(currTime, Event::Left));
             }
             else
             {
                 S1_triggers.push_back(currTime);
             }
         }
-        else if (sensor == 2)
+        else if (sensor == 2) // inner
         {
             // Perform the same search but on S1_triggers
             auto iter = std::find_if(S1_triggers.begin(), S1_triggers.end(), [currTime](long long &ts){ return (currTime - ts >= MIN_TH && currTime - ts <= MAX_TH); });
             if (iter != S2_triggers.end())
             {
                 S1_triggers.erase(iter);
-                EventHistory.push_back(std::make_pair(currTime, 2));
+                EventHistory.push_back(std::make_pair(currTime, Event::Entered));
             }
             else
             {
