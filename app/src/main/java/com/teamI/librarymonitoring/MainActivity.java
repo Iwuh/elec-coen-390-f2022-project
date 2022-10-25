@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnSettings = (Button) findViewById(R.id.btnSettings);
-        Button btnOccupancy = (Button) findViewById(R.id.btnOccupancy);
+        Button btnOccupancy = (Button) findViewById(R.id.btnOccupancy); // this is a comment in the test branch
         Button btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
 
         btnNoiseLevel.setOnClickListener(new View.OnClickListener() {
