@@ -39,6 +39,19 @@
         android:layout_marginEnd="152dp"
         android:text="Settings"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSensorsConnected" />
+
+    <Button
+        android:id="@+id/btnSensorsConnected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="151dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="152dp"
+        android:text="Sensors Connected"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOccupancy" />
 </androidx.constraintlayout.widget.ConstraintLayout>
