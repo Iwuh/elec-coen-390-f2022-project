@@ -44,3 +44,9 @@ when (S1 or S2 is triggered):
     S1_triggers.remove_all(where timestamp is more than 2 seconds ago)
     S2_triggers.remove_all(where timestamp is more than 2 seconds ago)
 ```
+
+## Implementation notes
+* The bulk of the code to be ported to the sensor is in the Controller class
+* This simulation uses C++ vectors, but the sensor implementation will probably need to use C arrays instead
+* Use the ESP32 `gettimeofday` function for timestamps (per [the official docs](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html))
+* The simulation uses the C++ `find_if` function to search the sensor trigger arrays, a simple linear array search function will need to be implemented in the ESP32
