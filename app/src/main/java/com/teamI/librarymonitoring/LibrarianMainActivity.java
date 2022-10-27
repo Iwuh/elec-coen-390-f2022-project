@@ -2,18 +2,17 @@ package com.teamI.librarymonitoring;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class LibrarianMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_librarian_main);
 
         Button btnSettings = (Button) findViewById(R.id.btnSettings);
         Button btnOccupancy = (Button) findViewById(R.id.btnOccupancy);
@@ -23,21 +22,21 @@ public class MainActivity extends AppCompatActivity {
         btnNoiseLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, NoiseLevelActivity.class));
+                startActivity(new Intent(LibrarianMainActivity.this, LibrarianNoiseLevelActivity.class));
             }
         }
         );
         btnOccupancy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, OccupancyActivity.class));
+                startActivity(new Intent(LibrarianMainActivity.this, LibrarianOccupancyActivity.class));
             }
         }
         );
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                startActivity(new Intent(LibrarianMainActivity.this, LibrarianSettingsActivity.class));
             }
         }
         );
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         btnSensorsConnected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, Sensors_ConnectedActivity.class));
+                startActivity(new Intent(LibrarianMainActivity.this, Sensors_ConnectedActivity.class));
             }
         });
 

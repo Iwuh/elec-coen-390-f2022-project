@@ -6,7 +6,10 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class NoiseLevelActivity extends AppCompatActivity {
+
+// TODO: this activity should use a RecyclerView to display readings
+
+public class LibrarianNoiseLevelActivity extends AppCompatActivity {
 
     TextView sensor_1_dB, sensor_2_dB, sensor_3_dB, sensor_4_dB;
     TextView sensor1_dB_value, sensor2_dB_value, sensor3_dB_value, sensor4_dB_value;
@@ -16,7 +19,7 @@ public class NoiseLevelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_noise_level);
+        setContentView(R.layout.activity_librarian_noise_level);
 
         // TextView for Name of Each Sensor
         sensor_1_dB = findViewById(R.id.sensor_1_dB_textView);

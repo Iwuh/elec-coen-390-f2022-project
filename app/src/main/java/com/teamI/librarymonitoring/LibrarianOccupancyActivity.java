@@ -11,7 +11,7 @@ import com.teamI.librarymonitoring.datacontainers.SensorReading;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OccupancyActivity extends AppCompatActivity {
+public class LibrarianOccupancyActivity extends AppCompatActivity {
 
     protected RecyclerView readingsRecyclerView;
     protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
@@ -19,7 +19,7 @@ public class OccupancyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_occupancy);
+        setContentView(R.layout.activity_librarian_occupancy);
 
         populateRecyclerView();
     }
