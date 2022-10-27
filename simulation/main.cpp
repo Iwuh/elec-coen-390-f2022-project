@@ -14,32 +14,44 @@ int main()
     }
 
     // Get number of events and the expected result from the input file.
-    int numEvents;
+    size_t numEvents;
     int expectedResult;
     inputFile >> numEvents;
     inputFile >> expectedResult;
 
-    // Run the controller in its own thread, since we want it to be independent from the thread triggering the sensors (ie. the real world)
-    Controller c;
-    std::atomic_bool stop = false;
-    std::thread t(&Controller::Start, &c, std::ref(stop));
-    
+    std::vector<std::pair<int, char>> inputEvents(numEvents);
     int delayMillis;
     char sensor;
     for (size_t i = 0; i < numEvents; i++)
     {
-        // For each event, trigger the appropriate sensor and delay for a number of milliseconds.
+        // Get the timestamp and sensor of each event in the file and store them in a vector.
         inputFile >> delayMillis;
         inputFile >> sensor;
-        if (sensor == 'o')
+        inputEvents.push_back(std::make_pair(delayMillis, sensor));
+    }
+    
+
+    // Start the controller in its own thread, since we want it to be independent from the thread triggering the sensors (ie. the real world)
+    Controller c;
+    std::atomic_bool stop = false;
+    std::thread t(&Controller::Start, &c, std::ref(stop));
+
+    std::cout << "Running simulation..." << std::endl;
+    
+    for (size_t i = 0; i < numEvents; i++)
+    {
+        auto currPair = inputEvents[i];
+        if (std::get<char>(currPair) == 'o')
         {
             c.TriggerOuterSensor();
         }
-        else if (sensor == 'i')
+        else
         {
             c.TriggerInnerSensor();
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(delayMillis));
+
+        auto sleep = std::get<int>(currPair);
+        std::this_thread::sleep_for(std::chrono::milliseconds(sleep));
     }
     // Once all events are submitted, stop the controller thread.
     stop = true;

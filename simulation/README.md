@@ -9,6 +9,25 @@ This project simulates the controller and "triggers" its sensors through code.
 3. If a sensor is triggered and the other one is not triggered in close succession, it was a false positive.
 4. We enforce a minimum delay between sensor triggers. Why? If two individuals are entering and leaving simultaneously, we don't want the leaver's trigger of the inner sensor to match with the enterer's trigger of the outer sensor.
 
+## Usage
+
+1. Navigate to `/inputs`
+2. Open the desired file and copy the contents to `input.txt`
+3. Build and run the executable
+
+## Inputs
+
+Each input file has the following structure:
+* The first line indicates how many sensor triggers are in the file.
+* The second line indicates the expected net occupancy change at the end of the simulation.
+* Each following line represents a sensor trigger. The first element is how many milliseconds to wait after triggering before the next event, and the second is which sensor to trigger (**o**uter or **i**nner).
+
+The following input files are included in `/inputs`:
+* `simple_test.txt`: Sample made for ensuring basic functionality
+* `narrow_door.txt`: People passing through a narrow doorway, constructed using footage from https://www.youtube.com/watch?v=MSmtkpvKmnI
+* `wide_door.txt`: People passing through a wide doorway, constructed using footage from https://www.youtube.com/watch?v=Rf_ixb9i1Tc
+* `open_space.txt`: People walking through an open space, constructed using footage from https://www.youtube.com/watch?v=ZkAkdH1aLRU
+
 ## Algorithm
 
 ```
