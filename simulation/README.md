@@ -34,7 +34,7 @@ let event_history := []
 
 when (S1 or S2 is triggered):
     if (S1 was triggered):
-        let result := S2_triggers.search(first trigger within 2 seconds of current_time but more than 0.5 seconds old)
+        let result := S2_triggers.search(first trigger within MAX_THRESHOLD seconds of current_time but more than MIN_THRESHOLD seconds old)
         if (result found):
             // S2 was triggered right before S1, so this is a person leaving
             S2_triggers.remove(result)
@@ -44,7 +44,7 @@ when (S1 or S2 is triggered):
             S1_triggers.add(current_time)
     
     if (S2 was triggered):
-        let result := S1_triggers.search(first trigger within 2 seconds of current_time but more than 0.5 seconds old)
+        let result := S1_triggers.search(first trigger within MAX_THRESHOLD seconds of current_time but more than MIN_THRESHOLD seconds old)
         if (result found):
             // S1 was triggered right before S2, so this is a person entering
             S1_triggers.remove(result)
