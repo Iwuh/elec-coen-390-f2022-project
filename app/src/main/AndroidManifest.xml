@@ -20,31 +20,31 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".LibrarianSettingsActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".LibrarianMainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".OccupancyActivity"
+            android:name=".LibrarianOccupancyActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".LibrarianMainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NoiseLevelActivity"
+            android:name=".LibrarianNoiseLevelActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".LibrarianMainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".LibrarianMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

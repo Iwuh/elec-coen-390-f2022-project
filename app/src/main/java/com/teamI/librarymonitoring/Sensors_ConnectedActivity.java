@@ -2,7 +2,6 @@ package com.teamI.librarymonitoring;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -55,7 +54,7 @@ public class Sensors_ConnectedActivity extends AppCompatActivity {
         btnbackfromCS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Sensors_ConnectedActivity.this, MainActivity.class));
+                startActivity(new Intent(Sensors_ConnectedActivity.this, LibrarianMainActivity.class));
             }
         });
     }
