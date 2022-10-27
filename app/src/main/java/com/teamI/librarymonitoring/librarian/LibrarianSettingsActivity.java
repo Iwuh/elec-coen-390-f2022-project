@@ -1,4 +1,4 @@
-package com.teamI.librarymonitoring;
+package com.teamI.librarymonitoring.librarian;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.teamI.librarymonitoring.R;
 
 public class LibrarianSettingsActivity extends AppCompatActivity {
 

@@ -13,38 +13,70 @@
         android:theme="@style/Theme.LibraryMonitoring"
         tools:targetApi="31">
         <activity
-            android:name=".Sensors_ConnectedActivity"
+            android:name=".student.StudentSettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".student.StudentMainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".student.StudentOccupancyActivity"
+            android:exported="false"
+            android:parentActivityName=".student.StudentMainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".student.StudentNoiseLevelActivity"
+            android:exported="false"
+            android:parentActivityName=".student.StudentMainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".student.StudentMainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LibrarianSettingsActivity"
+            android:name=".librarian.LibrarianSensorsConnectedActivity"
             android:exported="false"
-            android:parentActivityName=".LibrarianMainActivity">
+            android:parentActivityName=".librarian.LibrarianMainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LibrarianOccupancyActivity"
+            android:name=".librarian.LibrarianSettingsActivity"
             android:exported="false"
-            android:parentActivityName=".LibrarianMainActivity">
+            android:parentActivityName=".librarian.LibrarianMainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LibrarianNoiseLevelActivity"
+            android:name=".librarian.LibrarianOccupancyActivity"
             android:exported="false"
-            android:parentActivityName=".LibrarianMainActivity">
+            android:parentActivityName=".librarian.LibrarianMainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LibrarianMainActivity"
+            android:name=".librarian.LibrarianNoiseLevelActivity"
+            android:exported="false"
+            android:parentActivityName=".librarian.LibrarianMainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".librarian.LibrarianMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

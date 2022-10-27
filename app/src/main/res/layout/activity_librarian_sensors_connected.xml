@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Sensors_ConnectedActivity">
+    tools:context=".librarian.LibrarianSensorsConnectedActivity">
 
     <TextView
         android:id="@+id/sensor_1_CS_textView"

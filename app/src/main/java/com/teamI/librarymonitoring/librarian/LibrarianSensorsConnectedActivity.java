@@ -1,4 +1,4 @@
-package com.teamI.librarymonitoring;
+package com.teamI.librarymonitoring.librarian;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Sensors_ConnectedActivity extends AppCompatActivity {
+import com.teamI.librarymonitoring.R;
+
+public class LibrarianSensorsConnectedActivity extends AppCompatActivity {
 
     TextView sensor_1_CS, sensor_2_CS, sensor_3_CS, sensor_4_CS;
     TextView sensor1_location, sensor2_location, sensor3_location, sensor4_location;
@@ -19,7 +21,7 @@ public class Sensors_ConnectedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sensors_connected);
+        setContentView(R.layout.activity_librarian_sensors_connected);
 
         // Buttons
         btnbackfromCS = findViewById(R.id.btnbackfromCS);
@@ -54,7 +56,7 @@ public class Sensors_ConnectedActivity extends AppCompatActivity {
         btnbackfromCS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Sensors_ConnectedActivity.this, LibrarianMainActivity.class));
+                startActivity(new Intent(LibrarianSensorsConnectedActivity.this, LibrarianMainActivity.class));
             }
         });
     }

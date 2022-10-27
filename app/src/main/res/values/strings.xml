@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LibraryMonitoring</string>
+    <string name="btn_description_lib_occ">Get additional info about connected sensors, and display options to add sensors.</string>
 </resources>
