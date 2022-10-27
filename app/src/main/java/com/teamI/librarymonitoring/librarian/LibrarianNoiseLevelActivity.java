@@ -1,10 +1,12 @@
-package com.teamI.librarymonitoring;
+package com.teamI.librarymonitoring.librarian;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.teamI.librarymonitoring.R;
 
 
 // TODO: this activity should use a RecyclerView to display readings

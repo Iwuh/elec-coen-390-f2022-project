@@ -1,11 +1,17 @@
-package com.teamI.librarymonitoring;
+package com.teamI.librarymonitoring.librarian;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.teamI.librarymonitoring.R;
+import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
 import com.teamI.librarymonitoring.datacontainers.SensorReading;
 
 import java.util.ArrayList;
@@ -15,6 +21,7 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
 
     protected RecyclerView readingsRecyclerView;
     protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
+    protected FloatingActionButton fBtnOccupancyDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +29,26 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_librarian_occupancy);
 
         populateRecyclerView();
+
+        fBtnOccupancyDetails = findViewById(R.id.fBtnOccupancyDetails);
+        fBtnOccupancyDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayOccupancyDetails();
+            }
+        }
+        );
     }
 
     protected void populateRecyclerView(){
         List<SensorReading> lstSensorReadings = getSensorReadings();
         LinearLayoutManager llm = new LinearLayoutManager(this);
         sensorReadingRecyclerViewAdapter = new SensorReadingRecyclerViewAdapter(lstSensorReadings);
-        readingsRecyclerView = findViewById(R.id.readingsRecyclerView);
+        readingsRecyclerView = findViewById(R.id.readingsOccLibrarianRecyclerView);
         readingsRecyclerView.setLayoutManager(llm);
         readingsRecyclerView.setAdapter(sensorReadingRecyclerViewAdapter);
+
+        readingsRecyclerView.addItemDecoration(new DividerItemDecoration(readingsRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }
 
 
@@ -47,5 +65,10 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
         lstSensorReadings.add(new SensorReading("Moncton Reading Room", "514", "people"));
         lstSensorReadings.add(new SensorReading("Regina Reading Room", "611", "people"));
         return lstSensorReadings;
+    }
+
+    private void displayOccupancyDetails(){
+        // TODO: display occupancy details exclusive to librarian
+        Toast.makeText(this, "Not implemented.", Toast.LENGTH_SHORT).show();
     }
 }
