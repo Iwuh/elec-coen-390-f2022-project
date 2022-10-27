@@ -9,12 +9,6 @@ This project simulates the controller and "triggers" its sensors through code.
 3. If a sensor is triggered and the other one is not triggered in close succession, it was a false positive.
 4. We enforce a minimum delay between sensor triggers. Why? If two individuals are entering and leaving simultaneously, we don't want the leaver's trigger of the inner sensor to match with the enterer's trigger of the outer sensor.
 
-## Usage
-
-1. Navigate to `/inputs`
-2. Open the desired file and copy the contents to `input.txt`
-3. Build and run the executable
-
 ## Inputs
 
 Each input file has the following structure:

@@ -59,7 +59,7 @@ void Controller::Start(std::atomic_bool& stopFlag)
         {
             // Perform the same search but on S1_triggers
             auto iter = std::find_if(S1_triggers.begin(), S1_triggers.end(), [currTime](long long &ts){ return (currTime - ts >= MIN_TH && currTime - ts <= MAX_TH); });
-            if (iter != S2_triggers.end())
+            if (iter != S1_triggers.end())
             {
                 S1_triggers.erase(iter);
                 EventHistory.push_back(std::make_pair(currTime, Event::Entered));
