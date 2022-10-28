@@ -1,21 +1,31 @@
 package com.teamI.librarymonitoring.librarian;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamI.librarymonitoring.R;
+import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
+import com.teamI.librarymonitoring.datacontainers.SensorReading;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 // TODO: this activity should use a RecyclerView to display readings
 
 public class LibrarianNoiseLevelActivity extends AppCompatActivity {
 
-    TextView sensor_1_dB, sensor_2_dB, sensor_3_dB, sensor_4_dB;
-    TextView sensor1_dB_value, sensor2_dB_value, sensor3_dB_value, sensor4_dB_value;
-    double sensor1_value, sensor2_value, sensor3_value, sensor4_value;
+    protected RecyclerView readings_noise_librarian_RecyclerView;
+    protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
+    protected FloatingActionButton FAB_noisedetails;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -23,28 +33,47 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_librarian_noise_level);
 
-        // TextView for Name of Each Sensor
-        sensor_1_dB = findViewById(R.id.sensor_1_dB_textView);
-        sensor_2_dB = findViewById(R.id.sensor_2_dB_textView);
-        sensor_3_dB = findViewById(R.id.sensor_3_dB_textView);
-        sensor_4_dB = findViewById(R.id.sensor_4_dB_textView);
+        populateRecyclerView();
+        FAB_noisedetails = findViewById(R.id.faBtnNoiseLevelDetail);
 
-        // TextView for displaying the Decibel level of each Sensor
-        sensor1_dB_value = findViewById(R.id.sensor1_dB_value);
-        sensor2_dB_value = findViewById(R.id.sensor2_dB_value);
-        sensor3_dB_value = findViewById(R.id.sensor3_dB_value);
-        sensor4_dB_value = findViewById(R.id.sensor4_dB_value);
+        FAB_noisedetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayNoiseDetails();
+            }
+        });
 
-        // Changing the Decibel values based on sensor readings (For now, we will add dummy values)
-        sensor1_value = 35.87;
-        sensor2_value = 10.43;
-        sensor3_value = 100.03;
-        sensor4_value = 60.43;
 
-        sensor1_dB_value.setText(sensor1_value + " dB");
-        sensor2_dB_value.setText(sensor2_value + " dB");
-        sensor3_dB_value.setText(sensor3_value + " dB");
-        sensor4_dB_value.setText(sensor4_value + " dB");
+    }
 
+    protected void populateRecyclerView(){
+        List<SensorReading> lstSensorReadings = getSensorReadings();
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        sensorReadingRecyclerViewAdapter = new SensorReadingRecyclerViewAdapter(lstSensorReadings);
+        readings_noise_librarian_RecyclerView = findViewById(R.id.readingsNoiseLibrarianRecyclerView);
+        readings_noise_librarian_RecyclerView.setLayoutManager(llm);
+        readings_noise_librarian_RecyclerView.setAdapter(sensorReadingRecyclerViewAdapter);
+
+        readings_noise_librarian_RecyclerView.addItemDecoration(new DividerItemDecoration(readings_noise_librarian_RecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+    }
+
+    private List<SensorReading> getSensorReadings(){
+        // TODO: get real sensor readings here
+        // for now, populate a list of dummy sensor readings
+        List<SensorReading> lstSensorReadings = new ArrayList<SensorReading>();
+        lstSensorReadings.add(new SensorReading("Toronto Reading Room", "10", "dB"));
+        lstSensorReadings.add(new SensorReading("Edmonton Reading Room", "100", "dB"));
+        lstSensorReadings.add(new SensorReading("Ottawa Reading Room", "43", "dB"));
+        lstSensorReadings.add(new SensorReading("Calgary Reading Room", "21", "dB"));
+        lstSensorReadings.add(new SensorReading("Vancouver Reading Room", "69", "dB"));
+        lstSensorReadings.add(new SensorReading("Montreal Reading Room", "62", "dB"));
+        lstSensorReadings.add(new SensorReading("Moncton Reading Room", "90", "dB"));
+        lstSensorReadings.add(new SensorReading("Regina Reading Room", "5", "dB"));
+        return lstSensorReadings;
+    }
+
+    private void displayNoiseDetails(){
+        // TODO: display noise details exclusive to librarian
+        Toast.makeText(this, "Not implemented.", Toast.LENGTH_SHORT).show();
     }
 }

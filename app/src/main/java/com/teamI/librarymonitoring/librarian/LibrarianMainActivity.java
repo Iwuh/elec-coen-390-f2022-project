@@ -45,6 +45,7 @@ public class LibrarianMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LibrarianMainActivity.this, LibrarianNoiseLevelActivity.class));
+
             }
         }
         );
