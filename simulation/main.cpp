@@ -2,13 +2,22 @@
 #include <thread>
 #include <fstream>
 #include <filesystem>
+#include <random>
 
 #include "controller.h"
 
-void runFile(std::ifstream& stream);
+void runFile(std::ifstream& stream, bool addNoise);
+int randRange(int a, int b);
 
 int main()
 {
+    std::string ans = "";
+    while (!(ans == "y" || ans == "n"))
+    {
+        std::cout << "Insert random noise events into input? [y/n] ";
+        std::cin >> ans;
+    }
+
     for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator("inputs"))
     {
         std::ifstream inputFile(entry.path());
@@ -18,14 +27,14 @@ int main()
             return 1;
         }
         std::cout << "Running simulation on file " << entry.path() << std::endl;
-        runFile(inputFile);
+        runFile(inputFile, ans == "y");
         std::cout << "----------------------------\n";
     }
 
     return 0;
 }
 
-void runFile(std::ifstream& inputFile)
+void runFile(std::ifstream& inputFile, bool addNoise)
 {
     // Get number of events and the expected result from the input file.
     size_t numEvents;
@@ -33,16 +42,45 @@ void runFile(std::ifstream& inputFile)
     inputFile >> numEvents;
     inputFile >> expectedResult;
 
+    // Get the timestamp and sensor of each event in the file and store them in a vector.
     std::vector<std::pair<int, char>> inputEvents;
     inputEvents.reserve(numEvents);
     int delayMillis;
     char sensor;
     for (size_t i = 0; i < numEvents; i++)
     {
-        // Get the timestamp and sensor of each event in the file and store them in a vector.
         inputFile >> delayMillis;
         inputFile >> sensor;
         inputEvents.push_back(std::make_pair(delayMillis, sensor));
+    }
+
+    // Generate some random noise events and insert them into the list of events
+    if (addNoise)
+    {
+        // Arbitrarily chosen, generate one fifth of the input events in noise.
+        size_t noiseCount = numEvents / 5;
+        for (size_t i = 0; i < noiseCount; i++)
+        {
+            // Get a random index to insert the event at. 
+            // NB: When using vector::insert(pos, item), the new item will take index pos and the former occupant will become index pos+1.
+            int idx = randRange(0, inputEvents.size() - 1);
+
+            // Get the previous event.
+            auto prev = inputEvents[idx - 1];
+
+            // We want to insert the new event without changing the total delay between the two events at idx and idx-1.
+            // Get a random number of milliseconds within that delay.
+            int delay = randRange(1, std::get<0>(prev));
+
+            // Choose one of the two sensors to trigger.
+            char sensor = randRange(1,2) == 1 ? 'o' : 'i';
+
+            // Replace the delay of the previous event with the randomly generated value earlier.
+            inputEvents[idx - 1] = std::make_pair(delay, std::get<1>(prev));
+            // Insert a new event with the remainder of the delay and the randomly generated sensor.
+            inputEvents.insert(inputEvents.begin() + idx, std::make_pair(std::get<0>(prev) - delay, sensor)); 
+        }
+        numEvents += noiseCount;
     }
     
     // Start the controller in its own thread, since we want it to be independent from the thread triggering the sensors (ie. the real world)
@@ -50,6 +88,7 @@ void runFile(std::ifstream& inputFile)
     std::atomic_bool stop = false;
     std::thread t(&Controller::Start, &c, std::ref(stop));
     
+    // Submit each sensor trigger to the controller and then sleep for the given number of milliseconds.
     for (size_t i = 0; i < numEvents; i++)
     {
         auto currPair = inputEvents[i];
@@ -109,4 +148,14 @@ void runFile(std::ifstream& inputFile)
 
     std::cout << "Expected net change: " << expectedResult << std::endl;
     std::cout << "Computed net change: " << delta << std::endl; 
+}
+
+// Generates a random integer in [a,b]
+int randRange(int a, int b)
+{
+    static std::random_device seed;
+    static std::default_random_engine engine(seed());
+
+    std::uniform_int_distribution distr(a,b);
+    return distr(engine);
 }
