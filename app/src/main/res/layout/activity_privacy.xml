@@ -4,41 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".PrivacyActivity">
 
-    <Button
-        android:id="@+id/btnNoiseLevel"
+    <TextView
+        android:id="@+id/textViewPrivacyStatement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="133dp"
-        android:layout_marginEnd="141dp"
-        android:text="Noise Level"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/privacy_statement"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnOccupancy"
+        android:id="@+id/btnAgree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="143dp"
-        android:text="Occupancy"
+        android:layout_marginStart="159dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="29dp"
+        android:text="I agree"
+        app:layout_constraintBottom_toTopOf="@+id/btnDisagree"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnNoiseLevel" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnSettings"
+        android:id="@+id/btnDisagree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="152dp"
-        android:text="Settings"
+        android:layout_marginStart="128dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginBottom="41dp"
+        android:text="I do not agree"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOccupancy" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
