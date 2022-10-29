@@ -20,6 +20,14 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".student.FavoritesActivity"
+            android:exported="false"
+            android:parentActivityName=".student.StudentMainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".student.StudentSettingsActivity"
             android:exported="false"
             android:parentActivityName=".student.StudentMainActivity">

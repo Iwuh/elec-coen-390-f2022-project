@@ -64,13 +64,6 @@ public class FavoritesFragment extends DialogFragment {
             }
         });
 
-
-
-
-
-
-
-
         return view;
     }
 

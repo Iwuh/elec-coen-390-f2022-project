@@ -14,22 +14,11 @@ import com.teamI.librarymonitoring.librarian.LibrarianNoiseLevelActivity;
 
 public class StudentMainActivity extends AppCompatActivity {
 
-    Button Btnfavorites;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
 
-        Btnfavorites = findViewById(R.id.Btnfavorites);
-
-        Btnfavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startActivity(new Intent(StudentMainActivity.this, FavoritesActivity.class));
-            }
-        });
     }
 }
