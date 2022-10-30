@@ -10,6 +10,10 @@ import android.widget.Button;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferencePrivacyUtility;
+import com.teamI.librarymonitoring.student.FavoritesActivity;
+import com.teamI.librarymonitoring.student.StudentNoiseLevelActivity;
+import com.teamI.librarymonitoring.student.FavoritesFragment;
+import com.teamI.librarymonitoring.student.PassDataInterface;
 
 public class LibrarianMainActivity extends AppCompatActivity {
 
@@ -45,6 +49,9 @@ public class LibrarianMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LibrarianMainActivity.this, LibrarianNoiseLevelActivity.class));
+
+
+
             }
         }
         );
@@ -59,6 +66,7 @@ public class LibrarianMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LibrarianMainActivity.this, LibrarianSettingsActivity.class));
+
             }
         }
         );
