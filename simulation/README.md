@@ -66,3 +66,6 @@ when (S1 or S2 is triggered):
 
 ## Limitations
 * The `wide_door.txt` and `open_space.txt` test files show an inherent limitation of the system, that is, it cannot detect two people entering or leaving simultaneously side-by-side.
+
+## Takeaways
+In general, increasing the minimum time between events (`MIN_TH`) increases the resilience of the system to noise, but runs the risk of losing legitimate events due to users who pass through the doorway notably fast. Reducing `MIN_TH` catches these events, but makes noise false positives more likely to occur. When testing the actual system, values in the 0.3 to 0.5 second range should be experimentally evaluated for `MIN_TH`.
