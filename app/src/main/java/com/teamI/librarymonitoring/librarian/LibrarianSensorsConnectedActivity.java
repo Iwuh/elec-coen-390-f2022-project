@@ -2,20 +2,34 @@ package com.teamI.librarymonitoring.librarian;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamI.librarymonitoring.R;
+import com.teamI.librarymonitoring.student.FavoritesActivity;
+import com.teamI.librarymonitoring.student.FavoritesFragment;
+import com.teamI.librarymonitoring.student.PassDataInterface;
 
-public class LibrarianSensorsConnectedActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-    TextView sensor_1_CS, sensor_2_CS, sensor_3_CS, sensor_4_CS;
-    TextView sensor1_location, sensor2_location, sensor3_location, sensor4_location;
+public class LibrarianSensorsConnectedActivity extends AppCompatActivity implements PassDataInterface {
+
+    ListView sensors_connected_listview;
+    ArrayList<String> Sensors;
+    ArrayAdapter<String> Adapter;
     Button  add_sensor, delete_sensor;
-    String sensor_1_location, sensor_2_location, sensor_3_location, sensor_4_location;
+    int count = 0;
 
 
     @Override
@@ -23,32 +37,85 @@ public class LibrarianSensorsConnectedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_librarian_sensors_connected);
 
+        sensors_connected_listview = findViewById(R.id.SensorsConnected_listview);
+        Sensors = new ArrayList<>();
+
         // Buttons
         add_sensor = findViewById(R.id.btnAddSensor);
         delete_sensor = findViewById(R.id.btnDeleteSensor);
 
-        // TextView for Name of Each Sensor
-        sensor_1_CS = findViewById(R.id.sensor_1_CS_textView);
-        sensor_2_CS = findViewById(R.id.sensor_2_CS_textView);
-        sensor_3_CS = findViewById(R.id.sensor_3_CS_textView);
-        sensor_4_CS = findViewById(R.id.sensor_4_CS_textView);
+        Sensors = getArray();
 
-        // TextView for displaying the Location of each Sensor
-        sensor1_location = findViewById(R.id.sensor1_location);
-        sensor2_location = findViewById(R.id.sensor2_location);
-        sensor3_location = findViewById(R.id.sensor3_location);
-        sensor4_location = findViewById(R.id.sensor4_location);
+        Adapter = new ArrayAdapter<>(LibrarianSensorsConnectedActivity.this,android.R.layout.simple_list_item_1,Sensors);
 
-        // Changing the Decibel values based on sensor readings (For now, we will add dummy values)
-        sensor_1_location = "Floor 1";
-        sensor_2_location = "Floor 4";
-        sensor_3_location = "Floor 6";
-        sensor_4_location = "Floor 10";
+        delete_sensor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                count = 1;
+                DeleteSensorsFragment deleteSensorsFragment = new DeleteSensorsFragment(LibrarianSensorsConnectedActivity.this);
+                deleteSensorsFragment.show(getSupportFragmentManager(), "Delete Sensor");
+            }
+        });
 
-        sensor1_location.setText(sensor_1_location);
-        sensor2_location.setText(sensor_2_location);
-        sensor3_location.setText(sensor_3_location);
-        sensor4_location.setText(sensor_4_location);
+        add_sensor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                count = 2;
+                AddSensorsFragment addSensorsFragment = new AddSensorsFragment(LibrarianSensorsConnectedActivity.this);
+                addSensorsFragment.show(getSupportFragmentManager(), "Add Sensor");
+            }
+        });
+        sensors_connected_listview.setAdapter(Adapter);
 
+
+    }
+
+    public ArrayList<String> getArray() {
+        SharedPreferences sp = this.getSharedPreferences("Sensors Connected", Activity.MODE_PRIVATE);
+
+        //NOTE: if shared preference is null, the method return empty Hashset and not null
+        Set<String> set = sp.getStringSet("list", new HashSet<String>());
+
+        return new ArrayList<String>(set);
+    }
+
+    public boolean saveArray() {
+        SharedPreferences sp = this.getSharedPreferences("Sensors Connected", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        Set<String> set = new HashSet<String>();
+        set.addAll(Sensors);
+        editor.putStringSet("list", set);
+        return editor.commit();
+    }
+
+    @Override
+    public void DataReceived(String data) {
+        if(count == 2) {
+            Sensors.add(data);
+        }
+        else if (count == 1)
+        {
+            for (int i=0;i<Sensors.size();i++)
+            {
+                if(Sensors.get(i).equals(data))
+                {
+                    Sensors.remove(i);
+                    Adapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+        else if (count == 0)
+        {
+            Toast.makeText(LibrarianSensorsConnectedActivity.this,
+                    "Returned to Sensors Connected Screen",Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        saveArray();
+        super.onStop();
     }
 }
