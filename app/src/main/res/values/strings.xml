@@ -4,4 +4,10 @@
     <string name="privacy_statement">This is a temporary placeholder text. Here we will write the necessary text for the privacy agreement.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Credit_to_Concordia">According to the Creative Commons license,
+        we would like to give credit to Concordia\'s OpenData program for allowing
+        us to use the Library\'s opening hours and occupancy data for our app.
+        Moreover, we agree to the terms and conditions of the Creative Commons
+        Attribution 4.0 International Public License. More detail can be found
+        at the following URL: https://creativecommons.org/licenses/by/4.0/legalcode</string>
 </resources>

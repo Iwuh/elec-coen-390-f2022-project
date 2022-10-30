@@ -1,6 +1,5 @@
-package com.teamI.librarymonitoring.student;
+package com.teamI.librarymonitoring.librarian;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -13,59 +12,58 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.teamI.librarymonitoring.R;
+import com.teamI.librarymonitoring.student.PassDataInterface;
 
 
-public class FavoritesFragment extends DialogFragment {
+public class AddSensorsFragment extends DialogFragment {
 
-    private Button Save_Button, Cancel_Button;
-    private EditText favortieroom;
+    private Button Add_Button, Cancel_Button;
+    private EditText addsensor;
     PassDataInterface passDataInterface;
 
-
-    public FavoritesFragment(PassDataInterface passDataInterface) {
-        this.passDataInterface = passDataInterface;
+    public AddSensorsFragment(PassDataInterface passDataInterface) {
         // Required empty public constructor
+        this.passDataInterface = passDataInterface;
     }
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_sensors, container, false);
 
-        Save_Button = view.findViewById(R.id.savebtn);
-        Cancel_Button = view.findViewById(R.id.cancelbtn);
-        favortieroom = view.findViewById(R.id.addroom_edittext);
+        Add_Button = view.findViewById(R.id.add_sensorbtn);
+        Cancel_Button = view.findViewById(R.id.Acancelbtn);
+        addsensor = view.findViewById(R.id.addsensor_edittext);
 
         Cancel_Button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Toast.makeText(getActivity().getApplicationContext(),
-                        "Returned to Favorites Screen",Toast.LENGTH_LONG).show();
+                        "Returned to Sensors Connected Screen",Toast.LENGTH_LONG).show();
                 dismiss();
             }
         });
 
-        Save_Button.setOnClickListener(new View.OnClickListener() {
+        Add_Button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String room = favortieroom.getText().toString();
+            public void onClick(View v) {
+                String add_sensor = addsensor.getText().toString();
 
-                if(room.equals(""))
+                if(add_sensor.equals(""))
                 {
                     Toast.makeText(getContext(),"Please fill text", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                passDataInterface.DataReceived(room);
+                passDataInterface.DataReceived(add_sensor);
 
                 dismiss();
             }
         });
 
+
         return view;
     }
-
 }

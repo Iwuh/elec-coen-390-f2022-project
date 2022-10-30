@@ -4,41 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".student.FavoritesFragment">
+    tools:context=".librarian.AddSensorsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/cancelbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Cancel"
+            android:id="@+id/Acancelbtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.974"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addroom_edittext" />
-
-        <Button
-            android:id="@+id/savebtn"
+            app:layout_constraintTop_toBottomOf="@+id/addsensor_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Save"
+            android:text="Cancel"
+            tools:layout_editor_absoluteX="232dp"
+            tools:layout_editor_absoluteY="266dp" />
+
+        <Button
+            android:id="@+id/add_sensorbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.037"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addroom_edittext" />
+            app:layout_constraintTop_toBottomOf="@+id/addsensor_edittext" />
 
         <EditText
-            android:id="@+id/addroom_edittext"
+            android:id="@+id/addsensor_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Enter your favorite room"
+            android:hint="Enter the Sensor Name"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -46,5 +46,4 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
