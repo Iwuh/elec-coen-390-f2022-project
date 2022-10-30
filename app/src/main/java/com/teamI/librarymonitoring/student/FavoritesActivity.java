@@ -35,8 +35,6 @@ public class FavoritesActivity extends AppCompatActivity implements PassDataInte
         favorite_rooms = new ArrayList<>();
 
 
-
-
         favorite_rooms = getArray();
 
         Adapter = new ArrayAdapter<>(FavoritesActivity.this, android.R.layout.simple_list_item_1,favorite_rooms);
