@@ -63,3 +63,6 @@ when (S1 or S2 is triggered):
 * This simulation uses C++ vectors, but the sensor implementation will probably need to use C arrays instead
 * Use the ESP32 `gettimeofday` function for timestamps (per [the official docs](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html))
 * The simulation uses the C++ `find_if` function to search the sensor trigger arrays, a simple linear array search function will need to be implemented in the ESP32
+
+## Limitations
+* The `wide_door.txt` and `open_space.txt` test files show an inherent limitation of the system, that is, it cannot detect two people entering or leaving simultaneously side-by-side.
