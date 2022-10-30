@@ -14,7 +14,7 @@ public class LibrarianSensorsConnectedActivity extends AppCompatActivity {
 
     TextView sensor_1_CS, sensor_2_CS, sensor_3_CS, sensor_4_CS;
     TextView sensor1_location, sensor2_location, sensor3_location, sensor4_location;
-    Button btnbackfromCS, add_sensor, delete_sensor;
+    Button  add_sensor, delete_sensor;
     String sensor_1_location, sensor_2_location, sensor_3_location, sensor_4_location;
 
 
@@ -24,7 +24,6 @@ public class LibrarianSensorsConnectedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_librarian_sensors_connected);
 
         // Buttons
-        btnbackfromCS = findViewById(R.id.btnbackfromCS);
         add_sensor = findViewById(R.id.btnAddSensor);
         delete_sensor = findViewById(R.id.btnDeleteSensor);
 
@@ -51,13 +50,5 @@ public class LibrarianSensorsConnectedActivity extends AppCompatActivity {
         sensor3_location.setText(sensor_3_location);
         sensor4_location.setText(sensor_4_location);
 
-        // Go back to Main Activity
-
-        btnbackfromCS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LibrarianSensorsConnectedActivity.this, LibrarianMainActivity.class));
-            }
-        });
     }
 }
