@@ -52,14 +52,24 @@ public class StudentSettingsActivity extends AppCompatActivity {
             }
         }
         );
-    }
-    private void Favorites(){
+
+        Button btnChangeToLibrarian = findViewById(R.id.btnChangeToLibrarian);
+        btnChangeToLibrarian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeToLibrarianVersion();
+            }
+        }
+        );
 
     }
+
+    private void Favorites(){ }
     private void displayPrivacyAgreement(){
         Intent intent = new Intent(StudentSettingsActivity.this, PrivacyActivity.class);
         startActivity(intent);
         // TODO: display privacy agreement
         // the agreement has not been written yet
     }
+    private void changeToLibrarianVersion(){}
 }
