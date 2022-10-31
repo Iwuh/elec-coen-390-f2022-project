@@ -1,30 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".librarian.LibrarianMainActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Choose Menu Options"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
 
     <Button
         android:id="@+id/btnNoiseLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="133dp"
-        android:layout_marginEnd="141dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_bottom_rounded"
+
         android:text="Noise Level"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <Button
         android:id="@+id/btnOccupancy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="143dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_bottom_rounded"
+        android:textSize="9sp"
+
+        android:layout_margin="10dp"
+
+
         android:text="Occupancy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,11 +51,12 @@
 
     <Button
         android:id="@+id/btnSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="152dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_bottom_rounded"
+        android:textSize="9sp"
+
+        android:layout_margin="10dp"
         android:text="Settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -45,11 +65,13 @@
 
     <Button
         android:id="@+id/btnSensorsConnected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="152dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_bottom_rounded"
+        android:textSize="9sp"
+
+        android:layout_margin="10dp"
+
         android:text="Sensors Connected"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

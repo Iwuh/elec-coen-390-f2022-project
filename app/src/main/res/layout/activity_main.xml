@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainScreen.MainActivity">
+
+    <Button
+        android:id="@+id/lib"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_bottom_rounded"
+        android:text="I am a library Staff Worker"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26999998">
+
+    </Button>
+
+    <Button
+        android:layout_width="200dp"
+        android:id="@+id/student"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_bottom_rounded"
+        android:text="I am a Student"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lib"
+        app:layout_constraintVertical_bias="0.13999999">
+
+    </Button>
+
+    <TextView
+        android:id="@+id/concordiahourstextView"
+        android:layout_width="353dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="178dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginBottom="172dp"
+        android:text="Concordia Hours (Text will be added by using the OpenData API)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
