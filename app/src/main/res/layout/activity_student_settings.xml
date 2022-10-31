@@ -7,6 +7,14 @@
     tools:context=".student.StudentSettingsActivity">
 
     <Button
+        android:id="@+id/btnChangeToLibrarian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="127dp"
+        android:text="I am a Librarian"
+        app:layout_constraintBottom_toTopOf="@+id/btnDisplayPrivacyAgreement"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <Button
         android:id="@+id/btnDisplayPrivacyAgreement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

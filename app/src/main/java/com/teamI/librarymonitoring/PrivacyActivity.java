@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.teamI.utils.Preferences;
+
 public class PrivacyActivity extends AppCompatActivity {
 
     protected Button btnAgree;
@@ -25,6 +27,7 @@ public class PrivacyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setPrivacyConsent(true);
+                Preferences.writeString(PrivacyActivity.this,"privacy","agree");
                 finish();
             }
         });
@@ -32,6 +35,8 @@ public class PrivacyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setPrivacyConsent(false);
+                Preferences.writeString(PrivacyActivity.this,"privacy","disagree");
+
                 // close the app
                 finishAffinity();
             }
