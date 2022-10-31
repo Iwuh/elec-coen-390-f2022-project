@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     Intent intent = new Intent(MainActivity.this, PrivacyActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     Intent intent = new Intent(MainActivity.this, PrivacyActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
 
