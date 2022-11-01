@@ -6,7 +6,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamI.librarymonitoring.R;
-import com.teamI.librarymonitoring.mainScreen.MainActivity;
+import com.teamI.librarymonitoring.SharedPreferenceUtility;
+import com.teamI.librarymonitoring.roledivision.RoleChoiceActivity;
 
 public class Splash extends AppCompatActivity {
 
@@ -14,7 +15,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Intent intent  = new Intent(this, MainActivity.class);
+        Intent intent  = new Intent(this, RoleChoiceActivity.class);
         startActivity(intent);
         finish();
 

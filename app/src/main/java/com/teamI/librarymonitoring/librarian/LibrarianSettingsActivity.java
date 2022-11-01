@@ -12,10 +12,12 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.teamI.librarymonitoring.CreditActivity;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
-import com.teamI.librarymonitoring.mainScreen.MainActivity;
+import com.teamI.librarymonitoring.SharedPreferenceUtility;
 import com.teamI.librarymonitoring.student.StudentMainActivity;
+import com.teamI.librarymonitoring.student.StudentSettingsActivity;
 import com.teamI.utils.Preferences;
 
 public class LibrarianSettingsActivity extends AppCompatActivity {
@@ -51,22 +53,8 @@ public class LibrarianSettingsActivity extends AppCompatActivity {
         btnconcordiacredit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                View viewcreditwindow = layoutInflater.inflate(R.layout.creditconcordia_layout,null);
-
-                PopupWindow popupWindow = new PopupWindow(viewcreditwindow,1000,1300,true);
-
-                popupWindow.showAtLocation(v, Gravity.CENTER,0,0);
-
-                viewcreditwindow.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        popupWindow.dismiss();
-                        return true;
-                    }
-                });
+                Intent intent = new Intent(LibrarianSettingsActivity.this, CreditActivity.class);
+                startActivity(intent);
 
 
             }
@@ -75,19 +63,15 @@ public class LibrarianSettingsActivity extends AppCompatActivity {
     }
 
     private void changeToStudentVersion(){
-        // TODO: switch to the student version of the app
+        SharedPreferenceUtility.setIsStudent(this);
         Intent intent = new Intent(LibrarianSettingsActivity.this, StudentMainActivity.class);
         startActivity(intent);
-        Preferences.writeString(LibrarianSettingsActivity.this,"user","student");
         finish();
-        // these screens have not been created yet
     }
 
     private void displayPrivacyAgreement(){
-        // TODO: display privacy agreement
         Intent intent = new Intent(LibrarianSettingsActivity.this, PrivacyActivity.class);
         startActivity(intent);
-        // the agreement has not been written yet
     }
 
     private void setupLabels(){

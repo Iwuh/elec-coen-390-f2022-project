@@ -13,11 +13,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamI.librarymonitoring.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FavoritesActivity extends AppCompatActivity implements PassDataInterface {
+public class StudentFavoritesActivity extends AppCompatActivity implements PassDataInterface {
 
     ListView favorites_listview;
     FloatingActionButton FAB_favorites;
@@ -28,16 +27,18 @@ public class FavoritesActivity extends AppCompatActivity implements PassDataInte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorites);
+        setContentView(R.layout.activity_student_favorites);
 
         favorites_listview = findViewById(R.id.favorites_listview);
         FAB_favorites = findViewById(R.id.fABtn_favorites);
         favorite_rooms = new ArrayList<>();
 
 
+        // TODO: use a recyclerview here.
+        // The use of the listview will not be possible when we have many dynamically generated items.
         favorite_rooms = getArray();
 
-        Adapter = new ArrayAdapter<>(FavoritesActivity.this, android.R.layout.simple_list_item_1,favorite_rooms);
+        Adapter = new ArrayAdapter<>(StudentFavoritesActivity.this, android.R.layout.simple_list_item_1,favorite_rooms);
 
         favorite_rooms.add("Toronto    100 people    20dB");
         favorite_rooms.add("Ukraine    30 people    40dB");
@@ -47,7 +48,7 @@ public class FavoritesActivity extends AppCompatActivity implements PassDataInte
         FAB_favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FavoritesFragment Favorites_Fragment = new FavoritesFragment(FavoritesActivity.this);
+                FavoritesFragment Favorites_Fragment = new FavoritesFragment(StudentFavoritesActivity.this);
                 Favorites_Fragment.show(getSupportFragmentManager(), "Add Room");
             }
         });

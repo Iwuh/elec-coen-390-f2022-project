@@ -28,13 +28,11 @@ public class SensorReadingRecyclerViewAdapter extends RecyclerView.Adapter<Senso
 
         private TextView textViewSensorLocation;
         private TextView textViewSensorMeasurement;
-        private TextView textViewSensorUnits;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewSensorLocation = itemView.findViewById(R.id.textViewSensorLocation);
             textViewSensorMeasurement = itemView.findViewById(R.id.textViewSensorMeasurement);
-            textViewSensorUnits = itemView.findViewById(R.id.textViewSensorUnits);
         }
 
         public TextView getSensorLocationTextView(){
@@ -43,10 +41,6 @@ public class SensorReadingRecyclerViewAdapter extends RecyclerView.Adapter<Senso
 
         public TextView getSensorMeasurementTextView(){
             return textViewSensorMeasurement;
-        }
-
-        public TextView getSensorUnitsTextView(){
-            return textViewSensorUnits;
         }
     }
 
@@ -60,9 +54,8 @@ public class SensorReadingRecyclerViewAdapter extends RecyclerView.Adapter<Senso
     @Override
     public void onBindViewHolder(@NonNull SensorReadingRecyclerViewAdapter.ViewHolder holder, int position) {
         // display the readings from the list
-        holder.getSensorMeasurementTextView().setText(lstSensorReadings.get(position).getMeasurement());
+        holder.getSensorMeasurementTextView().setText(lstSensorReadings.get(position).getMeasurement() + " " + lstSensorReadings.get(position).getUnit());
         holder.getSensorLocationTextView().setText(lstSensorReadings.get(position).getLocation());
-        holder.getSensorUnitsTextView().setText(lstSensorReadings.get(position).getUnit());
     }
 
     @Override

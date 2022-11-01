@@ -3,20 +3,15 @@ package com.teamI.librarymonitoring.librarian;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamI.librarymonitoring.R;
-import com.teamI.librarymonitoring.student.FavoritesActivity;
-import com.teamI.librarymonitoring.student.FavoritesFragment;
 import com.teamI.librarymonitoring.student.PassDataInterface;
 
 import java.util.ArrayList;

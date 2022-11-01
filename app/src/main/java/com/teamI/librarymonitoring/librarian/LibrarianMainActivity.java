@@ -9,11 +9,7 @@ import android.widget.Button;
 
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
-import com.teamI.librarymonitoring.SharedPreferencePrivacyUtility;
-import com.teamI.librarymonitoring.student.FavoritesActivity;
-import com.teamI.librarymonitoring.student.StudentNoiseLevelActivity;
-import com.teamI.librarymonitoring.student.FavoritesFragment;
-import com.teamI.librarymonitoring.student.PassDataInterface;
+import com.teamI.librarymonitoring.SharedPreferenceUtility;
 
 public class LibrarianMainActivity extends AppCompatActivity {
 
@@ -27,7 +23,7 @@ public class LibrarianMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_librarian_main);
 
-        boolean bHasAgreedToPrivacy = SharedPreferencePrivacyUtility.getPrivacyConsent(this);
+        boolean bHasAgreedToPrivacy = SharedPreferenceUtility.getPrivacyConsent(this);
         if(!bHasAgreedToPrivacy){
             startPrivacyActivity();
             // the privacy activity closes the app if the user does not consent

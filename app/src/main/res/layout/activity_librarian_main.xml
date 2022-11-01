@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".librarian.LibrarianMainActivity">
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Choose Menu Options"
         android:textSize="23dp"
@@ -23,28 +25,34 @@
         android:id="@+id/btnNoiseLevel"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/shape_bottom_rounded"
+        android:layout_marginStart="106dp"
 
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/shape_bottom_rounded"
         android:text="Noise Level"
-        android:textSize="9sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnOccupancy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22000003" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/btnOccupancy"
         android:layout_width="200dp"
         android:layout_height="50dp"
+        android:layout_marginStart="106dp"
+
+        android:layout_marginTop="10dp"
+
+
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/shape_bottom_rounded"
-        android:textSize="9sp"
-
-        android:layout_margin="10dp"
-
-
         android:text="Occupancy"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSensorsConnected"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNoiseLevel" />
@@ -53,13 +61,16 @@
         android:id="@+id/btnSettings"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:background="@drawable/shape_bottom_rounded"
-        android:textSize="9sp"
+        android:layout_marginStart="106dp"
 
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="337dp"
+        android:background="@drawable/shape_bottom_rounded"
         android:text="Settings"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSensorsConnected" />
 
@@ -67,12 +78,16 @@
         android:id="@+id/btnSensorsConnected"
         android:layout_width="200dp"
         android:layout_height="50dp"
+        android:layout_marginStart="106dp"
+
+        android:layout_marginTop="10dp"
+
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/shape_bottom_rounded"
-        android:textSize="9sp"
-
-        android:layout_margin="10dp"
-
-        android:text="Sensors Connected"
+        android:text="View Sensors"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOccupancy" />

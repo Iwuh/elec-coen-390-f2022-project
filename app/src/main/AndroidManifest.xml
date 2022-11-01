@@ -13,6 +13,13 @@
         android:theme="@style/Theme.LibraryMonitoring"
         tools:targetApi="31">
         <activity
+            android:name=".CreditActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".PrivacyActivity"
             android:exported="false">
             <meta-data
@@ -20,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".student.FavoritesActivity"
+            android:name=".student.StudentFavoritesActivity"
             android:exported="false"
             android:parentActivityName=".student.StudentMainActivity">
             <meta-data
@@ -36,15 +43,15 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".mainScreen.MainActivity"
-            android:exported="false" >
+            android:name=".roledivision.RoleChoiceActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".splash.Splash"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -113,11 +120,14 @@
         <activity
             android:name=".librarian.LibrarianMainActivity"
             android:exported="true">
-<!--            <intent-filter>
+
+            <!--
+                <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
             <meta-data
                 android:name="android.app.lib_name"
