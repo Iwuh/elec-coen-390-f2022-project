@@ -2,13 +2,9 @@ package com.teamI.librarymonitoring;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import com.teamI.utils.Preferences;
 
 public class PrivacyActivity extends AppCompatActivity {
 
@@ -27,7 +23,6 @@ public class PrivacyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setPrivacyConsent(true);
-                Preferences.writeString(PrivacyActivity.this,"privacy","agree");
                 finish();
             }
         });
@@ -35,7 +30,6 @@ public class PrivacyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setPrivacyConsent(false);
-                Preferences.writeString(PrivacyActivity.this,"privacy","disagree");
 
                 // close the app
                 finishAffinity();
@@ -44,7 +38,7 @@ public class PrivacyActivity extends AppCompatActivity {
     }
 
     private void setPrivacyConsent(boolean bConsent){
-        SharedPreferencePrivacyUtility.setPrivacyConsent(this, bConsent);
+        SharedPreferenceUtility.setPrivacyConsent(this, bConsent);
     }
 
 }
