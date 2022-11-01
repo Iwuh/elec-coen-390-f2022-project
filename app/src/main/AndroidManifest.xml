@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LibraryMonitoring"
         tools:targetApi="31">
+        <activity
+            android:name=".HoursActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".PrivacyActivity"
             android:exported="false">
@@ -94,6 +102,9 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+            <meta-data
+                android:name="openDataKeyValue"
+                android:value="f1ed13694973a4e2c10aa8b37308e567" />
         </activity>
     </application>
 
