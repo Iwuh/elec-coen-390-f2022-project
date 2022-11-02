@@ -35,6 +35,7 @@ public class LibrarianSensorsConnectedActivity extends AppCompatActivity impleme
         sensors_connected_listview = findViewById(R.id.SensorsConnected_listview);
         Sensors = new ArrayList<>();
 
+
         // Buttons
         add_sensor = findViewById(R.id.btnAddSensor);
         delete_sensor = findViewById(R.id.btnDeleteSensor);
@@ -42,6 +43,9 @@ public class LibrarianSensorsConnectedActivity extends AppCompatActivity impleme
         Sensors = getArray();
 
         Adapter = new ArrayAdapter<>(LibrarianSensorsConnectedActivity.this,android.R.layout.simple_list_item_1,Sensors);
+        Sensors.add("Sensor 1, Unique ID: 1");
+        Sensors.add("Sensor 2, Unique ID: 2");
+        Sensors.add("Sensor 3, Unique ID: 3");
 
         delete_sensor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +65,7 @@ public class LibrarianSensorsConnectedActivity extends AppCompatActivity impleme
             }
         });
         sensors_connected_listview.setAdapter(Adapter);
+
 
 
     }
@@ -110,7 +115,7 @@ public class LibrarianSensorsConnectedActivity extends AppCompatActivity impleme
 
     @Override
     protected void onStop() {
-        saveArray();
+        //saveArray();
         super.onStop();
     }
 }
