@@ -6,7 +6,7 @@
 
 #include "controller.h"
 
-void runFile(std::ifstream& stream, bool addNoise);
+void runFile(std::ifstream& stream, bool addNoise, size_t noiseDivisor);
 int randRange(int a, int b);
 
 int main()
@@ -18,6 +18,13 @@ int main()
         std::cin >> ans;
     }
 
+    int noiseDivisor = -1;
+    while (ans == "y" && noiseDivisor <= 0)
+    {
+        std::cout << "One noise event will be generated for every N events in the input file. Enter a value for N [>=1]: ";
+        std::cin >> noiseDivisor;
+    }
+
     for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator("inputs"))
     {
         std::ifstream inputFile(entry.path());
@@ -27,14 +34,23 @@ int main()
             return 1;
         }
         std::cout << "Running simulation on file " << entry.path() << std::endl;
-        runFile(inputFile, ans == "y");
+
+        if (ans == "y")
+        {
+            runFile(inputFile, true, (size_t)noiseDivisor);
+        }
+        else
+        {
+            runFile(inputFile, false, 0);
+        }
+        
         std::cout << "----------------------------\n";
     }
 
     return 0;
 }
 
-void runFile(std::ifstream& inputFile, bool addNoise)
+void runFile(std::ifstream& inputFile, bool addNoise, size_t noiseDivisor)
 {
     // Get number of events and the expected result from the input file.
     size_t numEvents;
@@ -58,12 +74,12 @@ void runFile(std::ifstream& inputFile, bool addNoise)
     if (addNoise)
     {
         // Arbitrarily chosen, generate one fifth of the input events in noise.
-        size_t noiseCount = numEvents / 5;
+        size_t noiseCount = numEvents / noiseDivisor;
         for (size_t i = 0; i < noiseCount; i++)
         {
-            // Get a random index to insert the event at. 
+            // Get a random index (other than the starting index) to insert the event at. 
             // NB: When using vector::insert(pos, item), the new item will take index pos and the former occupant will become index pos+1.
-            int idx = randRange(0, inputEvents.size() - 1);
+            int idx = randRange(1, inputEvents.size() - 1);
 
             // Get the previous event.
             auto prev = inputEvents[idx - 1];
@@ -92,7 +108,9 @@ void runFile(std::ifstream& inputFile, bool addNoise)
     for (size_t i = 0; i < numEvents; i++)
     {
         auto currPair = inputEvents[i];
-        if (std::get<1>(currPair) == 'o')
+        auto sleep = std::get<0>(currPair);
+        auto sensor = std::get<1>(currPair);
+        if (sensor == 'o')
         {
             c.TriggerOuterSensor();
         }
@@ -101,7 +119,8 @@ void runFile(std::ifstream& inputFile, bool addNoise)
             c.TriggerInnerSensor();
         }
 
-        auto sleep = std::get<0>(currPair);
+        
+        std::cout << "Triggered " << sensor << " and sleeping for " << sleep << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(sleep));
     }
     // Once all events are submitted, stop the controller thread.

@@ -20,7 +20,6 @@ The following input files are included in `/inputs`:
 * `simple_test.txt`: Sample made for ensuring basic functionality
 * `narrow_door.txt`: People passing through a narrow doorway, constructed using footage from https://www.youtube.com/watch?v=MSmtkpvKmnI
 * `wide_door.txt`: People passing through a wide doorway, constructed using footage from https://www.youtube.com/watch?v=Rf_ixb9i1Tc
-* `open_space.txt`: People walking through an open space, constructed using footage from https://www.youtube.com/watch?v=ZkAkdH1aLRU
 
 ## Algorithm
 
@@ -63,3 +62,6 @@ when (S1 or S2 is triggered):
 * This simulation uses C++ vectors, but the sensor implementation will probably need to use C arrays instead
 * Use the ESP32 `gettimeofday` function for timestamps (per [the official docs](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html))
 * The simulation uses the C++ `find_if` function to search the sensor trigger arrays, a simple linear array search function will need to be implemented in the ESP32
+
+## Takeaways
+In general, increasing the minimum time between events (`MIN_TH`) increases the resilience of the system to noise, but runs the risk of losing legitimate events due to users who pass through the doorway notably fast. Reducing `MIN_TH` catches these events, but makes noise false positives more likely to occur. When testing the actual system, values in the 0.3 to 0.5 second range should be experimentally evaluated for `MIN_TH`.
