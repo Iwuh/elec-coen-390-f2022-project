@@ -1,3 +1,4 @@
+#include "EventArray.h"
 
 int ledPin1 = 5;                // choose the pins for the LEDs
 //int ledPin2 = 15;              
