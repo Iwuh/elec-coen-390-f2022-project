@@ -14,11 +14,11 @@
         android:layout_marginStart="106dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="105dp"
-        android:layout_marginBottom="337dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/shape_bottom_rounded"
         android:text="Favorites"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnHours"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
@@ -90,5 +90,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOccupancy" />
+
+    <Button
+        android:id="@+id/btnHours"
+        android:layout_width="200sp"
+        android:layout_height="50dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="247dp"
+        android:background="@drawable/shape_bottom_rounded"
+        android:text="Hours"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFavorites" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
