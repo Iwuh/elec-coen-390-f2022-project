@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.teamI.librarymonitoring.HoursActivity;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
@@ -17,6 +18,7 @@ public class StudentMainActivity extends AppCompatActivity {
     protected Button btnOccupancy;
     protected Button btnNoiseLevel;
     protected Button btnFavorites;
+    protected Button btnHours;
 
 
     @Override
@@ -34,6 +36,7 @@ public class StudentMainActivity extends AppCompatActivity {
         btnOccupancy = (Button) findViewById(R.id.btnOccupancy);
         btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
         btnFavorites = (Button) findViewById(R.id.btnFavorites);
+        btnHours = (Button) findViewById(R.id.btnHours);
 
         setupButtons();
 
@@ -69,6 +72,12 @@ public class StudentMainActivity extends AppCompatActivity {
                                             }
                                         }
         );
+        btnHours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StudentMainActivity.this, HoursActivity.class));
+            }
+        });
     }
 
         private void startPrivacyActivity(){
