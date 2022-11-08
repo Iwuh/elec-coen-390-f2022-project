@@ -32,8 +32,8 @@ public:
     for (size_t i = 0; i < eventCount; i++)
     {
       // Find the first event longer ago than MIN_TH but sooner than MAX_TH
-      uint64_t absdiff = abs(timestamp_us - events[i]);
-      if (absdiff >= MIN_TH && absdiff <= MAX_TH)
+      uint64_t tdiff = timestamp_us - events[i];
+      if (tdiff >= MIN_TH && tdiff <= MAX_TH)
       {
         // If found, shift all subsequent elements back to remove this one and then return it.
         uint64_t retval = events[i];
@@ -60,8 +60,8 @@ public:
     // First pass: determine which indices need to be removed.
     for (size_t i = 0; i < eventCount; i++)
     {
-      uint64_t absdiff = abs(timestamp_us - events[i]); 
-      if (absdiff > MAX_TH)
+      uint64_t tdiff = timestamp_us - events[i]; 
+      if (tdiff > MAX_TH)
       {
         indicesToRemove[countToRemove++] = i;
       }
@@ -69,9 +69,9 @@ public:
 
     // Second pass: remove all events at those indices.
     // Since removing the element at index i shifts all further elements back by one, we start at the end of the array and move backwards to make things easier.
-    for (size_t i = countToRemove - 1; i >= 0; i--)
+    for (size_t i = countToRemove; i > 0; i--)
     {
-      for (size_t j = indicesToRemove[i]; j < eventCount - 1; j++)
+      for (size_t j = indicesToRemove[i-1]; j < eventCount - 1; j++)
       {
         events[j] = events[j+1];
       }
