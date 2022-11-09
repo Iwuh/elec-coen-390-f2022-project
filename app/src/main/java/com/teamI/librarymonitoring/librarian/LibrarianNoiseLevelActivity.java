@@ -1,5 +1,6 @@
 package com.teamI.librarymonitoring.librarian;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,10 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
 import com.teamI.librarymonitoring.datacontainers.SensorReading;
@@ -26,7 +33,6 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
     protected RecyclerView readings_noise_librarian_RecyclerView;
     protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
     protected FloatingActionButton FAB_noisedetails;
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
