@@ -48,6 +48,8 @@ public class OpenDataApiHelper {
     public void getHours(List<ServiceHours> allServiceHours, final IOpenDataResponseListener listener){
 
         String url = urlHours + getDate();
+
+        // [] {}
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
