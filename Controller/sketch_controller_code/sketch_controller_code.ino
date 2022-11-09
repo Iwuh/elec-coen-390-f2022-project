@@ -116,6 +116,8 @@ void loop() {
    // }
     Serial.print("Current Total: ");
     Serial.println(totalCount);
+    sensorEvents_1.clean(getTimeMicros());
+    sensorEvents_2.clean(getTimeMicros());
     delay(50);
   }
 
@@ -128,7 +130,7 @@ void loop() {
 //Tests and extra Examples
 
 //Example using interrupts
-
+/*
 void IRAM_ATTR sensor1_ISR() {
   int64_t now = getTimeMicros();
   int64_t match = sensorEvents_2.findAndRemove(now);
@@ -175,8 +177,9 @@ void loop() {
   Serial.print(now);
   Serial.print(", Total count: ");
   Serial.println(totalCount);
+  delay(1000);
 }
-
+*/
 
 /*
 //Test - blinking LED
