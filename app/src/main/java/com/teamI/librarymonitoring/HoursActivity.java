@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.teamI.librarymonitoring.datacontainers.LibraryComputerData;
+import com.teamI.librarymonitoring.datacontainers.OccupancyData;
 import com.teamI.librarymonitoring.datacontainers.ServiceHours;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 public class HoursActivity extends AppCompatActivity {
     private List<ServiceHours> allServiceHours;
     private RecyclerView hoursRecyclerView;
+    private List<OccupancyData> allOccupancyData;
     private HoursRecyclerViewAdapter hoursRecyclerViewAdapter;
 
     @Override
@@ -31,9 +33,23 @@ public class HoursActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         allServiceHours = new ArrayList<ServiceHours>();
+        allOccupancyData = new ArrayList<OccupancyData>();
         hoursRecyclerView = findViewById(R.id.recyclerViewHours);
         OpenDataApiHelper openDataApiHelper = new OpenDataApiHelper(this);
         openDataApiHelper.getHours(allServiceHours, new IOpenDataResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(HoursActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse() {
+                // once OpenData is fetched, use the list to populate RecyclerView
+                populateRecyclerView();
+            }
+        });
+
+        openDataApiHelper.Occupancy(allOccupancyData, new IOpenDataResponseListener() {
             @Override
             public void onError(String message) {
                 Toast.makeText(HoursActivity.this, message, Toast.LENGTH_LONG).show();

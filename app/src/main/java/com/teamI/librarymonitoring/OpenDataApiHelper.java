@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.teamI.librarymonitoring.datacontainers.LibraryComputerData;
+import com.teamI.librarymonitoring.datacontainers.OccupancyData;
 import com.teamI.librarymonitoring.datacontainers.ServiceHours;
 
 import org.json.JSONArray;
@@ -40,6 +41,7 @@ public class OpenDataApiHelper {
     private RequestQueue queue;
     final static String urlHours = "https://opendata.concordia.ca/API/v1/library/hours/";
     final static String urlComputerUse = "https://opendata.concordia.ca/API/v1/library/computers/";
+    final static String urlOccupancy = "https://opendata.concordia.ca/API/v1/library/occupancy/";
 
     public OpenDataApiHelper(Context context) {
         this.queue = Volley.newRequestQueue(context);
@@ -80,6 +82,8 @@ public class OpenDataApiHelper {
                         listener.onError(error.getMessage());
                     }
                 })
+
+
         {
             // provide authorization info
             @Override
@@ -151,6 +155,68 @@ public class OpenDataApiHelper {
 
         queue.add(request);
     }
+    public void Occupancy (List<OccupancyData> allOccupancyData, final IOpenDataResponseListener listener){
+
+        String url = urlOccupancy;
+
+        // [] {}
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+
+
+                            try {
+                                OccupancyData occupancyDataWebster = new OccupancyData();
+                                JSONObject temp =  response.getJSONObject("Webster");
+                                occupancyDataWebster.setLibraryName("Webster");
+                                occupancyDataWebster.setOccupancy(temp.getString("Occupancy"));
+                                occupancyDataWebster.setLastRecordTime(temp.getString("LastRecordTime"));
+                                System.out.println(occupancyDataWebster);
+
+                                OccupancyData occupancyDataVanier = new OccupancyData();
+                                temp = response.getJSONObject("Vanier");
+                                occupancyDataVanier.setLibraryName("Vanier");
+                                occupancyDataVanier.setOccupancy(temp.getString("Occupancy"));
+                                occupancyDataVanier.setLastRecordTime(temp.getString("LastRecordTime"));
+                                System.out.println(occupancyDataVanier);
+
+                                OccupancyData occupancyDataGreyNuns = new OccupancyData();
+                                temp = response.getJSONObject("GreyNuns");
+                                occupancyDataGreyNuns.setLibraryName("GreyNuns");
+                                occupancyDataGreyNuns.setOccupancy(temp.getString("Occupancy"));
+                                occupancyDataGreyNuns.setLastRecordTime(temp.getString("LastRecordTime"));
+                                System.out.println(occupancyDataGreyNuns);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+       //                     System.out.println(response);
+
+
+
+                        // inform the listener that response has been completed
+                        listener.onResponse();
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        listener.onError(error.getMessage());
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders(){
+                return getAuthorizationMap();
+            }
+        };
+        queue.add(request);
+        }
 
     private Map<String, String> getAuthorizationMap(){
         HashMap params = new HashMap<String, String>();
