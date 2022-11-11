@@ -19,13 +19,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -155,46 +160,47 @@ public class OpenDataApiHelper {
 
         queue.add(request);
     }
-    public void Occupancy (List<OccupancyData> allOccupancyData, final IOpenDataResponseListener listener){
+    public void getOccupancy (List<OccupancyData> allOccupancyData, final IOpenDataResponseListener listener){
 
         String url = urlOccupancy;
 
-        // [] {} ()
+        // [] {} ().
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
-
-
                             try {
                                 OccupancyData occupancyDataWebster = new OccupancyData();
                                 JSONObject temp =  response.getJSONObject("Webster");
                                 occupancyDataWebster.setLibraryName("Webster");
-                                occupancyDataWebster.setOccupancy(temp.getString("Occupancy"));
-                                occupancyDataWebster.setLastRecordTime(temp.getString("LastRecordTime"));
-                                System.out.println(occupancyDataWebster);
+                                occupancyDataWebster.setOccupancy(temp.getInt("Occupancy"));
+                                Date websterDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
+                                occupancyDataWebster.setLastRecordTime(websterDate);
+                                allOccupancyData.add(occupancyDataWebster);
 
                                 OccupancyData occupancyDataVanier = new OccupancyData();
                                 temp = response.getJSONObject("Vanier");
                                 occupancyDataVanier.setLibraryName("Vanier");
-                                occupancyDataVanier.setOccupancy(temp.getString("Occupancy"));
-                                occupancyDataVanier.setLastRecordTime(temp.getString("LastRecordTime"));
-                                System.out.println(occupancyDataVanier);
+                                occupancyDataVanier.setOccupancy(temp.getInt("Occupancy"));
+                                Date vanierDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
+                                occupancyDataVanier.setLastRecordTime(vanierDate);
+                                allOccupancyData.add(occupancyDataVanier);
 
                                 OccupancyData occupancyDataGreyNuns = new OccupancyData();
                                 temp = response.getJSONObject("GreyNuns");
                                 occupancyDataGreyNuns.setLibraryName("GreyNuns");
-                                occupancyDataGreyNuns.setOccupancy(temp.getString("Occupancy"));
-                                occupancyDataGreyNuns.setLastRecordTime(temp.getString("LastRecordTime"));
-                                System.out.println(occupancyDataGreyNuns);
+                                occupancyDataGreyNuns.setOccupancy(temp.getInt("Occupancy"));
+                                Date greyNunsDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
+                                occupancyDataGreyNuns.setLastRecordTime(greyNunsDate);
+                                allOccupancyData.add(occupancyDataGreyNuns);
 
-
+//TODO save the time stamp for the occupancy once the occupancy activity has been created
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
-       //                     System.out.println(response);
-
 
 
                         // inform the listener that response has been completed

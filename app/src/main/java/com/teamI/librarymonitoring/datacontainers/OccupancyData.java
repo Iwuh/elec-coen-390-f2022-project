@@ -1,20 +1,22 @@
 package com.teamI.librarymonitoring.datacontainers;
 
+import java.util.Date;
+
 public class OccupancyData {
 
-        private String Occupancy;
+        private int Occupancy;
         private String LibraryName;
-        private String LastRecordTime;
+        private Date LastRecordTime;
 
-        public String getOccupancy(){return Occupancy;}
+        public int getOccupancy(){return Occupancy;}
 
         public String getLibraryName(){return LibraryName;}
 
-        public String getLastRecordTime(){return LastRecordTime;}
+        public Date getLastRecordTime(){return LastRecordTime;}
 
-        public void setOccupancy(String Occupancy){this.Occupancy = Occupancy;}
+        public void setOccupancy(int Occupancy){this.Occupancy = Occupancy;}
         public void setLibraryName(String LibraryName){this.LibraryName = LibraryName;}
-        public void setLastRecordTime(String LastRecordTime){this.LastRecordTime = LastRecordTime;}
+        public void setLastRecordTime(Date LastRecordTime){this.LastRecordTime = LastRecordTime;}
 
         @Override
         public String toString() {
