@@ -23,6 +23,7 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
     protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
     protected FloatingActionButton fBtnOccupancyDetails;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,7 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
 
         populateRecyclerView();
 
-        fBtnOccupancyDetails = findViewById(R.id.fBtnOccupancyDetails);
+                fBtnOccupancyDetails = findViewById(R.id.fBtnOccupancyDetails);
         fBtnOccupancyDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

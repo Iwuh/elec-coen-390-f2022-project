@@ -2,6 +2,7 @@ package com.teamI.librarymonitoring.student;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -20,7 +21,7 @@ import com.teamI.librarymonitoring.librarian.LibrarianMainActivity;
 import com.teamI.utils.Preferences;
 
 public class StudentSettingsActivity extends AppCompatActivity {
-    Button btnLibrarian, btncredittoconcordia_student;
+    Button btnLibrarian, btncredittoconcordia_student,btn_rulesandregulation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class StudentSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_settings);
         btnLibrarian = findViewById(R.id.btnChangeToLibrarian);
         btncredittoconcordia_student = findViewById(R.id.btncredittoconcordia_student);
+        btn_rulesandregulation = findViewById(R.id.btn_rulesandregulation);
+
         btnLibrarian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +48,15 @@ public class StudentSettingsActivity extends AppCompatActivity {
                startActivity(intent);
             }
         });
+
+        btn_rulesandregulation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StudentSettingsActivity.this, Rules_and_RegulationActivity.class);
+                startActivity(intent);
+            }
+        });
+
         setupButtons();
 
     }

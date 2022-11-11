@@ -2,15 +2,24 @@ package com.teamI.librarymonitoring.student;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teamI.librarymonitoring.HoursActivity;
+import com.teamI.librarymonitoring.IOpenDataResponseListener;
+import com.teamI.librarymonitoring.OpenDataApiHelper;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
+import com.teamI.librarymonitoring.datacontainers.ServiceHours;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentMainActivity extends AppCompatActivity {
 
@@ -19,7 +28,8 @@ public class StudentMainActivity extends AppCompatActivity {
     protected Button btnNoiseLevel;
     protected Button btnFavorites;
     protected Button btnHours;
-
+    TextView libraryhours, libraryoccupancy;
+    private List<ServiceHours> allServiceHours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +47,25 @@ public class StudentMainActivity extends AppCompatActivity {
         btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
         btnFavorites = (Button) findViewById(R.id.btnFavorites);
         btnHours = (Button) findViewById(R.id.btnHours);
+        libraryhours = findViewById(R.id.libraryhours_textview);
+        libraryoccupancy = findViewById(R.id.libraryoccupancy_textview);
+
+        allServiceHours = new ArrayList<ServiceHours>();
+        OpenDataApiHelper openDataApiHelper = new OpenDataApiHelper(this);
+        openDataApiHelper.getHours(allServiceHours, new IOpenDataResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(StudentMainActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse() {
+                //System.out.println(allServiceHours.get(0).getService());
+                libraryhours.setText(allServiceHours.get(0).getService() + ": " + allServiceHours.get(0).getHoursText() + "\n"
+                        + allServiceHours.get(5).getService() + ": " + allServiceHours.get(1).getHoursText() + "\n"
+                        + allServiceHours.get(7).getService() + ": " + allServiceHours.get(7).getHoursText());
+            }
+        });
 
         setupButtons();
 
