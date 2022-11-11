@@ -159,7 +159,7 @@ public class OpenDataApiHelper {
 
         String url = urlOccupancy;
 
-        // [] {}
+        // [] {} ()
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
