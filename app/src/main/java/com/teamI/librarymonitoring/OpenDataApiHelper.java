@@ -12,19 +12,25 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.teamI.librarymonitoring.datacontainers.LibraryComputerData;
+import com.teamI.librarymonitoring.datacontainers.OccupancyData;
 import com.teamI.librarymonitoring.datacontainers.ServiceHours;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -40,6 +46,7 @@ public class OpenDataApiHelper {
     private RequestQueue queue;
     final static String urlHours = "https://opendata.concordia.ca/API/v1/library/hours/";
     final static String urlComputerUse = "https://opendata.concordia.ca/API/v1/library/computers/";
+    final static String urlOccupancy = "https://opendata.concordia.ca/API/v1/library/occupancy/";
 
     public OpenDataApiHelper(Context context) {
         this.queue = Volley.newRequestQueue(context);
@@ -80,6 +87,8 @@ public class OpenDataApiHelper {
                         listener.onError(error.getMessage());
                     }
                 })
+
+
         {
             // provide authorization info
             @Override
@@ -151,6 +160,69 @@ public class OpenDataApiHelper {
 
         queue.add(request);
     }
+    public void getOccupancy (List<OccupancyData> allOccupancyData, final IOpenDataResponseListener listener){
+
+        String url = urlOccupancy;
+
+        // [] {} ().
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                            try {
+                                OccupancyData occupancyDataWebster = new OccupancyData();
+                                JSONObject temp =  response.getJSONObject("Webster");
+                                occupancyDataWebster.setLibraryName("Webster");
+                                occupancyDataWebster.setOccupancy(temp.getInt("Occupancy"));
+                                Date websterDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
+                                occupancyDataWebster.setLastRecordTime(websterDate);
+                                allOccupancyData.add(occupancyDataWebster);
+
+                                OccupancyData occupancyDataVanier = new OccupancyData();
+                                temp = response.getJSONObject("Vanier");
+                                occupancyDataVanier.setLibraryName("Vanier");
+                                occupancyDataVanier.setOccupancy(temp.getInt("Occupancy"));
+                                Date vanierDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
+                                occupancyDataVanier.setLastRecordTime(vanierDate);
+                                allOccupancyData.add(occupancyDataVanier);
+
+                                OccupancyData occupancyDataGreyNuns = new OccupancyData();
+                                temp = response.getJSONObject("GreyNuns");
+                                occupancyDataGreyNuns.setLibraryName("GreyNuns");
+                                occupancyDataGreyNuns.setOccupancy(temp.getInt("Occupancy"));
+                                Date greyNunsDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
+                                occupancyDataGreyNuns.setLastRecordTime(greyNunsDate);
+                                allOccupancyData.add(occupancyDataGreyNuns);
+
+//TODO save the time stamp for the occupancy once the occupancy activity has been created
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        // inform the listener that response has been completed
+                        listener.onResponse();
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        listener.onError(error.getMessage());
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders(){
+                return getAuthorizationMap();
+            }
+        };
+        queue.add(request);
+        }
 
     private Map<String, String> getAuthorizationMap(){
         HashMap params = new HashMap<String, String>();

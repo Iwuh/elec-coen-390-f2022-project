@@ -7,13 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.teamI.librarymonitoring.datacontainers.LibraryComputerData;
+import com.teamI.librarymonitoring.datacontainers.OccupancyData;
 import com.teamI.librarymonitoring.datacontainers.ServiceHours;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HoursActivity extends AppCompatActivity {
@@ -26,13 +29,13 @@ public class HoursActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hours);
 
-
         // needed because the screen can be started from either librarian or student versions
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         allServiceHours = new ArrayList<ServiceHours>();
         hoursRecyclerView = findViewById(R.id.recyclerViewHours);
         OpenDataApiHelper openDataApiHelper = new OpenDataApiHelper(this);
+
         openDataApiHelper.getHours(allServiceHours, new IOpenDataResponseListener() {
             @Override
             public void onError(String message) {
@@ -43,8 +46,14 @@ public class HoursActivity extends AppCompatActivity {
             public void onResponse() {
                 // once OpenData is fetched, use the list to populate RecyclerView
                 populateRecyclerView();
+
+                //Record the timestamp for the hours activity response
+                Date date = new Date();
+                SharedPreferenceUtility.setHoursTimeStamp(hoursRecyclerView.getContext(),date);
+
             }
         });
+
     }
 
     @Override

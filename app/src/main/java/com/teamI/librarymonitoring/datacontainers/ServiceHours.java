@@ -1,6 +1,6 @@
 package com.teamI.librarymonitoring.datacontainers;
 
-// used to parse JSON frpm Open Data API
+// used to parse JSON from Open Data API
 
 public class ServiceHours {
 
