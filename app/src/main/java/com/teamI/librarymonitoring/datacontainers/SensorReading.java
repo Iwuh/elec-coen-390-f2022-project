@@ -8,6 +8,8 @@ public class SensorReading {
     protected String strUnit;
     protected String strLocation;
 
+    private SensorReading() {}
+
     public SensorReading(String location, String measurement, String unit) {
         this.strMeasurement = measurement;
         this.strLocation = location;
