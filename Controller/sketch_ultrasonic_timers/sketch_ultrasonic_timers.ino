@@ -3,30 +3,36 @@ int echoPin2 = 26;
 int trigPin1 = 25;
 int trigPin2 = 23;
 
-hw_timer_t *timer1 = NULL;
-portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
+portMUX_TYPE sensorMux = portMUX_INITIALIZER_UNLOCKED;
+volatile SemaphoreHandle_t semaphore;
 
-volatile int trigTimerCnt;
+volatile unsigned long pulseStart;
+volatile unsigned long pulseEnd;
 
-void ARDUINO_ISR_ATTR timer1_ISR() {
-  portENTER_CRITICAL_ISR(&timerMux);
-  switch (trigTimerCnt) {
-    case 0:
-      digitalWrite(trigPin1, HIGH);
-      trigTimerCnt++;
-      break;
-    case 1:
-      digitalWrite(trigPin1, LOW);
-      trigTimerCnt++;
-      break;
-    case 5999:
-      trigTimerCnt = 0;
-      break;
-    default:
-      trigTimerCnt++;
-      break;
+void ARDUINO_ISR_ATTR echo1_ISR() {
+  int state = digitalRead(echoPin1);
+  portENTER_CRITICAL_ISR(&sensorMux);
+  if (state == HIGH) {
+    pulseStart = micros();
+  } else if (state == LOW) {
+    pulseEnd = micros();
+    xSemaphoreGiveFromISR(semaphore, NULL);
   }
-  portEXIT_CRITICAL_ISR(&timerMux);
+  portEXIT_CRITICAL_ISR(&sensorMux);
+}
+
+void print() {
+  // Copy pulse length into local to minimize time spent in critical section
+  unsigned long pulseLength;
+  portENTER_CRITICAL(&sensorMux);
+  pulseLength = pulseEnd - pulseStart;
+  portEXIT_CRITICAL(&sensorMux);
+
+  double distance = (double)pulseLength / 1000000.0 * 343.0;
+  Serial.print("Pulse length: ");
+  Serial.println(pulseLength);
+  Serial.print(", Distance: ");
+  Serial.println(distance);
 }
 
 void setup() {
@@ -39,9 +45,17 @@ void setup() {
   pinMode(trigPin1, OUTPUT);
   pinMode(trigPin2, OUTPUT);
 
-
+  semaphore = xSemaphoreCreateBinary();
 }
 
 void loop() {
-  
+  if (xSemaphoreTake(semaphore, 0) == pdTRUE) {
+    print();
+  }
+
+  digitalWrite(trigPin1, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin1, LOW);
+
+  delay(100);
 }
