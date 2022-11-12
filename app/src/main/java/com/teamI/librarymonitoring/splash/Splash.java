@@ -18,7 +18,9 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         firebaseHelper = new FirebaseHelper();
-        firebaseHelper.readData(Splash.this,"Sensors");
+        firebaseHelper.Noise_sensor(Splash.this,"Sensors");
+        firebaseHelper.Occ_sensor1(Splash.this,"Sensors");
+        firebaseHelper.Occ_sensor2(Splash.this,"Sensors");
         Intent intent  = new Intent(this, RoleChoiceActivity.class);
         startActivity(intent);
         finish();
