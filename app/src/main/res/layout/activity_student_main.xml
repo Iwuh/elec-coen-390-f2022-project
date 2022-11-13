@@ -7,38 +7,17 @@
     tools:context=".student.StudentMainActivity">
 
     <TextView
-        android:id="@+id/libraryoccupancy_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OCCUPANCY"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/libraryhours_textview" />
-
-    <TextView
         android:id="@+id/libraryhours_textview"
         android:layout_width="389dp"
         android:layout_height="90dp"
-        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:gravity="center|top"
         android:text="hour"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hours_textview" />
-
-    <TextView
-        android:id="@+id/hours_textview"
-        android:layout_width="83dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="HOURS:"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnHours" />
+        app:layout_constraintTop_toBottomOf="@+id/total_capacitybtn" />
 
     <Button
         android:id="@+id/btnFavorites"
@@ -86,6 +65,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/btnOccupancy"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -139,5 +119,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnFavorites" />
+
+    <Button
+        android:id="@+id/total_capacitybtn"
+        android:layout_width="198dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_bottom_rounded"
+        android:text="Total Library Capacity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnHours" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
