@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.teamI.librarymonitoring.HoursActivity;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
@@ -17,11 +18,13 @@ public class LibrarianMainActivity extends AppCompatActivity {
     protected Button btnOccupancy;
     protected Button btnNoiseLevel;
     protected Button btnSensorsConnected;
+    protected Button btnHours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_librarian_main);
+
 
         boolean bHasAgreedToPrivacy = SharedPreferenceUtility.getPrivacyConsent(this);
         if(!bHasAgreedToPrivacy){
@@ -34,6 +37,7 @@ public class LibrarianMainActivity extends AppCompatActivity {
         btnOccupancy = (Button) findViewById(R.id.btnOccupancy);
         btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
         btnSensorsConnected = (Button) findViewById(R.id.btnSensorsConnected);
+        btnHours = (Button) findViewById(R.id.btnHours);
 
         setupButtons();
 
@@ -71,6 +75,13 @@ public class LibrarianMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LibrarianMainActivity.this, LibrarianSensorsConnectedActivity.class));
+            }
+        });
+
+        btnHours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LibrarianMainActivity.this, HoursActivity.class));
             }
         });
 
