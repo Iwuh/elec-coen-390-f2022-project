@@ -1,4 +1,6 @@
 
+#include "WifiHelper.h"
+
 int ledPin1 = 5;                // choose the pins for the LEDs
 //int ledPin2 = 15;              
 int sensorPin1 =27;                
