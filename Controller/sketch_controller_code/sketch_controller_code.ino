@@ -21,7 +21,7 @@ int64_t getTimeMicros() {
 }
 
 // Polling
-/*
+
 void setup() {
   pinMode(sensorPin1, INPUT_PULLUP);  // declare motion sensors as input
   pinMode(sensorPin2, INPUT_PULLUP);
@@ -114,17 +114,17 @@ void loop() {
      // totalCount--;
     //  Serial.println("A person just left.");
    // }
-    Serial.print("Current Total: ");
-    Serial.println(totalCount);
+    //Serial.print("Current Total: ");
+    //Serial.println(totalCount);
     sensorEvents_1.clean(getTimeMicros());
     sensorEvents_2.clean(getTimeMicros());
     delay(50);
-  }
+  //}
 
-  previousMillisSensor1 = currentMillisSensor1;
-  previousMillisSensor2 = currentMillisSensor2;
+  //previousMillisSensor1 = currentMillisSensor1;
+  //previousMillisSensor2 = currentMillisSensor2;
 }
-*/
+
 
 
 //Tests and extra Examples
