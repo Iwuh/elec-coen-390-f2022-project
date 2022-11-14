@@ -32,6 +32,15 @@ void setup() {
 
   WiFiHelper helper;
   helper.ConnectToHomeNetwork();
+
+  helper.StartTimeZoneSynchronization();
+
+  char formattedTime[64];  
+  struct timeval tv_now;
+  gettimeofday(&tv_now, NULL);
+  strftime(formattedTime, 64, "%c", localtime(&tv_now));
+  Serial.print("Current time: ");
+  Serial.println(formattedTime);
 }
 
 void loop() {
