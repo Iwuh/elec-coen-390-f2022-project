@@ -27,10 +27,11 @@ public class StudentMainActivity extends AppCompatActivity {
     protected Button btnOccupancy;
     protected Button btnNoiseLevel;
     protected Button btnFavorites;
-    protected Button btnHours;
-    TextView libraryhours, libraryoccupancy;
+    protected Button btnHours, total_capacitybtn;
+    TextView libraryhours;
     private List<ServiceHours> allServiceHours;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +48,8 @@ public class StudentMainActivity extends AppCompatActivity {
         btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
         btnFavorites = (Button) findViewById(R.id.btnFavorites);
         btnHours = (Button) findViewById(R.id.btnHours);
+        total_capacitybtn = findViewById(R.id.total_capacitybtn);
         libraryhours = findViewById(R.id.libraryhours_textview);
-        libraryoccupancy = findViewById(R.id.libraryoccupancy_textview);
 
         allServiceHours = new ArrayList<ServiceHours>();
         OpenDataApiHelper openDataApiHelper = new OpenDataApiHelper(this);
@@ -105,6 +106,12 @@ public class StudentMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(StudentMainActivity.this, HoursActivity.class));
+            }
+        });
+        total_capacitybtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudentMainActivity.this, Total_CapacityActivity.class));
             }
         });
     }
