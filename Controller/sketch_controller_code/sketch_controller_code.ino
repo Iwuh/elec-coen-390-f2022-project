@@ -38,7 +38,8 @@ void setup() {
   char formattedTime[64];  
   struct timeval tv_now;
   gettimeofday(&tv_now, NULL);
-  strftime(formattedTime, 64, "%c", localtime(&tv_now));
+  time_t time_seconds = tv_now.tv_sec;
+  strftime(formattedTime, 64, "%c", localtime(&time_seconds));
   Serial.print("Current time: ");
   Serial.println(formattedTime);
 }
