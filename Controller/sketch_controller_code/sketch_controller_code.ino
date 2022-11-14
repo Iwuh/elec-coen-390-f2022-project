@@ -17,6 +17,9 @@ void setup() {
   pinMode(ledPin1, OUTPUT);              // declare LED1 as output, the built in ESP32 chip led
   //pinMode(ledPin2, OUTPUT);            // currently not functional due to lack of applicable LEDs
   Serial.begin(9600);
+
+  WiFiHelper helper;
+  helper.ConnectToHomeNetwork();
 }
 
 void loop() {
