@@ -92,7 +92,8 @@
         </activity>
         <activity
             android:name=".student.Rules_and_RegulationActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".student.StudentSettingsActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
