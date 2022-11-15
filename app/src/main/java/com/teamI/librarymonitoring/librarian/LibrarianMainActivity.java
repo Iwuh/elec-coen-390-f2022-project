@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.HoursActivity;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
+import com.teamI.librarymonitoring.splash.Splash;
 
 public class LibrarianMainActivity extends AppCompatActivity {
 
@@ -19,12 +21,24 @@ public class LibrarianMainActivity extends AppCompatActivity {
     protected Button btnNoiseLevel;
     protected Button btnSensorsConnected;
     protected Button btnHours;
+    FirebaseHelper firebaseHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_librarian_main);
+        firebaseHelper = new FirebaseHelper();
 
+        firebaseHelper.Noise_sensor1(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Noise_sensor2(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Noise_sensor3(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Noise_sensor4(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Occ_sensor1(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Occ_sensor2(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Occ_sensor3(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Occ_sensor4(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Occ_sensor5(LibrarianMainActivity.this,"Sensors");
 
         boolean bHasAgreedToPrivacy = SharedPreferenceUtility.getPrivacyConsent(this);
         if(!bHasAgreedToPrivacy){
