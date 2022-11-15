@@ -8,7 +8,7 @@
 #include "stdlib_noniso.h"
 
 // It's okay for these to be publicly exposed; the RTDB will later be protected by security rules with email/password authentication.
-constexpr const char* FIREBASE_DATABASE_URL = "https://fir-b9c10-default-rtdb.firebaseio.com/";
+constexpr const char* FIREBASE_DATABASE_URL = "https://fir-b9c10-default-rtdb.firebaseio.com";
 constexpr const char* FIREBASE_API_KEY = "AIzaSyAjsikI9TXU2kSRZweVa8uqgLyiEPOTplg";
 
 FirebaseData rtdb;
@@ -55,6 +55,8 @@ void setup() {
 
   config.database_url = FIREBASE_DATABASE_URL;
   config.api_key = FIREBASE_API_KEY;
+
+  Firebase.reconnectWiFi(true);
 
   // TODO: Once email authentication is set up, use that here.
   if (Firebase.signUp(&config, &auth, "", "")) {
