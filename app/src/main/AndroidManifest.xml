@@ -15,8 +15,25 @@
         android:theme="@style/Theme.LibraryMonitoring"
         tools:targetApi="31">
         <activity
-            android:name=".student.Total_CapacityActivity"
+            android:name=".student.LibraryDesktopDetailsActivity"
+            android:parentActivityName=".student.ComputerUseActivity"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".student.ComputerUseActivity"
+            android:parentActivityName=".student.StudentMainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".student.TotalOccupancyActivity"
+            android:exported="false"
+            android:parentActivityName=".student.StudentOccupancyActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
