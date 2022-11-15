@@ -30,9 +30,15 @@ public class LibrarianMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_librarian_main);
         firebaseHelper = new FirebaseHelper();
 
-        firebaseHelper.Noise_sensor(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Noise_sensor1(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Noise_sensor2(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Noise_sensor3(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Noise_sensor4(LibrarianMainActivity.this,"Sensors");
         firebaseHelper.Occ_sensor1(LibrarianMainActivity.this,"Sensors");
         firebaseHelper.Occ_sensor2(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Occ_sensor3(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Occ_sensor4(LibrarianMainActivity.this,"Sensors");
+        firebaseHelper.Occ_sensor5(LibrarianMainActivity.this,"Sensors");
 
         boolean bHasAgreedToPrivacy = SharedPreferenceUtility.getPrivacyConsent(this);
         if(!bHasAgreedToPrivacy){
