@@ -3,6 +3,8 @@ package com.teamI.librarymonitoring;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.teamI.librarymonitoring.student.Total_CapacityActivity;
+
 import java.util.Date;
 
 public class SharedPreferenceUtility {
@@ -11,6 +13,7 @@ public class SharedPreferenceUtility {
     private static final String privacyConsentKey = "PrivacyConsent";
     private static final String roleKey = "Role";
     private static final String hoursActivityTimeStamp = "hoursTimeStamp";
+    private static final String Total_CapacityActivityTimeStamp = "OccupancyTimeStamp";
 
     public static boolean getPrivacyConsent(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
@@ -49,7 +52,7 @@ public class SharedPreferenceUtility {
     public static void setOccupancyTimeStamp(Context context, Date timeStamp) {
         SharedPreferences sharedPref = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sharedPref.edit();
-        ed.putString("occupancyTimeStamp", timeStamp.toString());
+        ed.putString(Total_CapacityActivityTimeStamp, timeStamp.toString());
         ed.apply();
     }
     public static void setHoursTimeStamp(Context context, Date timeStamp) {
@@ -58,13 +61,21 @@ public class SharedPreferenceUtility {
         ed.putString(hoursActivityTimeStamp, timeStamp.toString());
         ed.apply();
     }
-    //TODO create a getter for the occupancy data also review the default time stamp
+
     public static String getHoursTimeStamp(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
         if(!sharedPref.contains(hoursActivityTimeStamp)){
             return "Fri Nov 11 17:04:40 EST 2022";
         }
         return sharedPref.getString(hoursActivityTimeStamp.toString(), "Fri Nov 11 17:04:40 EST 2022");
+    }
+
+    public static String getOccupancyTimeStamp(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
+        if(!sharedPref.contains(Total_CapacityActivityTimeStamp)){
+            return "Fri Nov 11 17:04:40 EST 2022";
+        }
+        return sharedPref.getString(Total_CapacityActivityTimeStamp.toString(), "Fri Nov 11 17:04:40 EST 2022");
     }
 
     // deletes all shared preferences
