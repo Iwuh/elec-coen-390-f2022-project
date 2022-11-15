@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamI.librarymonitoring.HoursActivity;
 import com.teamI.librarymonitoring.IOpenDataResponseListener;
+import com.teamI.librarymonitoring.LoginActivity;
 import com.teamI.librarymonitoring.OpenDataApiHelper;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.RoleEnum;
@@ -61,7 +62,7 @@ public class RoleChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferenceUtility.setIsStudent(RoleChoiceActivity.this);
-                Intent intent = new Intent(RoleChoiceActivity.this, StudentMainActivity.class);
+                Intent intent = new Intent(RoleChoiceActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
