@@ -1,6 +1,21 @@
 #include "EventArray.h"
 #include "WifiHelper.h"
 
+#include <Firebase_ESP_Client.h>
+#include "addons/TokenHelper.h"
+#include "addons/RTDBHelper.h"
+
+#include "stdlib_noniso.h"
+
+// It's okay for these to be publicly exposed; the RTDB will later be protected by security rules with email/password authentication.
+constexpr const char* FIREBASE_DATABASE_URL = "https://fir-b9c10-default-rtdb.firebaseio.com/";
+constexpr const char* FIREBASE_API_KEY = "AIzaSyAjsikI9TXU2kSRZweVa8uqgLyiEPOTplg";
+
+FirebaseData rtdb;
+FirebaseAuth auth;
+FirebaseConfig config;
+bool signupOK;
+
 int ledPin1 = 5;  // choose the pins for the LEDs
 //int ledPin2 = 15;
 int sensorPin1 = 27;
@@ -10,6 +25,10 @@ int pirState2 = LOW;
 
 int totalCount = 0;
 int currentCount = 0;
+
+constexpr int64_t UPDATE_INTERVAL_MICROS = 60 * 1000 * 1000;
+int64_t lastUpdate = 0;
+int64_t now;
 
 EventArray sensorEvents_1;
 EventArray sensorEvents_2;
@@ -33,15 +52,25 @@ void setup() {
   WifiHelper helper;
   helper.ConnectToHomeNetwork();
   helper.StartTimeZoneSynchronization();
+
+  config.database_url = FIREBASE_DATABASE_URL;
+  config.api_key = FIREBASE_API_KEY;
+
+  // TODO: Once email authentication is set up, use that here.
+  if (Firebase.signUp(&config, &auth, "", "")) {
+    Serial.println("Firebase signup OK");
+    signupOK = true;    
+  } else {
+    Serial.println("Firebase signup failed");
+    Serial.println(config.signer.signupError.message.c_str());
+  }
+
+  config.token_status_callback = tokenStatusCallback;
+  Firebase.begin(&config, &auth);
 }
 
 void loop() {
-
-  unsigned long currentMillisSensor1 = 0;  //  variables to store time when sensor state change happened
-  unsigned long currentMillisSensor2 = 0;
-  unsigned long previousMillisSensor1 = 0;
-  unsigned long previousMillisSensor2 = 0;
-
+  now = getTimeMicros();
   //Sensor 1
   if (digitalRead(sensorPin1) == HIGH) {  // check if input1 is HIGH
     digitalWrite(ledPin1, HIGH);          // turn LED1 ON in that case
@@ -50,7 +79,6 @@ void loop() {
       Serial.println("Sensor 1: Motion detected!");
       // only want to print on the output change, not state
       pirState1 = HIGH;
-      int64_t now = getTimeMicros();
       int64_t match = sensorEvents_2.findAndRemove(now);
       if (match == -1) {
         // no match found
@@ -68,7 +96,6 @@ void loop() {
       Serial.println("Sensor 1: Motion ended!");
       // only want to print on the output change, not state
       pirState1 = LOW;
-      currentMillisSensor1 = millis();
     }
   }
 
@@ -81,7 +108,6 @@ void loop() {
       Serial.println("Sensor 2: Motion detected!");
       // only want to print on the output change, not state
       pirState2 = HIGH;
-      int64_t now = getTimeMicros();
       int64_t match = sensorEvents_1.findAndRemove(now);
       if (match == -1) {
         // no match found
@@ -100,34 +126,22 @@ void loop() {
       Serial.println("Sensor 2: Motion ended!");
       // only want to print on the output change, not state
       pirState2 = LOW;
-
-      currentMillisSensor2 = millis();  // timestamp of Sensor2 state change saved
     }
   }
 
-  //Millis() approach
+  sensorEvents_1.clean(now);
+  sensorEvents_2.clean(now);
 
-  //  comparing timestamps of sensor state change between the two sensors
-  //  if Sensor1 state changed earlier than Sensor2 state => person entering the door
-  //  otherwise => person leaving the door
+  if (signupOK && Firebase.ready() && now > lastUpdate + UPDATE_INTERVAL_MICROS) {
+    char buf[10];
+    itoa(totalCount, buf, 10);
+    Firebase.RTDB.setStringAsync(&rtdb, "/Sensors/Occ_sensor1/strMeasurement", buf);
+    Serial.println("Updated Firebase");
+    lastUpdate = now;
+  }
+  
+  delay(50);
 
-  //if ((previousMillisSensor1 != currentMillisSensor1) && (previousMillisSensor2 != currentMillisSensor2)) {  // update number of person entering or leaving only if timestamps of state changes for both sensors change
-    //if (currentMillisSensor1 > currentMillisSensor2) {
-      //totalCount++;
-      //Serial.println("A person just entered.");
-    //} else {
-     // totalCount--;
-    //  Serial.println("A person just left.");
-   // }
-    //Serial.print("Current Total: ");
-    //Serial.println(totalCount);
-    sensorEvents_1.clean(getTimeMicros());
-    sensorEvents_2.clean(getTimeMicros());
-    delay(50);
-  //}
-
-  //previousMillisSensor1 = currentMillisSensor1;
-  //previousMillisSensor2 = currentMillisSensor2;
 }
 
 
