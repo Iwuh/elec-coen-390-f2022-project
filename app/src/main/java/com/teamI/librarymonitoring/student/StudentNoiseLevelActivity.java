@@ -1,5 +1,10 @@
 package com.teamI.librarymonitoring.student;
 
+import static com.teamI.helper.FirebaseHelper.CalgaryN;
+import static com.teamI.helper.FirebaseHelper.EdmontonN;
+import static com.teamI.helper.FirebaseHelper.OttawaN;
+import static com.teamI.helper.FirebaseHelper.TorontoN;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,10 +47,10 @@ public class StudentNoiseLevelActivity extends AppCompatActivity {
         // TODO: get real sensor readings here
         // for now, populate a list of dummy sensor readings
         List<SensorReading> lstSensorReadings = new ArrayList<SensorReading>();
-        lstSensorReadings.add(new SensorReading("Toronto Reading Room", "10", "dB"));
-        lstSensorReadings.add(new SensorReading("Edmonton Reading Room", "100", "dB"));
-        lstSensorReadings.add(new SensorReading("Ottawa Reading Room", "43", "dB"));
-        lstSensorReadings.add(new SensorReading("Calgary Reading Room", "21", "dB"));
+        lstSensorReadings.add(new SensorReading("Toronto Reading Room", ""+TorontoN, "dB"));
+        lstSensorReadings.add(new SensorReading("Edmonton Reading Room", ""+EdmontonN, "dB"));
+        lstSensorReadings.add(new SensorReading("Ottawa Reading Room", ""+OttawaN, "dB"));
+        lstSensorReadings.add(new SensorReading("Calgary Reading Room", ""+CalgaryN, "dB"));
         lstSensorReadings.add(new SensorReading("Vancouver Reading Room", "69", "dB"));
         lstSensorReadings.add(new SensorReading("Montreal Reading Room", "62", "dB"));
         lstSensorReadings.add(new SensorReading("Moncton Reading Room", "90", "dB"));
