@@ -30,18 +30,9 @@ void setup() {
   //pinMode(ledPin2, OUTPUT);            // currently not functional due to lack of applicable LEDs
   Serial.begin(9600);
 
-  WiFiHelper helper;
+  WifiHelper helper;
   helper.ConnectToHomeNetwork();
-
   helper.StartTimeZoneSynchronization();
-
-  char formattedTime[64];  
-  struct timeval tv_now;
-  gettimeofday(&tv_now, NULL);
-  time_t time_seconds = tv_now.tv_sec;
-  strftime(formattedTime, 64, "%c", localtime(&time_seconds));
-  Serial.print("Current time: ");
-  Serial.println(formattedTime);
 }
 
 void loop() {
