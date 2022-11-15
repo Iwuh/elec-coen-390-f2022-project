@@ -1,6 +1,7 @@
 #include "WifiSecrets.h"
 
 #include <WiFi.h>
+#include <esp_sntp.h>
 
 class WifiHelper {
 public:
