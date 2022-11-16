@@ -30,7 +30,7 @@ public class TotalOccupancyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_total_capacity);
+        setContentView(R.layout.activity_total_occupancy);
 
         librarycapacity_textview = (TextView) findViewById(R.id.librarycapacity_textview);
 
