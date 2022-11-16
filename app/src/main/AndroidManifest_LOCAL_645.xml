@@ -23,14 +23,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegistrationActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".LoginActivity"
+            android:name=".student.ComputerUseActivity"
+            android:parentActivityName=".student.StudentMainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -40,14 +34,6 @@
             android:name=".student.TotalOccupancyActivity"
             android:exported="false"
             android:parentActivityName=".student.StudentOccupancyActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".student.ComputerUseActivity"
-            android:parentActivityName=".student.StudentMainActivity"
-            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

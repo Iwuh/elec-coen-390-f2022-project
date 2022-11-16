@@ -1,5 +1,6 @@
 package com.teamI.librarymonitoring.datacontainers;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class OccupancyData {

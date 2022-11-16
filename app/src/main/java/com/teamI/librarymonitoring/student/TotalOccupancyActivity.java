@@ -1,30 +1,39 @@
 package com.teamI.librarymonitoring.student;
 
-import static com.teamI.librarymonitoring.SharedPreferenceUtility.getHoursTimeStamp;
+
 import static com.teamI.librarymonitoring.SharedPreferenceUtility.getOccupancyTimeStamp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teamI.librarymonitoring.IOpenDataResponseListener;
 import com.teamI.librarymonitoring.OpenDataApiHelper;
 import com.teamI.librarymonitoring.R;
+
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
 import com.teamI.librarymonitoring.datacontainers.OccupancyData;
-import com.teamI.librarymonitoring.datacontainers.ServiceHours;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.teamI.librarymonitoring.datacontainers.OccupancyData;
+
+import java.util.ArrayList;
+
 import java.util.List;
 
-public class Total_CapacityActivity extends AppCompatActivity {
+public class TotalOccupancyActivity extends AppCompatActivity {
 
     TextView librarycapacity_textview;
     private List<OccupancyData> occupancyData;
@@ -33,9 +42,9 @@ public class Total_CapacityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_total_capacity);
+        setContentView(R.layout.activity_total_occupancy);
 
-        librarycapacity_textview = (TextView) findViewById(R.id.librarycapacity_textview);
+        librarycapacity_textview = (TextView) findViewById(R.id.libraryoccupancy_textview);
 
         occupancyData = new ArrayList<OccupancyData>();
 
@@ -78,7 +87,7 @@ public class Total_CapacityActivity extends AppCompatActivity {
             openDataApiHelper.getOccupancy(occupancyData, new IOpenDataResponseListener() {
                 @Override
                 public void onError(String message) {
-                    Toast.makeText(Total_CapacityActivity.this, message, Toast.LENGTH_LONG).show();
+                    Toast.makeText(TotalOccupancyActivity.this, message, Toast.LENGTH_LONG).show();
                 }
 
                 @Override
@@ -96,3 +105,4 @@ public class Total_CapacityActivity extends AppCompatActivity {
 
         }
     }
+
