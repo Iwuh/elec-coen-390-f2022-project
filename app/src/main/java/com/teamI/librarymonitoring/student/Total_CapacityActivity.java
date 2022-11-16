@@ -61,7 +61,7 @@ public class Total_CapacityActivity extends AppCompatActivity {
                 Date currentTimeStamp = new Date();
                 long diff = currentTimeStamp.getTime() - finalSavedLastUpdatedCapacity.getTime();
                 long minutes = (diff / 1000) / 60;
-                //Toast.makeText(Total_CapacityActivity.this, minutes + "Minute Time difference", Toast.LENGTH_LONG).show();
+               // Toast.makeText(Total_CapacityActivity.this, minutes + "Minute Time difference", Toast.LENGTH_LONG).show();
 
                 if (minutes >= 15) {
                     callOpenApi();

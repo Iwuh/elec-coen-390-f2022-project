@@ -65,7 +65,7 @@ public class HoursActivity extends AppCompatActivity {
                     Date currentTimeStamp = new Date();
                     long diff = currentTimeStamp.getTime() - finalSavedLastUpdatedHours.getTime();
                     long minutes = (diff/1000)/60;
-                 // Toast.makeText(HoursActivity.this, minutes + "Minute Time difference", Toast.LENGTH_LONG).show();
+                 //Toast.makeText(HoursActivity.this, minutes + "Time difference", Toast.LENGTH_LONG).show();
 
                     if(minutes >= 15){
                         callOpenApi();
