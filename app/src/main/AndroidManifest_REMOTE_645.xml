@@ -15,7 +15,21 @@
         android:theme="@style/Theme.LibraryMonitoring"
         tools:targetApi="31">
         <activity
-            android:name=".student.TotalOccupancyActivity"
+            android:name=".RegistrationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".student.Total_CapacityActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

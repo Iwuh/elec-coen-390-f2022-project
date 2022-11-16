@@ -111,7 +111,7 @@ public class StudentMainActivity extends AppCompatActivity {
         total_capacitybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StudentMainActivity.this, Total_CapacityActivity.class));
+                startActivity(new Intent(StudentMainActivity.this, TotalOccupancyActivity.class));
             }
         });
     }

@@ -1,11 +1,9 @@
 package com.teamI.librarymonitoring.student;
 
-import static com.teamI.librarymonitoring.SharedPreferenceUtility.getHoursTimeStamp;
 import static com.teamI.librarymonitoring.SharedPreferenceUtility.getOccupancyTimeStamp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
@@ -16,7 +14,6 @@ import com.teamI.librarymonitoring.OpenDataApiHelper;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
 import com.teamI.librarymonitoring.datacontainers.OccupancyData;
-import com.teamI.librarymonitoring.datacontainers.ServiceHours;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Total_CapacityActivity extends AppCompatActivity {
+public class TotalOccupancyActivity extends AppCompatActivity {
 
     TextView librarycapacity_textview;
     private List<OccupancyData> occupancyData;
@@ -78,7 +75,7 @@ public class Total_CapacityActivity extends AppCompatActivity {
             openDataApiHelper.getOccupancy(occupancyData, new IOpenDataResponseListener() {
                 @Override
                 public void onError(String message) {
-                    Toast.makeText(Total_CapacityActivity.this, message, Toast.LENGTH_LONG).show();
+                    Toast.makeText(TotalOccupancyActivity.this, message, Toast.LENGTH_LONG).show();
                 }
 
                 @Override
