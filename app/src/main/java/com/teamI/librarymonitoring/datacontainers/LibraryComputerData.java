@@ -1,9 +1,10 @@
 package com.teamI.librarymonitoring.datacontainers;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LibraryComputerData {
+public class LibraryComputerData implements Serializable {
 
     private String strLibraryName;
 
@@ -34,6 +35,17 @@ public class LibraryComputerData {
         this.mapDesktopsInRooms = mapDesktopsInRooms;
     }
 
+    public int getTotalDesktops(){
+
+        int nTotalDesktops = 0;
+
+        for(Map.Entry<String, Integer> entry : mapDesktopsInRooms.entrySet()){
+            nTotalDesktops += entry.getValue();
+        }
+
+        return nTotalDesktops;
+    }
+
     public int getLaptops() {
         return nLaptops;
     }
@@ -53,4 +65,5 @@ public class LibraryComputerData {
     public void addPairToDesktopMap(String roomName, Integer nDesktops){
         this.mapDesktopsInRooms.put(roomName, nDesktops);
     }
+
 }

@@ -1,17 +1,24 @@
 package com.teamI.librarymonitoring.student;
 
+
 import static com.teamI.librarymonitoring.SharedPreferenceUtility.getOccupancyTimeStamp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teamI.librarymonitoring.IOpenDataResponseListener;
 import com.teamI.librarymonitoring.OpenDataApiHelper;
 import com.teamI.librarymonitoring.R;
+
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
 import com.teamI.librarymonitoring.datacontainers.OccupancyData;
 
@@ -19,6 +26,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.teamI.librarymonitoring.datacontainers.OccupancyData;
+
+import java.util.ArrayList;
+
 import java.util.List;
 
 public class TotalOccupancyActivity extends AppCompatActivity {
@@ -93,3 +105,4 @@ public class TotalOccupancyActivity extends AppCompatActivity {
 
         }
     }
+

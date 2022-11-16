@@ -32,6 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 
 // helper class for the Open Data API
@@ -175,24 +176,30 @@ public class OpenDataApiHelper {
                                 JSONObject temp =  response.getJSONObject("Webster");
                                 occupancyDataWebster.setLibraryName("Webster");
                                 occupancyDataWebster.setOccupancy(temp.getInt("Occupancy"));
-                                Date websterDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
-                                occupancyDataWebster.setLastRecordTime(websterDate);
+                                SimpleDateFormat websterDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                websterDate.setTimeZone(TimeZone.getTimeZone("Etc/GMT+4"));
+                                Date websterDate_new = websterDate.parse(temp.getString("LastRecordTime"));
+                                occupancyDataWebster.setLastRecordTime(websterDate_new);
                                 allOccupancyData.add(occupancyDataWebster);
 
                                 OccupancyData occupancyDataVanier = new OccupancyData();
                                 temp = response.getJSONObject("Vanier");
                                 occupancyDataVanier.setLibraryName("Vanier");
                                 occupancyDataVanier.setOccupancy(temp.getInt("Occupancy"));
-                                Date vanierDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
-                                occupancyDataVanier.setLastRecordTime(vanierDate);
+                                SimpleDateFormat vanierDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                vanierDate.setTimeZone(TimeZone.getTimeZone("Etc/GMT+4"));
+                                Date vanierDate_new = websterDate.parse(temp.getString("LastRecordTime"));
+                                occupancyDataVanier.setLastRecordTime(vanierDate_new);
                                 allOccupancyData.add(occupancyDataVanier);
 
                                 OccupancyData occupancyDataGreyNuns = new OccupancyData();
                                 temp = response.getJSONObject("GreyNuns");
                                 occupancyDataGreyNuns.setLibraryName("GreyNuns");
                                 occupancyDataGreyNuns.setOccupancy(temp.getInt("Occupancy"));
-                                Date greyNunsDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(temp.getString("LastRecordTime"));
-                                occupancyDataGreyNuns.setLastRecordTime(greyNunsDate);
+                                SimpleDateFormat greyNunsDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                greyNunsDate.setTimeZone(TimeZone.getTimeZone("Etc/GMT+4"));
+                                Date greyNunsDate_new = websterDate.parse(temp.getString("LastRecordTime"));
+                                occupancyDataGreyNuns.setLastRecordTime(greyNunsDate_new);
                                 allOccupancyData.add(occupancyDataGreyNuns);
 
 //TODO save the time stamp for the occupancy once the occupancy activity has been created

@@ -27,7 +27,7 @@ public class StudentMainActivity extends AppCompatActivity {
     protected Button btnOccupancy;
     protected Button btnNoiseLevel;
     protected Button btnFavorites;
-    protected Button btnHours, total_capacitybtn;
+    protected Button btnHours, btnComputerUse;
     TextView libraryhours;
     private List<ServiceHours> allServiceHours;
 
@@ -36,6 +36,7 @@ public class StudentMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
+        // for testing purposes
 
         boolean bHasAgreedToPrivacy = SharedPreferenceUtility.getPrivacyConsent(this);
         if(!bHasAgreedToPrivacy){
@@ -48,7 +49,7 @@ public class StudentMainActivity extends AppCompatActivity {
         btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
         btnFavorites = (Button) findViewById(R.id.btnFavorites);
         btnHours = (Button) findViewById(R.id.btnHours);
-        total_capacitybtn = findViewById(R.id.total_capacitybtn);
+        btnComputerUse = findViewById(R.id.btnComputerUse);
         libraryhours = findViewById(R.id.libraryhours_textview);
 
         allServiceHours = new ArrayList<ServiceHours>();
@@ -73,34 +74,33 @@ public class StudentMainActivity extends AppCompatActivity {
     }
     private void setupButtons() {
         btnNoiseLevel.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View view) {
-                                                 startActivity(new Intent(StudentMainActivity.this, StudentNoiseLevelActivity.class));
-                                             }
-                                         }
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StudentMainActivity.this, StudentNoiseLevelActivity.class));
+            }
+        }
         );
         btnOccupancy.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                startActivity(new Intent(StudentMainActivity.this, StudentOccupancyActivity.class));
-                                            }
-                                        }
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StudentMainActivity.this, StudentOccupancyActivity.class));
+            }
+        }
         );
 
         btnSettings.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View view) {
-                                               startActivity(new Intent(StudentMainActivity.this, StudentSettingsActivity.class));
-
-                                           }
-                                       }
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StudentMainActivity.this, StudentSettingsActivity.class));
+            }
+        }
         );
         btnFavorites.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                startActivity(new Intent(StudentMainActivity.this, StudentFavoritesActivity.class));
-                                            }
-                                        }
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StudentMainActivity.this, StudentFavoritesActivity.class));
+            }
+        }
         );
         btnHours.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,10 +108,10 @@ public class StudentMainActivity extends AppCompatActivity {
                 startActivity(new Intent(StudentMainActivity.this, HoursActivity.class));
             }
         });
-        total_capacitybtn.setOnClickListener(new View.OnClickListener() {
+        btnComputerUse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StudentMainActivity.this, TotalOccupancyActivity.class));
+                startActivity(new Intent(StudentMainActivity.this, ComputerUseActivity.class));
             }
         });
     }
