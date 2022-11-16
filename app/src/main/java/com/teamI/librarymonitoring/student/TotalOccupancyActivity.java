@@ -44,7 +44,7 @@ public class TotalOccupancyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total_occupancy);
 
-        librarycapacity_textview = (TextView) findViewById(R.id.librarycapacity_textview);
+        librarycapacity_textview = (TextView) findViewById(R.id.libraryoccupancy_textview);
 
         occupancyData = new ArrayList<OccupancyData>();
 

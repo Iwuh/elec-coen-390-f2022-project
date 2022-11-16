@@ -52,14 +52,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".student.TotalOccupancyActivity"
-            android:exported="false"
-            android:parentActivityName=".student.StudentOccupancyActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
 
         <meta-data
             android:name="OPEN_DATA_API_KEY"
