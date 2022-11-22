@@ -52,7 +52,7 @@ public class RoleChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferenceUtility.setIsLibrarian(RoleChoiceActivity.this);
-                Intent intent = new Intent(RoleChoiceActivity.this, LibrarianMainActivity.class);
+                Intent intent = new Intent(RoleChoiceActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
 
@@ -62,7 +62,7 @@ public class RoleChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferenceUtility.setIsStudent(RoleChoiceActivity.this);
-                Intent intent = new Intent(RoleChoiceActivity.this, LoginActivity.class);
+                Intent intent = new Intent(RoleChoiceActivity.this, StudentMainActivity.class);
                 startActivity(intent);
                 finish();
             }
