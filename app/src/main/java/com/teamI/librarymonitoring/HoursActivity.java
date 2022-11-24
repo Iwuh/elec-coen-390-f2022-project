@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.teamI.helper.FirebaseHelper;
+import com.teamI.librarymonitoring.datacontainers.Announcement;
 import com.teamI.librarymonitoring.datacontainers.LibraryComputerData;
 import com.teamI.librarymonitoring.datacontainers.OccupancyData;
 import com.teamI.librarymonitoring.datacontainers.ServiceHours;
@@ -29,6 +31,7 @@ public class HoursActivity extends AppCompatActivity {
     private List<ServiceHours> allServiceHours;
     private RecyclerView hoursRecyclerView;
     private HoursRecyclerViewAdapter hoursRecyclerViewAdapter;
+    private FirebaseHelper firebaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
