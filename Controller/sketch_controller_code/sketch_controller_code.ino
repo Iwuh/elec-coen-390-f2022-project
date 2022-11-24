@@ -11,43 +11,95 @@
 constexpr const char* FIREBASE_DATABASE_URL = "https://fir-b9c10-default-rtdb.firebaseio.com";
 constexpr const char* FIREBASE_API_KEY = "AIzaSyAjsikI9TXU2kSRZweVa8uqgLyiEPOTplg";
 
+// Globals for Firebase connection
 FirebaseData rtdb;
 FirebaseAuth auth;
 FirebaseConfig config;
-bool signupOK;
+bool signupOK = false;
 
-int ledPin1 = 5;  // choose the pins for the LEDs
-//int ledPin2 = 15;
-int sensorPin1 = 27;
-int sensorPin2 = 26;
-int pirState1 = LOW;  // assuming first no motion detected
-int pirState2 = LOW;
+// Pin assignments for the ultrasonic sensors
+int trigPin1 = D3;
+int echoPin1 = D4;
+int trigPin2 = D5;
+int echoPin2 = D6;
 
-int totalCount = 0;
-int currentCount = 0;
+// Globals for tracking occupancy events
+constexpr double SENSOR_LOW_TRIGGER_THRESHOLD = 0.9; // Sensor will register person passing by if distance measures less than this fraction of the calibrated value.
+double sensorLowThreshold1;
+double sensorLowThreshold2;
 
-constexpr int64_t UPDATE_INTERVAL_MICROS = 60 * 1000 * 1000;
-int64_t lastUpdate = 0;
-int64_t now;
+// 343 m/s * 100 cm/m * 1s/1000000us
+constexpr double US_TO_CM = 0.0343;
+volatile unsigned long pulseStart1;
+volatile unsigned long pulseStart2;
+
+constexpr int STATE_UNDETECTED = 0;
+constexpr int STATE_DETECTED = 1;
+volatile int sensorPrevState1 = STATE_UNDETECTED;
+volatile int sensorPrevState2 = STATE_UNDETECTED;
+
+volatile int totalCount = 0;
+
+constexpr unsigned long UPDATE_INTERVAL_MICROS = 60 * 1000 * 1000;
+unsigned long lastUpdate = 0;
 
 EventArray sensorEvents_1;
 EventArray sensorEvents_2;
 
-// Return the system timestamp in microseconds.
-int64_t getTimeMicros() {
-  struct timeval tv_now;
-  gettimeofday(&tv_now, NULL);
-  return (int64_t)tv_now.tv_sec * 1000000L + (int64_t)tv_now.tv_usec;
+/*void IRAM_ATTR echo1_ISR() {
+  int state = digitalRead(echoPin1);
+  if (state == HIGH) {
+    pulseStart1 = micros();
+  } else if (state == LOW) {
+    unsigned long pulseLength = micros() - pulseStart1;
+    double distance = pulseLength / 2 * US_TO_CM;
+    if (distance <= sensorLowThreshold1 && sensorPrevState1 == STATE_UNDETECTED) {
+      sensorPrevState1 = STATE_DETECTED;
+    }
+  }
+}*/
+
+// Find a sensor's default value and store the low trigger threshold in calibrationResult
+void calibrateSensor(int &trigPin, int &echoPin, double *calibrationResult) {
+  // Get 5 readings from the sensor
+  unsigned long readings[5];
+  for (int i = 0; i < 5; i++)
+  {
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);    
+    readings[i] = pulseIn(echoPin, HIGH);
+    delay(100);
+  }
+
+  // Sort the readings in place with insertion sort
+  for (int i = 1; i < 5; i++)
+  {
+    for (int j = i; j > 0; j--)
+    {
+      if (readings[j] < readings[j-1])
+      {
+        unsigned long temp = readings[j];
+        readings[j] = readings[j-1];
+        readings[j-1] = temp;
+      }
+    }
+  }
+  // Get the median, multiply it by the low fraction, and store it in the desired location.
+  *calibrationResult = readings[2] / 2 * US_TO_CM * SENSOR_LOW_TRIGGER_THRESHOLD;
 }
 
-// Polling
-
 void setup() {
-  pinMode(sensorPin1, INPUT_PULLUP);  // declare motion sensors as input
-  pinMode(sensorPin2, INPUT_PULLUP);
-  pinMode(ledPin1, OUTPUT);  // declare LED1 as output, the built in ESP32 chip led
-  //pinMode(ledPin2, OUTPUT);            // currently not functional due to lack of applicable LEDs
+
+  pinMode(trigPin1, OUTPUT);
+  pinMode(echoPin1, INPUT);
+  pinMode(trigPin2, OUTPUT);
+  pinMode(echoPin2, INPUT);
+
   Serial.begin(9600);
+
+  calibrateSensor(trigPin1, echoPin1, &sensorLowThreshold1);
+  calibrateSensor(trigPin2, echoPin2, &sensorLowThreshold2);
 
   WifiHelper helper;
   helper.ConnectToHomeNetwork();
@@ -72,65 +124,59 @@ void setup() {
 }
 
 void loop() {
-  now = getTimeMicros();
-  //Sensor 1
-  if (digitalRead(sensorPin1) == HIGH) {  // check if input1 is HIGH
-    digitalWrite(ledPin1, HIGH);          // turn LED1 ON in that case
-    if (pirState1 == LOW) {
-      // have just turned on
-      Serial.println("Sensor 1: Motion detected!");
-      // only want to print on the output change, not state
-      pirState1 = HIGH;
-      int64_t match = sensorEvents_2.findAndRemove(now);
-      if (match == -1) {
-        // no match found
-        sensorEvents_1.add(now);
-      } else {
-        // match found, this means a person has left
-        totalCount--;
-        Serial.println("A person has left.");
-      }
+  digitalWrite(trigPin1, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin1, LOW);
+
+  unsigned long sensor1Pulse = pulseIn(echoPin1, HIGH);
+  double sensor1Distance = sensor1Pulse / 2 * US_TO_CM;
+  if (sensor1Distance <= sensorLowThreshold1 && sensorPrevState1 == STATE_UNDETECTED) {
+    // If there is someone in the way who wasn't there before
+    unsigned long now = micros();
+    sensorPrevState1 = STATE_DETECTED;
+    unsigned long match = sensorEvents_2.findAndRemove(now);
+    if (match == -1) {
+      // no match found
+      sensorEvents_1.add(now);
+    } else {
+      // match found, this means a person has left
+      totalCount--;
+      Serial.println("A person has left.");
     }
-  } else {
-    digitalWrite(ledPin1, LOW);  // turn LED1 OFF
-    if (pirState1 == HIGH) {
-      // have just turned off
-      Serial.println("Sensor 1: Motion ended!");
-      // only want to print on the output change, not state
-      pirState1 = LOW;
-    }
+  } else if (sensor1Distance > sensorLowThreshold1 && sensorPrevState1 == STATE_DETECTED) {
+    // If there was someone in the way, but they moved
+    sensorPrevState1 == STATE_UNDETECTED;    
   }
 
-  //Sensor 2
-  if (digitalRead(sensorPin2) == HIGH) {  // check if input1 is HIGH
-    digitalWrite(ledPin1, HIGH);          // turn LED1 ON in that case
-    //digitalWrite(ledPin2, HIGH);  // turn LED2 ON, currently not functional due to lack of applicable LEDs
-    if (pirState2 == LOW) {
-      // have just turned on
-      Serial.println("Sensor 2: Motion detected!");
-      // only want to print on the output change, not state
-      pirState2 = HIGH;
-      int64_t match = sensorEvents_1.findAndRemove(now);
-      if (match == -1) {
-        // no match found
-        sensorEvents_2.add(now);
-      } else {
-        // match found, this means a person has entered
-        totalCount++;
-        Serial.println("A person has entered.");
-      }
+  // The HC-SR04 datasheet recommends a minimum 60ms polling cycle.
+  // We stagger the two sensors' polling cycles by 30ms to avoid crosstalk.
+  delay(30);  
+
+  digitalWrite(trigPin2, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin2, LOW);
+
+  unsigned long sensor2Pulse = pulseIn(echoPin2, HIGH);
+  double sensor2Distance = sensor2Pulse / 2 * US_TO_CM;
+  if (sensor2Distance <= sensorLowThreshold2 && sensorPrevState2 == STATE_UNDETECTED) {
+    // If there is someone in the way who wasn't there before
+    unsigned long now = micros();    
+    sensorPrevState2 = STATE_DETECTED;
+    unsigned long match = sensorEvents_1.findAndRemove(now);
+    if (match == -1) {
+      // no match found
+      sensorEvents_2.add(now);
+    } else {
+      // match found, this means a person has left
+      totalCount--;
+      Serial.println("A person has left.");
     }
-  } else {
-    digitalWrite(ledPin1, LOW);  //  turn LED1 OFF
-    //digitalWrite(ledPin2, LOW); // turn LED2 OFF, currently not functional due to lack of applicable LEDs
-    if (pirState2 == HIGH) {
-      // have just turned off
-      Serial.println("Sensor 2: Motion ended!");
-      // only want to print on the output change, not state
-      pirState2 = LOW;
-    }
+  } else if (sensor2Distance > sensorLowThreshold2 && sensorPrevState2 == STATE_DETECTED) {
+    // If there was someone in the way, but they moved
+    sensorPrevState1 == STATE_UNDETECTED;    
   }
 
+  unsigned long now = micros();
   sensorEvents_1.clean(now);
   sensorEvents_2.clean(now);
 
@@ -142,107 +188,6 @@ void loop() {
     lastUpdate = now;
   }
   
-  delay(50);
+  delay(30);
 
 }
-
-
-
-//Tests and extra Examples
-
-//Example using interrupts
-/*
-void IRAM_ATTR sensor1_ISR() {
-  int64_t now = getTimeMicros();
-  int64_t match = sensorEvents_2.findAndRemove(now);
-  if (match == -1) {
-    // no match found
-    sensorEvents_1.add(now);
-  } else {
-    // match found, this means a person has left
-    totalCount--;
-  }  
-}
-
-void IRAM_ATTR sensor2_ISR() {
-  int64_t now = getTimeMicros();
-  int64_t match = sensorEvents_1.findAndRemove(now);
-  if (match == -1) {
-    // no match found
-    sensorEvents_2.add(now);
-  } else {
-    // match found, this means a person has entered
-    totalCount++;
-  }  
-}
-
-void setup() {
-  // Serial port for debugging purposes
-  Serial.begin(9600);
-  
-  // PIR Motion Sensor mode INPUT_PULLUP
-  pinMode(sensorPin1, INPUT_PULLUP);  
-  pinMode(sensorPin2, INPUT_PULLUP);
-  // Set motionSensor pin as interrupt, assign interrupt function and set RISING mode
-  attachInterrupt(digitalPinToInterrupt(sensorPin1), sensor1_ISR, RISING);
-  attachInterrupt(digitalPinToInterrupt(sensorPin2), sensor2_ISR, RISING);
-
-  // Set LED to LOW
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW);
-}
-
-void loop() {
-  now = getTimeMicros();
-  Serial.print("Time: ");
-  Serial.print(now);
-  Serial.print(", Total count: ");
-  Serial.println(totalCount);
-  delay(1000);
-}
-*/
-
-/*
-//Test - blinking LED
-void setup()  {
-  pinMode(27,OUTPUT);
-  Serial.begin(9600);
-}
-void loop()  {
-  digitalWrite(27,HIGH);
-  delay(500);
-  digitalWrite(27,LOW);
-  delay(500);
-}
-*/
-
-/*
-//Test - simple, no LEDs
-int sensorPin1 =26;                
-int sensorPin2 = 27;
-
-void setup()  {
-  Serial.begin(9600);
-  pinMode(sensorPin1,INPUT);
-  pinMode(sensorPin2,INPUT);
-  digitalWrite(sensorPin1,LOW);
-  digitalWrite(sensorPin2,LOW);
-}
-void loop()  {
-    //Sensor 1
-    if(digitalRead(sensorPin1)==HIGH)  {
-      Serial.println("Sensor 1: Motion detected!");
-    }
-    else  {
-      Serial.println("Sensor 1: No motion!");
-    }
-    //Sensor 2
-    if(digitalRead(sensorPin2)==HIGH)  {
-      Serial.println("Sensor 2: Motion detected!");
-    }
-    else  {
-      Serial.println("Sensor 2: No motion!");
-    }
-    delay(1000);
-}
-*/
