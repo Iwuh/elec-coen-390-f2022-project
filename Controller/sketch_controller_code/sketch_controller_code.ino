@@ -192,9 +192,9 @@ void loop() {
       // no match found
       sensorEvents_2.add(now);
     } else {
-      // match found, this means a person has left
-      totalCount--;
-      Serial.println("A person has left.");
+      // match found, this means a person has entered
+      totalCount++;
+      Serial.println("A person has entered.");
     }
   }
 
