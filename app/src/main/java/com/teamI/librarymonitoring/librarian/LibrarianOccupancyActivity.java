@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
 import com.teamI.librarymonitoring.datacontainers.SensorReading;
@@ -28,7 +31,8 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
     protected RecyclerView readingsRecyclerView;
     protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
     protected FloatingActionButton fBtnOccupancyDetails;
-
+    protected Handler refreshHandler;
+    protected final static int msBetweenUpdates = 20000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,35 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
             }
         }
         );
+
+        refreshHandler = new Handler();
+        populateRecyclerView();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        refreshHandler.postDelayed(new RefreshRunnable(), msBetweenUpdates);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        refreshHandler.removeCallbacksAndMessages(null);
+    }
+
+    private class RefreshRunnable implements Runnable{
+        @Override
+        public void run(){
+            FirebaseHelper firebaseHelper = new FirebaseHelper();
+            firebaseHelper.refreshAllOccupancyReadings(LibrarianOccupancyActivity.this);
+            Parcelable recyclerViewState = readingsRecyclerView.getLayoutManager().onSaveInstanceState();
+            populateRecyclerView();
+            // restore state
+            // this is to avoid the recyclerview scrolling to top on every refresh
+            readingsRecyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+            refreshHandler.postDelayed(this, 5000);
+        }
     }
 
     protected void populateRecyclerView(){
@@ -55,6 +88,10 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
         readingsRecyclerView.setLayoutManager(llm);
         readingsRecyclerView.setAdapter(sensorReadingRecyclerViewAdapter);
 
+        // need to remove the decoration. Else, the recyclerview keeps growing until it does not fit on the page
+        if(readingsRecyclerView.getItemDecorationCount() != 0){
+            readingsRecyclerView.removeItemDecorationAt(0);
+        }
         readingsRecyclerView.addItemDecoration(new DividerItemDecoration(readingsRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }
 
