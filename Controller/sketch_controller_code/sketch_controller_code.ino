@@ -99,7 +99,11 @@ void setup() {
   Serial.begin(9600);
 
   calibrateSensor(trigPin1, echoPin1, &sensorLowThreshold1);
+  Serial.print("Sensor 1 threshold: ");
+  Serial.println(sensorLowThreshold1);
   calibrateSensor(trigPin2, echoPin2, &sensorLowThreshold2);
+  Serial.print("Sensor 2 threshold: ");
+  Serial.println(sensorLowThreshold2);
 
   WifiHelper helper;
   helper.ConnectToHomeNetwork();
@@ -130,6 +134,13 @@ void loop() {
 
   unsigned long sensor1Pulse = pulseIn(echoPin1, HIGH);
   double sensor1Distance = sensor1Pulse / 2 * US_TO_CM;
+  
+  if (sensor1Distance <= sensorLowThreshold1)
+  {
+    Serial.print("Sensor 1 detected: ");
+    Serial.println(sensor1Distance);
+  }
+
   if (sensor1Distance <= sensorLowThreshold1 && sensorPrevState1 == STATE_UNDETECTED) {
     // If there is someone in the way who wasn't there before
     unsigned long now = micros();
@@ -158,6 +169,13 @@ void loop() {
 
   unsigned long sensor2Pulse = pulseIn(echoPin2, HIGH);
   double sensor2Distance = sensor2Pulse / 2 * US_TO_CM;
+
+  if (sensor2Distance <= sensorLowThreshold2)
+  {
+    Serial.print("Sensor 2 detected: ");
+    Serial.println(sensor1Distance);
+  }
+
   if (sensor2Distance <= sensorLowThreshold2 && sensorPrevState2 == STATE_UNDETECTED) {
     // If there is someone in the way who wasn't there before
     unsigned long now = micros();    
