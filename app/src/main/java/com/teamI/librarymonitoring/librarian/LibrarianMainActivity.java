@@ -1,34 +1,48 @@
 package com.teamI.librarymonitoring.librarian;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.HoursActivity;
+import com.teamI.librarymonitoring.PassAnnouncementInterface;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
 import com.teamI.librarymonitoring.splash.Splash;
+import com.teamI.librarymonitoring.student.PassDataInterface;
 
-public class LibrarianMainActivity extends AppCompatActivity {
+public class LibrarianMainActivity extends AppCompatActivity implements PassAnnouncementInterface {
 
     protected Button btnSettings;
     protected Button btnOccupancy;
     protected Button btnNoiseLevel;
     protected Button btnSensorsConnected;
-    protected Button btnHours;
+    protected Button btnHours, btnAnnouncements;
     FirebaseHelper firebaseHelper;
+    protected String announcement;
+    protected String announcement_timestamp;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_librarian_main);
         firebaseHelper = new FirebaseHelper();
+
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
 
         firebaseHelper.Noise_sensor1(LibrarianMainActivity.this,"Sensors");
         firebaseHelper.Noise_sensor2(LibrarianMainActivity.this,"Sensors");
@@ -52,6 +66,7 @@ public class LibrarianMainActivity extends AppCompatActivity {
         btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
         btnSensorsConnected = (Button) findViewById(R.id.btnSensorsConnected);
         btnHours = (Button) findViewById(R.id.btnHours);
+        btnAnnouncements = (Button) findViewById(R.id.btnAnnouncements);
 
         setupButtons();
 
@@ -99,10 +114,76 @@ public class LibrarianMainActivity extends AppCompatActivity {
             }
         });
 
+        btnAnnouncements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(LibrarianMainActivity.this);
+                announcementsFragment.show(getSupportFragmentManager(), "Add Announcements");
+
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.librarian_activity_menu,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(/*@NonNull*/ MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.sentannouncements:
+                //Intent intent = new Intent(LibrarianMainActivity.this, AnnouncementsActivity.class);
+                //intent.putExtra("announcement",announcement);
+                //startActivity(intent);
+                //startActivity(new Intent(LibrarianMainActivity.this,AnnouncementsActivity.class));
+                goToAnnouncemtnActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+    /*public void DataReceived(String data)
+    {
+        //System.out.println(data);
+        //announcement= data;
+    }*/
+
+    @Override
+    public void AnnouncementReceived(String announcement_fragment) {
+        announcement = announcement_fragment;
+
+    }
+
+    @Override
+    public void TimestampReceived(String timestamp_fragment) {
+        announcement_timestamp = timestamp_fragment;
+
     }
 
 
     private void startPrivacyActivity(){
         startActivity(new Intent(LibrarianMainActivity.this, PrivacyActivity.class));
     }
+
+    private void goToAnnouncemtnActivity() {
+        Intent intent = new Intent(LibrarianMainActivity.this, AnnouncementsActivity.class);
+        intent.putExtra("announcement",announcement);
+        intent.putExtra("announcement_timestamp",announcement_timestamp);
+        startActivity(intent);
+    }
+
+    /*private void setAnnouncementRecyclerview()
+    {
+      System.out.println(a);
+    }*/
 }
