@@ -40,7 +40,7 @@ volatile int sensorPrevState2 = STATE_UNDETECTED;
 
 volatile int totalCount = 0;
 
-constexpr unsigned long UPDATE_INTERVAL_MICROS = 60 * 1000 * 1000;
+constexpr unsigned long UPDATE_INTERVAL_MICROS = 15 * 1000 * 1000;
 unsigned long lastUpdate = 0;
 
 EventArray sensorEvents_1;
@@ -135,7 +135,8 @@ void loop() {
   unsigned long sensor1Pulse = pulseIn(echoPin1, HIGH);
   double sensor1Distance = sensor1Pulse / 2 * US_TO_CM;
   
-  if (sensor1Distance <= sensorLowThreshold1)
+  // No state
+  /*if (sensor1Distance <= sensorLowThreshold1)
   {
     Serial.print("Sensor 1 detected: ");
     Serial.println(sensor1Distance);
@@ -150,8 +151,31 @@ void loop() {
       totalCount--;
       Serial.println("A person has left.");
     }
+  }*/
+
+  // Trigger on change from detected to undetected
+  if (sensorPrevState1 == STATE_UNDETECTED && sensor1Distance <= sensorLowThreshold1) {
+    sensorPrevState1 == STATE_DETECTED;
+  } else if (sensorPrevState1 == STATE_DETECTED && sensor1Distance > sensorLowThreshold1) {
+    Serial.print("Sensor 1 detected: ");
+    Serial.println(sensor1Distance);
+    unsigned long now = micros();
+    sensorPrevState1 = STATE_UNDETECTED;
+    unsigned long match = sensorEvents_2.findAndRemove(now);
+    if (match == -1) {
+      // no match found
+      sensorEvents_1.add(now);
+    } else {
+      // match found, this means a person has left
+      totalCount--;
+      Serial.println("A person has left.");
+    }
+  } else if (sensorPrevState1 != STATE_DETECTED && sensorPrevState1 != STATE_DETECTED) {
+    // This should never happen, but if it does, then reset to undetected.
+    sensorPrevState1 == STATE_UNDETECTED;
   }
 
+  // Trigger on change from undetected to detected
   /*if (sensor1Distance <= sensorLowThreshold1 && sensorPrevState1 == STATE_UNDETECTED) {
     // If there is someone in the way who wasn't there before
     unsigned long now = micros();
@@ -181,7 +205,7 @@ void loop() {
   unsigned long sensor2Pulse = pulseIn(echoPin2, HIGH);
   double sensor2Distance = sensor2Pulse / 2 * US_TO_CM;
 
-  if (sensor2Distance <= sensorLowThreshold2)
+  /*if (sensor2Distance <= sensorLowThreshold2)
   {
     Serial.print("Sensor 2 detected: ");
     Serial.println(sensor2Distance);
@@ -196,6 +220,27 @@ void loop() {
       totalCount++;
       Serial.println("A person has entered.");
     }
+  }*/
+
+  if (sensorPrevState2 == STATE_UNDETECTED && sensor2Distance <= sensorLowThreshold2) {
+    sensorPrevState2 == STATE_DETECTED;
+  } else if (sensorPrevState2 == STATE_DETECTED && sensor2Distance > sensorLowThreshold2) {
+    Serial.print("Sensor 2 detected: ");
+    Serial.println(sensor2Distance);
+    unsigned long now = micros();    
+    sensorPrevState2 = STATE_DETECTED;
+    unsigned long match = sensorEvents_1.findAndRemove(now);
+    if (match == -1) {
+      // no match found
+      sensorEvents_2.add(now);
+    } else {
+      // match found, this means a person has entered
+      totalCount++;
+      Serial.println("A person has entered.");
+    }
+  } else if (sensorPrevState2 != STATE_DETECTED && sensorPrevState2 != STATE_DETECTED) {
+    // This should never happen, but if it does, then reset to undetected.
+    sensorPrevState2 == STATE_UNDETECTED;
   }
 
   /*if (sensor2Distance <= sensorLowThreshold2 && sensorPrevState2 == STATE_UNDETECTED) {
