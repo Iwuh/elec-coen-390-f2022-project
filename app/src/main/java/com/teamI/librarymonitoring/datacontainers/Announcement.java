@@ -1,32 +1,42 @@
 package com.teamI.librarymonitoring.datacontainers;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.Date;
 
 public class Announcement {
+    private String message;
 
-    private String announcement_data;
-    private String Timestamp;
+     private String timestamp;
 
-    private Announcement() {}
+    public Announcement(){}
 
-    public Announcement(String announcement_data, String Timestamp) {
-        this.announcement_data = announcement_data;
-        this.Timestamp = Timestamp;
+    public Announcement(String message,String timeStamp){
+        this.message= message;
+        this.timestamp = timeStamp;
     }
 
-    public String getAnnouncement_data() {
-        return announcement_data;
-    }
-
-    public void setAnnouncement_data(String announcement_data) {
-        this.announcement_data = announcement_data;
-    }
-
-    public String getTimestamp() {
-        return Timestamp;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public void setTimestamp(String timestamp) {
-        Timestamp = timestamp;
+        this.timestamp = timestamp;
+    }
+
+        public String getTimestamp() {
+        return timestamp;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return "Announcement{" +
+                "message='" + message + '\'' +
+                ", timeStamp='" + timestamp + '\'' +
+                '}';
     }
 }
