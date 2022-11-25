@@ -139,9 +139,20 @@ void loop() {
   {
     Serial.print("Sensor 1 detected: ");
     Serial.println(sensor1Distance);
+    unsigned long now = micros();
+    sensorPrevState1 = STATE_DETECTED;
+    unsigned long match = sensorEvents_2.findAndRemove(now);
+    if (match == -1) {
+      // no match found
+      sensorEvents_1.add(now);
+    } else {
+      // match found, this means a person has left
+      totalCount--;
+      Serial.println("A person has left.");
+    }
   }
 
-  if (sensor1Distance <= sensorLowThreshold1 && sensorPrevState1 == STATE_UNDETECTED) {
+  /*if (sensor1Distance <= sensorLowThreshold1 && sensorPrevState1 == STATE_UNDETECTED) {
     // If there is someone in the way who wasn't there before
     unsigned long now = micros();
     sensorPrevState1 = STATE_DETECTED;
@@ -157,7 +168,7 @@ void loop() {
   } else if (sensor1Distance > sensorLowThreshold1 && sensorPrevState1 == STATE_DETECTED) {
     // If there was someone in the way, but they moved
     sensorPrevState1 == STATE_UNDETECTED;    
-  }
+  }*/
 
   // The HC-SR04 datasheet recommends a minimum 60ms polling cycle.
   // We stagger the two sensors' polling cycles by 30ms to avoid crosstalk.
@@ -173,10 +184,21 @@ void loop() {
   if (sensor2Distance <= sensorLowThreshold2)
   {
     Serial.print("Sensor 2 detected: ");
-    Serial.println(sensor1Distance);
+    Serial.println(sensor2Distance);
+    unsigned long now = micros();    
+    sensorPrevState2 = STATE_DETECTED;
+    unsigned long match = sensorEvents_1.findAndRemove(now);
+    if (match == -1) {
+      // no match found
+      sensorEvents_2.add(now);
+    } else {
+      // match found, this means a person has left
+      totalCount--;
+      Serial.println("A person has left.");
+    }
   }
 
-  if (sensor2Distance <= sensorLowThreshold2 && sensorPrevState2 == STATE_UNDETECTED) {
+  /*if (sensor2Distance <= sensorLowThreshold2 && sensorPrevState2 == STATE_UNDETECTED) {
     // If there is someone in the way who wasn't there before
     unsigned long now = micros();    
     sensorPrevState2 = STATE_DETECTED;
@@ -192,7 +214,7 @@ void loop() {
   } else if (sensor2Distance > sensorLowThreshold2 && sensorPrevState2 == STATE_DETECTED) {
     // If there was someone in the way, but they moved
     sensorPrevState1 == STATE_UNDETECTED;    
-  }
+  }*/
 
   unsigned long now = micros();
   sensorEvents_1.clean(now);
