@@ -235,7 +235,7 @@ void loop() {
     Serial.print("Sensor 2 detected: ");
     Serial.println(sensor2Distance);
     unsigned long now = micros();    
-    sensorPrevState2 = STATE_DETECTED;
+    sensorPrevState2 = STATE_UNDETECTED;
     unsigned long match = sensorEvents_1.findAndRemove(now);
     if (match == -1) {
       // no match found
@@ -248,7 +248,7 @@ void loop() {
   } else if (sensorPrevState2 != STATE_DETECTED && sensorPrevState2 != STATE_UNDETECTED) {
     // This should never happen, but if it does, then reset to undetected.
     Serial.print("Reset sensor 2 state, incorrect state was ");
-    Serial.println(sensorPrevState1);
+    Serial.println(sensorPrevState2);
     sensorPrevState2 = STATE_UNDETECTED;
   }
 
