@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.teamI.helper.FirebaseHelper;
+import com.teamI.librarymonitoring.datacontainers.Announcement;
 import com.teamI.librarymonitoring.datacontainers.LibraryComputerData;
 import com.teamI.librarymonitoring.datacontainers.OccupancyData;
 import com.teamI.librarymonitoring.datacontainers.ServiceHours;
@@ -29,6 +31,7 @@ public class HoursActivity extends AppCompatActivity {
     private List<ServiceHours> allServiceHours;
     private RecyclerView hoursRecyclerView;
     private HoursRecyclerViewAdapter hoursRecyclerViewAdapter;
+    private FirebaseHelper firebaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class HoursActivity extends AppCompatActivity {
                     Date currentTimeStamp = new Date();
                     long diff = currentTimeStamp.getTime() - finalSavedLastUpdatedHours.getTime();
                     long minutes = (diff/1000)/60;
-                 // Toast.makeText(HoursActivity.this, minutes + "Minute Time difference", Toast.LENGTH_LONG).show();
+                 //Toast.makeText(HoursActivity.this, minutes + "Time difference", Toast.LENGTH_LONG).show();
 
                     if(minutes >= 15){
                         callOpenApi();
