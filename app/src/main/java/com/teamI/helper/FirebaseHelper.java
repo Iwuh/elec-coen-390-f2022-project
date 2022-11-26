@@ -19,6 +19,9 @@ import com.teamI.librarymonitoring.datacontainers.Announcement;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// TODO: this class should definitely be cleaned up, it is not extensible at all
+
 public class FirebaseHelper {
 
     String getData;
@@ -33,6 +36,9 @@ public class FirebaseHelper {
     public static String CalgaryO;
     public static String VancouverO;
     DatabaseReference SensorsData;
+
+    // TODO: why do we need to pass a string to every function?
+    // in all function calls, the string passed ends up being "Sensors" anyway
 
     public void Noise_sensor1(Context context, String name) {
         SensorsData = FirebaseDatabase.getInstance().getReference();
@@ -117,6 +123,17 @@ public class FirebaseHelper {
 
         });
     }
+
+    // function to refresh all occupancy sensors
+    public void refreshAllOccupancyReadings(Context context){
+        this.Occ_sensor1(context, "Sensors");
+        this.Occ_sensor2(context, "Sensors");
+        this.Occ_sensor3(context, "Sensors");
+        this.Occ_sensor4(context, "Sensors");
+        this.Occ_sensor5(context, "Sensors");
+
+    }
+
 
     public void Occ_sensor1(Context context, String name) {
         SensorsData = FirebaseDatabase.getInstance().getReference();
