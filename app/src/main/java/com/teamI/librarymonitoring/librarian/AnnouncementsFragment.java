@@ -16,8 +16,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.PassAnnouncementInterface;
 import com.teamI.librarymonitoring.R;
+import com.teamI.librarymonitoring.datacontainers.Announcement;
 import com.teamI.librarymonitoring.student.PassDataInterface;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +32,7 @@ public class AnnouncementsFragment extends DialogFragment {
     private Button sendannouncement, cancelannouncement;
     private EditText announcement_editTextText;
     private TextView areyousure_textView;
+    FirebaseHelper firebaseHelper;
     PassAnnouncementInterface passAnnouncementInterface;
 
     public AnnouncementsFragment(PassAnnouncementInterface passAnnouncementInterface) {
@@ -102,8 +106,11 @@ public class AnnouncementsFragment extends DialogFragment {
 
                         //String final_data = add_announcements + ",," + timestamp;
 
-                        passAnnouncementInterface.AnnouncementReceived(add_announcements);
-                        passAnnouncementInterface.TimestampReceived(timestamp);
+                        //passAnnouncementInterface.AnnouncementReceived(add_announcements);
+                        //passAnnouncementInterface.TimestampReceived(timestamp);
+                        Announcement announcement = new Announcement(add_announcements,timestamp);
+                        System.out.println(announcement.toString());
+                        firebaseHelper.setAnnouncement(announcement);
                         sendannouncement.setText("Send");
                         cancelannouncement.setText("Cancel");
                         dismiss();

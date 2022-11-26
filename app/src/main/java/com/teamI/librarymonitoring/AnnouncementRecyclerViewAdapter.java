@@ -53,7 +53,7 @@ public class AnnouncementRecyclerViewAdapter extends RecyclerView.Adapter<Announ
     @Override
     public void onBindViewHolder(@NonNull AnnouncementRecyclerViewAdapter.ViewHolder holder, int position) {
         // display the readings from the list
-        holder.getAnnouncementdataTextView().setText(announcementList.get(position).getAnnouncement_data());
+        holder.getAnnouncementdataTextView().setText(announcementList.get(position).getMessage());
         holder.getAnnouncementTimestampTextView().setText(announcementList.get(position).getTimestamp());
     }
 

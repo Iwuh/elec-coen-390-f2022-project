@@ -19,6 +19,7 @@ import android.util.JsonReader;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.AnnouncementRecyclerViewAdapter;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
@@ -37,6 +38,8 @@ public class AnnouncementsActivity extends AppCompatActivity {
 
     protected RecyclerView announcement_recyclerview;
     protected AnnouncementRecyclerViewAdapter announcementRecyclerViewAdapter;
+    FirebaseHelper firebaseHelper;
+    List<Announcement> announcements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +48,15 @@ public class AnnouncementsActivity extends AppCompatActivity {
 
         announcement_recyclerview = findViewById(R.id.announcement_recyclerview);
 
-        populateRecyclerView();
+        //announcements = firebaseHelper.getAnnouncements();
+
+
+
+       // populateRecyclerView();
 
     }
 
-    protected void populateRecyclerView(){
+    /*protected void populateRecyclerView(){
         List<Announcement> announcementList = getAnnouncementData();
         LinearLayoutManager llm = new LinearLayoutManager(this);
         announcementRecyclerViewAdapter = new AnnouncementRecyclerViewAdapter(announcementList);
@@ -61,10 +68,8 @@ public class AnnouncementsActivity extends AppCompatActivity {
     }
 
     private List<Announcement> getAnnouncementData(){
-        // for now, populate a list of dummy sensor readings
         List<Announcement> announcementList = new ArrayList<Announcement>();
-        //SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-        //String timestamp = "Timestamp: " + s.format(new Date());
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -75,34 +80,7 @@ public class AnnouncementsActivity extends AppCompatActivity {
                 announcementList.add(new Announcement(announcement, Timestamp));
         }
         return announcementList;
-    }
+    }*/
 
-    private static Context context;
-    private static SharedPreferences sharedPreferences = context.getSharedPreferences("Announcements", Context.MODE_PRIVATE);
-    private static SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-    public <T> void setList(String key, List<T> list) {
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-
-        set(key, json);
-    }
-
-    public static void set(String key, String value) {
-        editor.putString(key, value);
-        editor.commit();
-    }
-
-    public List<Announcement> getList(){
-        List<Announcement> arrayItems = null;
-        String serializedObject = sharedPreferences.getString("Announcements", null);
-        if (serializedObject != null) {
-            Gson gson = new Gson();
-            Type type = new TypeToken<List<Announcement>>(){}.getType();
-            arrayItems = gson.fromJson(serializedObject, type);
-        }
-        return arrayItems;
-    }
 
 }

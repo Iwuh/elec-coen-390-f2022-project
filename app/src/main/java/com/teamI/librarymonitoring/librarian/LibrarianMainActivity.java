@@ -18,6 +18,7 @@ import com.teamI.librarymonitoring.PassAnnouncementInterface;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
+import com.teamI.librarymonitoring.datacontainers.Announcement;
 import com.teamI.librarymonitoring.splash.Splash;
 import com.teamI.librarymonitoring.student.PassDataInterface;
 
@@ -121,8 +122,12 @@ public class LibrarianMainActivity extends AppCompatActivity implements PassAnno
                 AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(LibrarianMainActivity.this);
                 announcementsFragment.show(getSupportFragmentManager(), "Add Announcements");
 
+
+
             }
         });
+
+        System.out.println(firebaseHelper.getAnnouncements());
 
     }
 
@@ -139,10 +144,6 @@ public class LibrarianMainActivity extends AppCompatActivity implements PassAnno
 
         switch(item.getItemId()){
             case R.id.sentannouncements:
-                //Intent intent = new Intent(LibrarianMainActivity.this, AnnouncementsActivity.class);
-                //intent.putExtra("announcement",announcement);
-                //startActivity(intent);
-                //startActivity(new Intent(LibrarianMainActivity.this,AnnouncementsActivity.class));
                 goToAnnouncemtnActivity();
                 return true;
             default:
@@ -151,12 +152,6 @@ public class LibrarianMainActivity extends AppCompatActivity implements PassAnno
     }
 
 
-
-    /*public void DataReceived(String data)
-    {
-        //System.out.println(data);
-        //announcement= data;
-    }*/
 
     @Override
     public void AnnouncementReceived(String announcement_fragment) {
@@ -177,8 +172,9 @@ public class LibrarianMainActivity extends AppCompatActivity implements PassAnno
 
     private void goToAnnouncemtnActivity() {
         Intent intent = new Intent(LibrarianMainActivity.this, AnnouncementsActivity.class);
-        intent.putExtra("announcement",announcement);
-        intent.putExtra("announcement_timestamp",announcement_timestamp);
+        //firebaseHelper.setAnnouncement(new Announcement(announcement,announcement_timestamp));
+        //intent.putExtra("announcement",announcement);
+        //intent.putExtra("announcement_timestamp",announcement_timestamp);
         startActivity(intent);
     }
 
