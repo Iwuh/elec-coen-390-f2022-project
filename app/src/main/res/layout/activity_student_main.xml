@@ -106,7 +106,7 @@
 
     <Button
         android:id="@+id/btnHours"
-        android:layout_width="200sp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginStart="106dp"
         android:layout_marginTop="10dp"
