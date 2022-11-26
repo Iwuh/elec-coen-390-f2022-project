@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.teamI.librarymonitoring.student.StudentMainActivity;
 import com.teamI.model.Model;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -73,7 +75,14 @@ public class RegistrationActivity extends AppCompatActivity {
                 mProgressDialogue.setMessage("Please wait while we are processing your information");
                 mProgressDialogue.setCanceledOnTouchOutside(false);
                 mProgressDialogue.show();
-                registerUser(email_register_edittext.getText().toString(),password_register_edittext.getText().toString());
+                try{
+                    registerUser(email_register_edittext.getText().toString(),password_register_edittext.getText().toString());
+                }
+                catch(Exception ex){
+                    Toast.makeText(RegistrationActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    password_register_edittext.setText("");
+                }
+
 
 
             }
@@ -84,41 +93,48 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     }
-    private void registerUser(String email, String password) {
+    private void registerUser(String email, String password) throws Exception{
 
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    String rep = email.replace(".","");
-                    pushUser = FirebaseDatabase.getInstance().getReference().child("users").child(rep);
-                    pushUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Model model = new Model (firstname_edittext.getText().toString(),lastname_edittext.getText().toString(),email,password);
-                            pushUser.setValue(model);
+                try{
+                    if (task.isSuccessful()){
+                        String rep = email.replace(".","");
+                        pushUser = FirebaseDatabase.getInstance().getReference().child("users").child(rep);
+                        pushUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Model model = new Model (firstname_edittext.getText().toString(),lastname_edittext.getText().toString(),email,password);
+                                pushUser.setValue(model);
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        Toast.makeText(RegistrationActivity.this,"Registration successful", Toast.LENGTH_LONG).show();
+                        mProgressDialogue.dismiss();
+                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        FirebaseUser user = mAuth.getCurrentUser();
+                    }
+                    else {
+                       throw new Exception(task.getResult().toString());
+                    }
+                    }
+                    catch(Exception ex){
+                        // get a readable message to show
+                        String fullMessage = ex.getMessage();
+                        int indexToStartAt = fullMessage.indexOf(":") + 2;
+                        String messageWithStartCut = fullMessage.substring(indexToStartAt);
+                        mProgressDialogue.dismiss();
+                        Toast.makeText(RegistrationActivity.this, messageWithStartCut, Toast.LENGTH_LONG).show();
+                        password_register_edittext.setText("");
+                    }
 
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+}
 
-                        }
-                    });
-                    Toast.makeText(RegistrationActivity.this,"Registartion successful", Toast.LENGTH_LONG).show();
-                    mProgressDialogue.dismiss();
-                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    FirebaseUser user = mAuth.getCurrentUser();
-
-                }
-                else {
-
-                    mProgressDialogue.dismiss();
-
-                    Toast.makeText(RegistrationActivity.this,"Registartion failed"+task.getResult(), Toast.LENGTH_LONG).show();
-                }
-            }
         });
 
     }
