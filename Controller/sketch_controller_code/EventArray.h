@@ -77,7 +77,7 @@ private:
   // The maximum number of events that can be stored in the array.
   static constexpr size_t ARRAY_MAX = 50;
   // The minimum time threshold between sensor triggers for a pair to be considered an enter or leave event.
-  static constexpr unsigned long MIN_TH = 500000;
+  static constexpr unsigned long MIN_TH = 300000;
   // The maximum time threshold between sensor triggers for a pair to be considered an enter or leave event.
   // i.e., the difference between the pair must be greater than MIN_TH but less than MAX_TH.
   static constexpr unsigned long MAX_TH = 2000000;
