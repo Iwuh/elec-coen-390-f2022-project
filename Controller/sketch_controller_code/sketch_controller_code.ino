@@ -171,7 +171,7 @@ void loop() {
       totalCount--;
       Serial.println("A person has left.");
     }
-  } else if (sensorPrevState1 != STATE_DETECTED && sensorPrevState1 != STATE_DETECTED) {
+  } else if (sensorPrevState1 != STATE_DETECTED && sensorPrevState1 != STATE_UNDETECTED) {
     // This should never happen, but if it does, then reset to undetected.
     Serial.print("Reset sensor 1 state, incorrect state was ");
     Serial.println(sensorPrevState1);
@@ -242,7 +242,7 @@ void loop() {
       totalCount++;
       Serial.println("A person has entered.");
     }
-  } else if (sensorPrevState2 != STATE_DETECTED && sensorPrevState2 != STATE_DETECTED) {
+  } else if (sensorPrevState2 != STATE_DETECTED && sensorPrevState2 != STATE_UNDETECTED) {
     // This should never happen, but if it does, then reset to undetected.
     Serial.print("Reset sensor 2 state, incorrect state was ");
     Serial.println(sensorPrevState1);
