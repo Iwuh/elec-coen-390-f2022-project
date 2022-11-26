@@ -35,10 +35,10 @@ volatile unsigned long pulseStart2;
 
 constexpr int STATE_UNDETECTED = 0;
 constexpr int STATE_DETECTED = 1;
-volatile int sensorPrevState1 = STATE_UNDETECTED;
-volatile int sensorPrevState2 = STATE_UNDETECTED;
+int sensorPrevState1 = STATE_UNDETECTED;
+int sensorPrevState2 = STATE_UNDETECTED;
 
-volatile int totalCount = 0;
+int totalCount = 0;
 
 constexpr unsigned long UPDATE_INTERVAL_MICROS = 15 * 1000 * 1000;
 unsigned long lastUpdate = 0;
@@ -155,6 +155,7 @@ void loop() {
 
   // Trigger on change from detected to undetected
   if (sensorPrevState1 == STATE_UNDETECTED && sensor1Distance <= sensorLowThreshold1) {
+    Serial.println("Sensor 1 changed to detected");
     sensorPrevState1 == STATE_DETECTED;
   } else if (sensorPrevState1 == STATE_DETECTED && sensor1Distance > sensorLowThreshold1) {
     Serial.print("Sensor 1 detected: ");
@@ -172,6 +173,8 @@ void loop() {
     }
   } else if (sensorPrevState1 != STATE_DETECTED && sensorPrevState1 != STATE_DETECTED) {
     // This should never happen, but if it does, then reset to undetected.
+    Serial.print("Reset sensor 1 state, incorrect state was ");
+    Serial.println(sensorPrevState1);
     sensorPrevState1 == STATE_UNDETECTED;
   }
 
@@ -223,6 +226,7 @@ void loop() {
   }*/
 
   if (sensorPrevState2 == STATE_UNDETECTED && sensor2Distance <= sensorLowThreshold2) {
+    Serial.println("Sensor 2 changed to detected");
     sensorPrevState2 == STATE_DETECTED;
   } else if (sensorPrevState2 == STATE_DETECTED && sensor2Distance > sensorLowThreshold2) {
     Serial.print("Sensor 2 detected: ");
@@ -240,6 +244,8 @@ void loop() {
     }
   } else if (sensorPrevState2 != STATE_DETECTED && sensorPrevState2 != STATE_DETECTED) {
     // This should never happen, but if it does, then reset to undetected.
+    Serial.print("Reset sensor 2 state, incorrect state was ");
+    Serial.println(sensorPrevState1);
     sensorPrevState2 == STATE_UNDETECTED;
   }
 
