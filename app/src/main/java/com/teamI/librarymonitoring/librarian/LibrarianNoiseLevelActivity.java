@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
 import com.teamI.librarymonitoring.datacontainers.SensorReading;
@@ -31,20 +34,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// TODO: this activity should use a RecyclerView to display readings
-
 public class LibrarianNoiseLevelActivity extends AppCompatActivity {
 
     protected RecyclerView readings_noise_librarian_RecyclerView;
     protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
     protected FloatingActionButton FAB_noisedetails;
+    protected Handler refreshHandler;
+    protected static final int msBetweenUpdates = 20000;
+
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_librarian_noise_level);
 
-        populateRecyclerView();
+
         FAB_noisedetails = findViewById(R.id.faBtnNoiseLevelDetail);
 
         FAB_noisedetails.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +59,33 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
             }
         });
 
+        refreshHandler = new Handler();
+        populateRecyclerView();
+    }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        refreshHandler.postDelayed(new RefreshRunnable(), msBetweenUpdates);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        refreshHandler.removeCallbacksAndMessages(null);
+    }
+
+    private class RefreshRunnable implements Runnable{
+        @Override
+        public void run(){
+            FirebaseHelper firebaseHelper = new FirebaseHelper();
+            firebaseHelper.refreshAllNoiseLevelReadings(LibrarianNoiseLevelActivity.this);
+            Parcelable recyclerViewState = readings_noise_librarian_RecyclerView.getLayoutManager().onSaveInstanceState();
+            populateRecyclerView();
+            // restore state
+            readings_noise_librarian_RecyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+            refreshHandler.postDelayed(this, 5000);
+        }
     }
 
     protected void populateRecyclerView(){
@@ -64,6 +95,11 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
         readings_noise_librarian_RecyclerView = findViewById(R.id.readingsNoiseLibrarianRecyclerView);
         readings_noise_librarian_RecyclerView.setLayoutManager(llm);
         readings_noise_librarian_RecyclerView.setAdapter(sensorReadingRecyclerViewAdapter);
+
+        // need to remove the decoration. Else, the recyclerview keeps growing until it does not fit on the page
+        if(readings_noise_librarian_RecyclerView.getItemDecorationCount() != 0){
+            readings_noise_librarian_RecyclerView.removeItemDecorationAt(0);
+        }
 
         readings_noise_librarian_RecyclerView.addItemDecoration(new DividerItemDecoration(readings_noise_librarian_RecyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }

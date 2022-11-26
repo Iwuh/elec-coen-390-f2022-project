@@ -124,6 +124,13 @@ public class FirebaseHelper {
         });
     }
 
+    public void refreshAllNoiseLevelReadings(Context context){
+        this.Noise_sensor1(context, "Sensors");
+        this.Noise_sensor2(context, "Sensors");
+        this.Noise_sensor3(context, "Sensors");
+        this.Noise_sensor4(context, "Sensors");
+    }
+
     // function to refresh all occupancy sensors
     public void refreshAllOccupancyReadings(Context context){
         this.Occ_sensor1(context, "Sensors");

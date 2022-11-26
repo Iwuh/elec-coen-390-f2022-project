@@ -64,7 +64,7 @@ public class StudentMainActivity extends AppCompatActivity {
             public void onResponse() {
                 //System.out.println(allServiceHours.get(0).getService());
                 libraryhours.setText(allServiceHours.get(0).getService() + ": " + allServiceHours.get(0).getHoursText() + "\n"
-                        + allServiceHours.get(5).getService() + ": " + allServiceHours.get(1).getHoursText() + "\n"
+                        + allServiceHours.get(5).getService() + ": " + allServiceHours.get(5).getHoursText() + "\n"
                         + allServiceHours.get(7).getService() + ": " + allServiceHours.get(7).getHoursText());
             }
         });

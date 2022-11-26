@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
 
+import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
 import com.teamI.librarymonitoring.datacontainers.SensorReading;
@@ -23,13 +26,42 @@ public class StudentNoiseLevelActivity extends AppCompatActivity {
 
     protected RecyclerView readings_noise_student_RecyclerView;
     protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
+    protected Handler refreshHandler;
+    protected static final int msBetweenUpdates = 20000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_noise_level);
 
+        refreshHandler = new Handler();
         populateRecyclerView();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        refreshHandler.postDelayed(new RefreshRunnable(), msBetweenUpdates);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        refreshHandler.removeCallbacksAndMessages(null);
+    }
+
+    private class RefreshRunnable implements Runnable{
+        @Override
+        public void run(){
+            FirebaseHelper firebaseHelper = new FirebaseHelper();
+            firebaseHelper.refreshAllNoiseLevelReadings(StudentNoiseLevelActivity.this);
+            Parcelable recyclerViewState = readings_noise_student_RecyclerView.getLayoutManager().onSaveInstanceState();
+            populateRecyclerView();
+            // restore state
+            readings_noise_student_RecyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+            refreshHandler.postDelayed(this, 5000);
+        }
     }
 
     protected void populateRecyclerView(){
@@ -40,6 +72,10 @@ public class StudentNoiseLevelActivity extends AppCompatActivity {
         readings_noise_student_RecyclerView.setLayoutManager(llm);
         readings_noise_student_RecyclerView.setAdapter(sensorReadingRecyclerViewAdapter);
 
+        // need to remove the decoration. Else, the recyclerview keeps growing until it does not fit on the page
+        if(readings_noise_student_RecyclerView.getItemDecorationCount() != 0){
+            readings_noise_student_RecyclerView.removeItemDecorationAt(0);
+        }
         readings_noise_student_RecyclerView.addItemDecoration(new DividerItemDecoration(readings_noise_student_RecyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }
 
