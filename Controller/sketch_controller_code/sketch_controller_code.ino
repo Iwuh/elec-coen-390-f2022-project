@@ -35,8 +35,8 @@ volatile unsigned long pulseStart2;
 
 constexpr int STATE_UNDETECTED = 0;
 constexpr int STATE_DETECTED = 1;
-int sensorPrevState1 = STATE_UNDETECTED;
-int sensorPrevState2 = STATE_UNDETECTED;
+int sensorPrevState1;
+int sensorPrevState2;
 
 int totalCount = 0;
 
@@ -104,6 +104,9 @@ void setup() {
   calibrateSensor(trigPin2, echoPin2, &sensorLowThreshold2);
   Serial.print("Sensor 2 threshold: ");
   Serial.println(sensorLowThreshold2);
+
+  sensorPrevState1 = STATE_UNDETECTED;
+  sensorPrevState2 = STATE_UNDETECTED;
 
   WifiHelper helper;
   helper.ConnectToHomeNetwork();
