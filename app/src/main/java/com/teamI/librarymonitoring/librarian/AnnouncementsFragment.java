@@ -32,12 +32,10 @@ public class AnnouncementsFragment extends DialogFragment {
     private Button sendannouncement, cancelannouncement;
     private EditText announcement_editTextText;
     private TextView areyousure_textView;
-    FirebaseHelper firebaseHelper;
-    PassAnnouncementInterface passAnnouncementInterface;
+    FirebaseHelper firebaseHelper = new FirebaseHelper();
 
-    public AnnouncementsFragment(PassAnnouncementInterface passAnnouncementInterface) {
+    public AnnouncementsFragment() {
         // Required empty public constructor
-        this.passAnnouncementInterface = passAnnouncementInterface;
     }
 
 
@@ -102,14 +100,9 @@ public class AnnouncementsFragment extends DialogFragment {
                     else if(sendannouncement.getText().equals("YES"))
                     {
                         SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-                        String timestamp = "Timestamp: " + s.format(new Date());
+                        String timestamp = "Timestamp: " + s.format(new Date()) + "\n";
 
-                        //String final_data = add_announcements + ",," + timestamp;
-
-                        //passAnnouncementInterface.AnnouncementReceived(add_announcements);
-                        //passAnnouncementInterface.TimestampReceived(timestamp);
-                        Announcement announcement = new Announcement(add_announcements,timestamp);
-                        System.out.println(announcement.toString());
+                        Announcement announcement = new Announcement("Message: " + add_announcements,timestamp);
                         firebaseHelper.setAnnouncement(announcement);
                         sendannouncement.setText("Send");
                         cancelannouncement.setText("Cancel");

@@ -1,13 +1,17 @@
 package com.teamI.helper;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.nfc.Tag;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -251,14 +255,14 @@ public class FirebaseHelper {
     public List<Announcement> getAnnouncements(){
         List<Announcement> announcements = new ArrayList<Announcement>();
         DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference().child("Announcements");
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.addListenerForSingleValueEvent (new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("elarg", "onDataChange: " + snapshot);
 
-                for ( DataSnapshot snap : snapshot.getChildren() ){
-                    Announcement announcement= snap.getValue(Announcement.class);
+                for ( DataSnapshot snap : snapshot.getChildren() ) {
+                    Announcement announcement = snap.getValue(Announcement.class);
                     announcements.add(announcement);
                 }
             }
@@ -271,6 +275,7 @@ public class FirebaseHelper {
 
         return announcements;
     }
+
 
     /***
      * This method is used to create announcements.

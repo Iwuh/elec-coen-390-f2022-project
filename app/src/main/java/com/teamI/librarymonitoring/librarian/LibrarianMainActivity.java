@@ -22,7 +22,7 @@ import com.teamI.librarymonitoring.datacontainers.Announcement;
 import com.teamI.librarymonitoring.splash.Splash;
 import com.teamI.librarymonitoring.student.PassDataInterface;
 
-public class LibrarianMainActivity extends AppCompatActivity implements PassAnnouncementInterface {
+public class LibrarianMainActivity extends AppCompatActivity{
 
     protected Button btnSettings;
     protected Button btnOccupancy;
@@ -119,7 +119,7 @@ public class LibrarianMainActivity extends AppCompatActivity implements PassAnno
             @Override
             public void onClick(View v) {
 
-                AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(LibrarianMainActivity.this);
+                AnnouncementsFragment announcementsFragment = new AnnouncementsFragment();
                 announcementsFragment.show(getSupportFragmentManager(), "Add Announcements");
 
 
@@ -127,7 +127,6 @@ public class LibrarianMainActivity extends AppCompatActivity implements PassAnno
             }
         });
 
-        System.out.println(firebaseHelper.getAnnouncements());
 
     }
 
@@ -152,34 +151,13 @@ public class LibrarianMainActivity extends AppCompatActivity implements PassAnno
     }
 
 
-
-    @Override
-    public void AnnouncementReceived(String announcement_fragment) {
-        announcement = announcement_fragment;
-
-    }
-
-    @Override
-    public void TimestampReceived(String timestamp_fragment) {
-        announcement_timestamp = timestamp_fragment;
-
-    }
-
-
     private void startPrivacyActivity(){
         startActivity(new Intent(LibrarianMainActivity.this, PrivacyActivity.class));
     }
 
     private void goToAnnouncemtnActivity() {
         Intent intent = new Intent(LibrarianMainActivity.this, AnnouncementsActivity.class);
-        //firebaseHelper.setAnnouncement(new Announcement(announcement,announcement_timestamp));
-        //intent.putExtra("announcement",announcement);
-        //intent.putExtra("announcement_timestamp",announcement_timestamp);
         startActivity(intent);
     }
 
-    /*private void setAnnouncementRecyclerview()
-    {
-      System.out.println(a);
-    }*/
 }

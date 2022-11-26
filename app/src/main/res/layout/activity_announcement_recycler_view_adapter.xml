@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_gravity="center_vertical"
+    android:layout_height="wrap_content"
     tools:context=".AnnouncementRecyclerViewAdapter">
 
     <TextView
@@ -23,11 +22,11 @@
         android:id="@+id/announcemnt_timestamp_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="20dp"
         android:text="TimeStamp"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/announcemnt_textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

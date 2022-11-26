@@ -6,6 +6,7 @@ import static com.teamI.helper.FirebaseHelper.OttawaO;
 import static com.teamI.helper.FirebaseHelper.TorontoO;
 import static com.teamI.helper.FirebaseHelper.VancouverO;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.JsonReader;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.teamI.helper.FirebaseHelper;
@@ -38,26 +44,46 @@ public class AnnouncementsActivity extends AppCompatActivity {
 
     protected RecyclerView announcement_recyclerview;
     protected AnnouncementRecyclerViewAdapter announcementRecyclerViewAdapter;
-    FirebaseHelper firebaseHelper;
-    List<Announcement> announcements;
+    FirebaseHelper firebaseHelper = new FirebaseHelper();
+    List<Announcement> announcements = new ArrayList<>();
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcements);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("Announcements");
+
         announcement_recyclerview = findViewById(R.id.announcement_recyclerview);
 
-        //announcements = firebaseHelper.getAnnouncements();
-
-
-
-       // populateRecyclerView();
+        getdata();
 
     }
 
-    /*protected void populateRecyclerView(){
-        List<Announcement> announcementList = getAnnouncementData();
+    private void getdata() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for ( DataSnapshot snap : snapshot.getChildren() ) {
+                    Announcement announcement = snap.getValue(Announcement.class);
+                    announcements.add(announcement);
+                }
+                populateRecyclerView(announcements);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    protected void populateRecyclerView(List<Announcement> announcements_list){
+        List<Announcement> announcementList = announcements_list;
         LinearLayoutManager llm = new LinearLayoutManager(this);
         announcementRecyclerViewAdapter = new AnnouncementRecyclerViewAdapter(announcementList);
         announcement_recyclerview = findViewById(R.id.announcement_recyclerview);
@@ -66,21 +92,6 @@ public class AnnouncementsActivity extends AppCompatActivity {
 
         announcement_recyclerview.addItemDecoration(new DividerItemDecoration(announcement_recyclerview.getContext(), DividerItemDecoration.VERTICAL));
     }
-
-    private List<Announcement> getAnnouncementData(){
-        List<Announcement> announcementList = new ArrayList<Announcement>();
-
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String announcement = extras.getString("announcement");
-            String Timestamp = extras.getString("announcement_timestamp");
-
-                System.out.println(announcement + ": " + Timestamp);
-                announcementList.add(new Announcement(announcement, Timestamp));
-        }
-        return announcementList;
-    }*/
 
 
 }
