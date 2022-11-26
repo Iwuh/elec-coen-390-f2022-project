@@ -75,13 +75,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 mProgressDialogue.setMessage("Please wait while we are processing your information");
                 mProgressDialogue.setCanceledOnTouchOutside(false);
                 mProgressDialogue.show();
-                try{
-                    registerUser(email_register_edittext.getText().toString(),password_register_edittext.getText().toString());
-                }
-                catch(Exception ex){
-                    Toast.makeText(RegistrationActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
-                    password_register_edittext.setText("");
-                }
+                registerUser(email_register_edittext.getText().toString(),password_register_edittext.getText().toString());
+
 
 
 
@@ -93,7 +88,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     }
-    private void registerUser(String email, String password) throws Exception{
+    private void registerUser(String email, String password) {
 
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
