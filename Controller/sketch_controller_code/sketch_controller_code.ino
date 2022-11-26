@@ -178,7 +178,7 @@ void loop() {
     // This should never happen, but if it does, then reset to undetected.
     Serial.print("Reset sensor 1 state, incorrect state was ");
     Serial.println(sensorPrevState1);
-    sensorPrevState1 == STATE_UNDETECTED;
+    sensorPrevState1 = STATE_UNDETECTED;
   }
 
   // Trigger on change from undetected to detected
@@ -249,7 +249,7 @@ void loop() {
     // This should never happen, but if it does, then reset to undetected.
     Serial.print("Reset sensor 2 state, incorrect state was ");
     Serial.println(sensorPrevState1);
-    sensorPrevState2 == STATE_UNDETECTED;
+    sensorPrevState2 = STATE_UNDETECTED;
   }
 
   /*if (sensor2Distance <= sensorLowThreshold2 && sensorPrevState2 == STATE_UNDETECTED) {
