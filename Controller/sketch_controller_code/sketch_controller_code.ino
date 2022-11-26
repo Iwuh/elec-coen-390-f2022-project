@@ -159,7 +159,7 @@ void loop() {
   // Trigger on change from detected to undetected
   if (sensorPrevState1 == STATE_UNDETECTED && sensor1Distance <= sensorLowThreshold1) {
     Serial.println("Sensor 1 changed to detected");
-    sensorPrevState1 == STATE_DETECTED;
+    sensorPrevState1 = STATE_DETECTED;
   } else if (sensorPrevState1 == STATE_DETECTED && sensor1Distance > sensorLowThreshold1) {
     Serial.print("Sensor 1 detected: ");
     Serial.println(sensor1Distance);
@@ -230,7 +230,7 @@ void loop() {
 
   if (sensorPrevState2 == STATE_UNDETECTED && sensor2Distance <= sensorLowThreshold2) {
     Serial.println("Sensor 2 changed to detected");
-    sensorPrevState2 == STATE_DETECTED;
+    sensorPrevState2 = STATE_DETECTED;
   } else if (sensorPrevState2 == STATE_DETECTED && sensor2Distance > sensorLowThreshold2) {
     Serial.print("Sensor 2 detected: ");
     Serial.println(sensor2Distance);
