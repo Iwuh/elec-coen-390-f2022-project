@@ -51,7 +51,7 @@ public class RoleChoiceActivity extends AppCompatActivity {
         btnLibrarian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferenceUtility.setIsLibrarian(RoleChoiceActivity.this);
+
                 Intent intent = new Intent(RoleChoiceActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
