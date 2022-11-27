@@ -102,6 +102,7 @@ public class StudentSettingsActivity extends AppCompatActivity {
         } else {
             SharedPreferenceUtility.setIsLibrarian(this);
             Intent intent = new Intent(StudentSettingsActivity.this, LibrarianMainActivity.class);
+            startActivity(intent);
         }
         finish();
     }
