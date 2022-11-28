@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.teamI.librarymonitoring.CreditActivity;
+import com.teamI.librarymonitoring.LoginActivity;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
@@ -30,16 +32,6 @@ public class StudentSettingsActivity extends AppCompatActivity {
         btnLibrarian = findViewById(R.id.btnChangeToLibrarian);
         btncredittoconcordia_student = findViewById(R.id.btncredittoconcordia_student);
         btn_rulesandregulation = findViewById(R.id.btn_rulesandregulation);
-
-        btnLibrarian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StudentSettingsActivity.this, LibrarianMainActivity.class);
-                startActivity(intent);
-                Preferences.writeString(StudentSettingsActivity.this,"user","librarian");
-                finish();
-            }
-        });
 
         btncredittoconcordia_student.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +94,16 @@ public class StudentSettingsActivity extends AppCompatActivity {
     }
 
     private void changeToLibrarianVersion(){
-        SharedPreferenceUtility.setIsLibrarian(this);
-        Intent intent = new Intent(StudentSettingsActivity.this, LibrarianMainActivity.class);
-        startActivity(intent);
+        // We should redirect to the login activity if a user is not currently authenticated.
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            Intent intent = new Intent(StudentSettingsActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            SharedPreferenceUtility.setIsLibrarian(this);
+            Intent intent = new Intent(StudentSettingsActivity.this, LibrarianMainActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 }
