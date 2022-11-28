@@ -20,8 +20,8 @@ import android.widget.Button;
 
 import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.R;
-import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
-import com.teamI.librarymonitoring.datacontainers.SensorReading;
+import com.teamI.librarymonitoring.OccupancySensorReadingRecyclerViewAdapter;
+import com.teamI.librarymonitoring.datacontainers.OccupancySensorReading;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
 public class StudentOccupancyActivity extends AppCompatActivity {
 
     protected RecyclerView readingsOccStudentRecyclerView;
-    protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
+    protected OccupancySensorReadingRecyclerViewAdapter occupancySensorReadingRecyclerViewAdapter;
     protected Button btnTotalOccupancy;
     protected Handler refreshHandler;
     protected final static int msBetweenUpdates = 20000;
@@ -78,12 +78,12 @@ public class StudentOccupancyActivity extends AppCompatActivity {
 
     protected void populateRecyclerView(){
 
-        List<SensorReading> lstSensorReadings = getSensorReadings();
+        List<OccupancySensorReading> lstSensorReadings = getSensorReadings();
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        sensorReadingRecyclerViewAdapter = new SensorReadingRecyclerViewAdapter(lstSensorReadings);
+        occupancySensorReadingRecyclerViewAdapter = new OccupancySensorReadingRecyclerViewAdapter(lstSensorReadings);
         readingsOccStudentRecyclerView = findViewById(R.id.readingsOccStudentRecyclerView);
         readingsOccStudentRecyclerView.setLayoutManager(llm);
-        readingsOccStudentRecyclerView.setAdapter(sensorReadingRecyclerViewAdapter);
+        readingsOccStudentRecyclerView.setAdapter(occupancySensorReadingRecyclerViewAdapter);
 
         // need to remove the decoration. Else, the recyclerview keeps growing until it does not fit on the page
         if(readingsOccStudentRecyclerView.getItemDecorationCount() != 0){
@@ -92,18 +92,18 @@ public class StudentOccupancyActivity extends AppCompatActivity {
         readingsOccStudentRecyclerView.addItemDecoration(new DividerItemDecoration(readingsOccStudentRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }
 
-    private List<SensorReading> getSensorReadings(){
+    private List<OccupancySensorReading> getSensorReadings(){
         // TODO: get real sensor readings here
         // for now, populate a list of dummy sensor readings
-        List<SensorReading> lstSensorReadings = new ArrayList<SensorReading>();
-        lstSensorReadings.add(new SensorReading("Toronto Reading Room", ""+TorontoO, "people"));
-        lstSensorReadings.add(new SensorReading("Edmonton Reading Room", ""+EdmontonO, "people"));
-        lstSensorReadings.add(new SensorReading("Ottawa Reading Room", ""+OttawaO, "people"));
-        lstSensorReadings.add(new SensorReading("Calgary Reading Room", ""+CalgaryO, "people"));
-        lstSensorReadings.add(new SensorReading("Vancouver Reading Room", ""+VancouverO, "people"));
-        lstSensorReadings.add(new SensorReading("Montreal Reading Room", "50", "people"));
-        lstSensorReadings.add(new SensorReading("Moncton Reading Room", "514", "people"));
-        lstSensorReadings.add(new SensorReading("Regina Reading Room", "611", "people"));
+        List<OccupancySensorReading> lstSensorReadings = new ArrayList<OccupancySensorReading>();
+        lstSensorReadings.add(new OccupancySensorReading("Toronto Reading Room", ""+TorontoO));
+        lstSensorReadings.add(new OccupancySensorReading("Edmonton Reading Room", ""+EdmontonO));
+        lstSensorReadings.add(new OccupancySensorReading("Ottawa Reading Room", ""+OttawaO));
+        lstSensorReadings.add(new OccupancySensorReading("Calgary Reading Room", ""+CalgaryO));
+        lstSensorReadings.add(new OccupancySensorReading("Vancouver Reading Room", ""+VancouverO));
+        lstSensorReadings.add(new OccupancySensorReading("Montreal Reading Room", "50"));
+        lstSensorReadings.add(new OccupancySensorReading("Moncton Reading Room", "514"));
+        lstSensorReadings.add(new OccupancySensorReading("Regina Reading Room", "611"));
         return lstSensorReadings;
     }
 }

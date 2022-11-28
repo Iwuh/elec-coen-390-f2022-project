@@ -20,8 +20,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.R;
-import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
-import com.teamI.librarymonitoring.datacontainers.SensorReading;
+import com.teamI.librarymonitoring.OccupancySensorReadingRecyclerViewAdapter;
+import com.teamI.librarymonitoring.datacontainers.OccupancySensorReading;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
 public class LibrarianOccupancyActivity extends AppCompatActivity {
 
     protected RecyclerView readingsRecyclerView;
-    protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
+    protected OccupancySensorReadingRecyclerViewAdapter occupancySensorReadingRecyclerViewAdapter;
     protected FloatingActionButton fBtnOccupancyDetails;
     protected Handler refreshHandler;
     protected final static int msBetweenUpdates = 20000;
@@ -81,12 +81,12 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
     }
 
     protected void populateRecyclerView(){
-        List<SensorReading> lstSensorReadings = getSensorReadings();
+        List<OccupancySensorReading> lstSensorReadings = getSensorReadings();
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        sensorReadingRecyclerViewAdapter = new SensorReadingRecyclerViewAdapter(lstSensorReadings);
+        occupancySensorReadingRecyclerViewAdapter = new OccupancySensorReadingRecyclerViewAdapter(lstSensorReadings);
         readingsRecyclerView = findViewById(R.id.readingsOccLibrarianRecyclerView);
         readingsRecyclerView.setLayoutManager(llm);
-        readingsRecyclerView.setAdapter(sensorReadingRecyclerViewAdapter);
+        readingsRecyclerView.setAdapter(occupancySensorReadingRecyclerViewAdapter);
 
         // need to remove the decoration. Else, the recyclerview keeps growing until it does not fit on the page
         if(readingsRecyclerView.getItemDecorationCount() != 0){
@@ -96,19 +96,19 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
     }
 
 
-    private List<SensorReading> getSensorReadings(){
+    private List<OccupancySensorReading> getSensorReadings(){
         // TODO: get real sensor readings here
         // for now, populate a list of dummy sensor readings
-        List<SensorReading> lstSensorReadings = new ArrayList<SensorReading>();
-        lstSensorReadings.add(new SensorReading("Toronto Reading Room", ""+TorontoO, "people"));
-        lstSensorReadings.add(new SensorReading("Edmonton Reading Room", ""+EdmontonO, "people"));
-        lstSensorReadings.add(new SensorReading("Ottawa Reading Room", ""+OttawaO, "people"));
-        lstSensorReadings.add(new SensorReading("Calgary Reading Room", ""+CalgaryO, "people"));
-        lstSensorReadings.add(new SensorReading("Vancouver Reading Room", ""+VancouverO, "people"));
-        lstSensorReadings.add(new SensorReading("Montreal Reading Room", "50", "people"));
-        lstSensorReadings.add(new SensorReading("Moncton Reading Room", "514", "people"));
-        lstSensorReadings.add(new SensorReading("Regina Reading Room", "611", "people"));
-        return lstSensorReadings;
+        List<OccupancySensorReading> lstOccupancySensorReadings = new ArrayList<OccupancySensorReading>();
+        lstOccupancySensorReadings.add(new OccupancySensorReading("Toronto Reading Room", ""+TorontoO));
+        lstOccupancySensorReadings.add(new OccupancySensorReading("Edmonton Reading Room", ""+EdmontonO));
+        lstOccupancySensorReadings.add(new OccupancySensorReading("Ottawa Reading Room", ""+OttawaO));
+        lstOccupancySensorReadings.add(new OccupancySensorReading("Calgary Reading Room", ""+CalgaryO));
+        lstOccupancySensorReadings.add(new OccupancySensorReading("Vancouver Reading Room", ""+VancouverO));
+        lstOccupancySensorReadings.add(new OccupancySensorReading("Montreal Reading Room", "50"));
+        lstOccupancySensorReadings.add(new OccupancySensorReading("Moncton Reading Room", "514"));
+        lstOccupancySensorReadings.add(new OccupancySensorReading("Regina Reading Room", "611"));
+        return lstOccupancySensorReadings;
     }
 
     private void displayOccupancyDetails(){

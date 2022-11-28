@@ -12,16 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.teamI.librarymonitoring.datacontainers.SensorReading;
+import com.teamI.librarymonitoring.datacontainers.OccupancySensorReading;
 
 import java.util.List;
 
-public class SensorReadingRecyclerViewAdapter extends RecyclerView.Adapter<SensorReadingRecyclerViewAdapter.ViewHolder>{
+public class OccupancySensorReadingRecyclerViewAdapter extends RecyclerView.Adapter<OccupancySensorReadingRecyclerViewAdapter.ViewHolder>{
 
-    List<SensorReading> lstSensorReadings;
+    List<OccupancySensorReading> lstSensorReadings;
 
-    public SensorReadingRecyclerViewAdapter(List<SensorReading> lstSensorReadings) {
+    public OccupancySensorReadingRecyclerViewAdapter(List<OccupancySensorReading> lstSensorReadings) {
         this.lstSensorReadings = lstSensorReadings;
     }
 
@@ -47,13 +46,13 @@ public class SensorReadingRecyclerViewAdapter extends RecyclerView.Adapter<Senso
 
     @NonNull
     @Override
-    public SensorReadingRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OccupancySensorReadingRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sensor_reading_recyclerview_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SensorReadingRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OccupancySensorReadingRecyclerViewAdapter.ViewHolder holder, int position) {
         // display the readings from the list
         holder.getSensorMeasurementTextView().setText(lstSensorReadings.get(position).getMeasurement() + " " + lstSensorReadings.get(position).getUnit());
         holder.getSensorLocationTextView().setText(lstSensorReadings.get(position).getLocation());
