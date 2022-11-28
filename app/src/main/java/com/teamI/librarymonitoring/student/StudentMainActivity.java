@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,13 +20,14 @@ import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
 import com.teamI.librarymonitoring.datacontainers.ServiceHours;
+import com.teamI.librarymonitoring.librarian.AnnouncementsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentMainActivity extends AppCompatActivity {
 
-    protected Button btnSettings;
+    protected Button btnstudent_announcement;
     protected Button btnOccupancy;
     protected Button btnNoiseLevel;
     protected Button btnFavorites;
@@ -44,7 +48,7 @@ public class StudentMainActivity extends AppCompatActivity {
             // the privacy activity closes the app if the user does not consent
         }
 
-        btnSettings = (Button) findViewById(R.id.btnSettings);
+        btnstudent_announcement = (Button) findViewById(R.id.btnstudent_announcement);
         btnOccupancy = (Button) findViewById(R.id.btnOccupancy);
         btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
         btnFavorites = (Button) findViewById(R.id.btnFavorites);
@@ -88,10 +92,10 @@ public class StudentMainActivity extends AppCompatActivity {
         }
         );
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
+        btnstudent_announcement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(StudentMainActivity.this, StudentSettingsActivity.class));
+                startActivity(new Intent(StudentMainActivity.this, AnnouncementsActivity.class));
             }
         }
         );
@@ -114,6 +118,26 @@ public class StudentMainActivity extends AppCompatActivity {
                 startActivity(new Intent(StudentMainActivity.this, ComputerUseActivity.class));
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.student_activity_menu,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(/*@NonNull*/ MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.student_settings:
+                startActivity(new Intent(StudentMainActivity.this, StudentSettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
         private void startPrivacyActivity(){

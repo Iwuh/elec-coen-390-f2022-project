@@ -1,8 +1,11 @@
 package com.teamI.librarymonitoring;
 
+import com.teamI.librarymonitoring.datacontainers.Announcement;
+
+import java.util.List;
+
 public interface PassAnnouncementInterface {
 
-    void AnnouncementReceived(String announcement);
+    void AnnouncementReceived(List<Announcement> announcement);
 
-    void TimestampReceived(String timestamp);
 }

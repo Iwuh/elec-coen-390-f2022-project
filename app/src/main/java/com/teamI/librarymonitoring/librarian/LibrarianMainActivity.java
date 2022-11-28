@@ -41,8 +41,6 @@ public class LibrarianMainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_librarian_main);
         firebaseHelper = new FirebaseHelper();
 
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
 
         firebaseHelper.Noise_sensor1(LibrarianMainActivity.this,"Sensors");

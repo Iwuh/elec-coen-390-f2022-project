@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.teamI.librarymonitoring.PassAnnouncementInterface;
 import com.teamI.librarymonitoring.datacontainers.Announcement;
 
 import java.util.ArrayList;
@@ -40,6 +41,13 @@ public class FirebaseHelper {
     public static String CalgaryO;
     public static String VancouverO;
     DatabaseReference SensorsData;
+    PassAnnouncementInterface passAnnouncementInterface;
+
+    public FirebaseHelper(){}
+
+    public FirebaseHelper(PassAnnouncementInterface passAnnouncementInterface){
+        this.passAnnouncementInterface= passAnnouncementInterface;
+    }
 
     // TODO: why do we need to pass a string to every function?
     // in all function calls, the string passed ends up being "Sensors" anyway
@@ -265,6 +273,7 @@ public class FirebaseHelper {
                     Announcement announcement = snap.getValue(Announcement.class);
                     announcements.add(announcement);
                 }
+                passAnnouncementInterface.AnnouncementReceived(announcements);
             }
 
             @Override

@@ -18,13 +18,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sent_announcement_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/announcement_textView" />
 
     <TextView
-        android:id="@+id/sent_announcement_textView"
+        android:id="@+id/announcement_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sent Announcements"
+        android:text="Announcements"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
