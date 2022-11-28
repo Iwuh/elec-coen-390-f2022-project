@@ -3,17 +3,22 @@ package com.teamI.librarymonitoring.datacontainers;
 // this is a simple class to contain sensor readings
 // used to populate the recycler views
 
-public class SensorReading {
+public class OccupancySensorReading {
     protected String strMeasurement;
     protected String strUnit;
     protected String strLocation;
 
-    private SensorReading() {}
+    private OccupancySensorReading() {}
 
-    public SensorReading(String location, String measurement, String unit) {
+    public OccupancySensorReading(String location, String measurement) {
         this.strMeasurement = measurement;
         this.strLocation = location;
-        this.strUnit = unit;
+        if(this.strMeasurement.equals("1")){
+            this.strUnit = "person";
+        }
+        else{
+            this.strUnit = "people";
+        }
     }
 
     public String getMeasurement() {
