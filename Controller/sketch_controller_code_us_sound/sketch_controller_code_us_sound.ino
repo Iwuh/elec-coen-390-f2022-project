@@ -124,7 +124,7 @@ void setup() {
   Firebase.reconnectWiFi(true);
 
   // TODO: Once email authentication is set up, use that here.
-  if (Firebase.signUp(&config, &auth, "", "")) {
+  if (Firebase.signUp(&config, &auth, FIREBASE_USERNAME, FIREBASE_PASSWORD)) {
     Serial.println("Firebase signup OK");
     signupOK = true;    
   } else {
