@@ -121,17 +121,11 @@ void setup() {
   config.database_url = FIREBASE_DATABASE_URL;
   config.api_key = FIREBASE_API_KEY;
 
+  auth.user.email = FIREBASE_USERNAME;
+  auth.user.password = FIREBASE_PASSWORD;
+
   Firebase.reconnectWiFi(true);
-
-  // TODO: Once email authentication is set up, use that here.
-  if (Firebase.signUp(&config, &auth, FIREBASE_USERNAME, FIREBASE_PASSWORD)) {
-    Serial.println("Firebase signup OK");
-    signupOK = true;    
-  } else {
-    Serial.println("Firebase signup failed");
-    Serial.println(config.signer.signupError.message.c_str());
-  }
-
+  
   config.token_status_callback = tokenStatusCallback;
   Firebase.begin(&config, &auth);
 }
