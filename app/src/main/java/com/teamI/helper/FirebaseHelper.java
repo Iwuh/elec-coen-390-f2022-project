@@ -25,10 +25,10 @@ import java.util.List;
 public class FirebaseHelper {
 
     String getData;
-    public static Double OttawaN;
-    public static Double TorontoN;
-    public static Double EdmontonN;
-    public static Double CalgaryN;
+    public static String OttawaN;
+    public static String TorontoN;
+    public static String EdmontonN;
+    public static String CalgaryN;
     public static String VancouverN;
     public static String OttawaO;
     public static String TorontoO;
@@ -48,7 +48,7 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("elarg", "onDataChange: " + snapshot);
-                TorontoN = snapshot.child("floatAvg").getValue(Double.class);
+                TorontoN = snapshot.child("strMeasurement").getValue(String.class);
 
 //                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 //                }
@@ -69,7 +69,7 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("elarg", "onDataChange: " + snapshot);
-                EdmontonN = snapshot.child("floatAvg").getValue(Double.class);
+                EdmontonN = snapshot.child("strMeasurement").getValue(String.class);
 
 //                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 //                }
@@ -90,7 +90,7 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("elarg", "onDataChange: " + snapshot);
-                OttawaN = snapshot.child("floatAvg").getValue(Double.class);
+                OttawaN = snapshot.child("strMeasurement").getValue(String.class);
 
 //                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 //                }
@@ -111,7 +111,7 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("elarg", "onDataChange: " + snapshot);
-                CalgaryN = snapshot.child("floatAvg").getValue(Double.class);
+                CalgaryN = snapshot.child("strMeasurement").getValue(String.class);
 
 //                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 //                }

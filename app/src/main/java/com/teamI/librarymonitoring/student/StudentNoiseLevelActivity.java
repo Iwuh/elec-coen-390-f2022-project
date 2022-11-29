@@ -85,10 +85,10 @@ public class StudentNoiseLevelActivity extends AppCompatActivity {
         // TODO: get real sensor readings here
         // for now, populate a list of dummy sensor readings
         List<NoiseSensorReading> lstSensorReadings = new ArrayList<NoiseSensorReading>();
-        lstSensorReadings.add(new NoiseSensorReading("Toronto Reading Room", TorontoN));
-        lstSensorReadings.add(new NoiseSensorReading("Edmonton Reading Room", EdmontonN));
-        lstSensorReadings.add(new NoiseSensorReading("Ottawa Reading Room", OttawaN));
-        lstSensorReadings.add(new NoiseSensorReading("Calgary Reading Room", CalgaryN));
+        lstSensorReadings.add(new NoiseSensorReading("Toronto Reading Room", Double.parseDouble(TorontoN)));
+        lstSensorReadings.add(new NoiseSensorReading("Edmonton Reading Room", Double.parseDouble(EdmontonN)));
+        lstSensorReadings.add(new NoiseSensorReading("Ottawa Reading Room", Double.parseDouble(OttawaN)));
+        lstSensorReadings.add(new NoiseSensorReading("Calgary Reading Room", Double.parseDouble(CalgaryN)));
         lstSensorReadings.add(new NoiseSensorReading("Vancouver Reading Room", 69d));
         lstSensorReadings.add(new NoiseSensorReading("Montreal Reading Room", 20d));
         lstSensorReadings.add(new NoiseSensorReading("Moncton Reading Room", 140d));
