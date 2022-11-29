@@ -32,9 +32,7 @@ import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.AnnouncementRecyclerViewAdapter;
 import com.teamI.librarymonitoring.PassAnnouncementInterface;
 import com.teamI.librarymonitoring.R;
-import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
 import com.teamI.librarymonitoring.datacontainers.Announcement;
-import com.teamI.librarymonitoring.datacontainers.SensorReading;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.teamI.librarymonitoring.datacontainers.Announcement;
-import com.teamI.librarymonitoring.datacontainers.SensorReading;
 
 import java.util.List;
 
