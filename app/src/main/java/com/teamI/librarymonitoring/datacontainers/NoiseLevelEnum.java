@@ -8,9 +8,9 @@ public enum NoiseLevelEnum {
     Loud;
 
     private static final Double errorThreshold = 0d;
-    private static final Double silentMaximum = 30d;
-    private static final Double quietMaximum = 50d;
-    private static final Double moderateMaximum = 90d;
+    private static final Double silentMaximum = 80d;
+    private static final Double quietMaximum = 120d;
+    private static final Double moderateMaximum = 250d;
     // convert from a noise level to an enum
     public static NoiseLevelEnum getNoiseLevel(Double dSoundSensorReading){
         if(dSoundSensorReading < errorThreshold){
