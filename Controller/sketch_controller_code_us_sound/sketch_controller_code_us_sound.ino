@@ -125,7 +125,7 @@ void setup() {
   auth.user.password = FIREBASE_PASSWORD;
 
   Firebase.reconnectWiFi(true);
-  
+
   config.token_status_callback = tokenStatusCallback;
   Firebase.begin(&config, &auth);
 }
@@ -158,7 +158,7 @@ void loop() {
   // Upload the current rolling average of last 10 datapoints gathered from the sound sensor to Firebase, if enough time has elapsed since the last sound sensor update.
   unsigned long now_sound_end = micros();
 
-  if (signupOK && Firebase.ready() && now_sound_end > lastUpdate_sound + UPDATE_INTERVAL_MICROS) {
+  if (Firebase.ready() && now_sound_end > lastUpdate_sound + UPDATE_INTERVAL_MICROS) {
     Firebase.RTDB.setFloatAsync(&rtdb, "/Sensors/Noise_sensor1/floatAvg", rolling_average);
     Serial.println("Updated Firebase with latest Sound Sensor rolling average");
     lastUpdate_sound = now_sound_end;
@@ -243,7 +243,7 @@ void loop() {
   sensorEvents_2.clean(now_occ_end);
 
   // Upload the current occupancy count to Firebase, if enough time has elapsed since the last occupancy count update.
-  if (signupOK && Firebase.ready() && now_occ_end > lastUpdate_occ + UPDATE_INTERVAL_MICROS) {    
+  if (Firebase.ready() && now_occ_end > lastUpdate_occ + UPDATE_INTERVAL_MICROS) {    
     char buf[10]; // 9 chars + null terminator means a max value of 999999999. This should be fine...
     itoa(totalCount, buf, 10); // The 10 is not the number of characters, it's the base to represent the number in.
     Firebase.RTDB.setStringAsync(&rtdb, "/Sensors/Occ_sensor1/strMeasurement", buf);
