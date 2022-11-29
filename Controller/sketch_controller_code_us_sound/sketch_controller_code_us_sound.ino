@@ -170,7 +170,7 @@ void loop() {
     lastUpdate_sound = now_sound_end;
   }
   
-  delay(50);
+  delay(10);
   
   // US sensors occupancy algorithm
   // Get a reading from US sensor 1.
