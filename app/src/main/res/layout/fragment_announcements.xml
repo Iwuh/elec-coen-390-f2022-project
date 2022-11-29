@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".librarian.AnnouncementsFragment"
+    android:id = "@+id/FRAGMENT_PLACEHOLDER" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/sendannouncement"
+            android:layout_width="104dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="79dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="228dp"
+            android:background="@drawable/shape_bottom_rounded"
+            android:text="Send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/announcement_editTextText" />
+
+        <Button
+            android:id="@+id/cancelannouncement"
+            android:layout_width="104dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="228dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="79dp"
+            android:background="@drawable/shape_bottom_rounded"
+            android:text="Cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/announcement_editTextText" />
+
+        <EditText
+            android:id="@+id/announcement_editTextText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Max 500 character announcement"
+            android:maxLength="500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/areyousure_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#F44336"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/announcement_editTextText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
