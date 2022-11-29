@@ -34,7 +34,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnHours"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+        app:layout_constraintTop_toBottomOf="@+id/btnOccupancy" />
 
     <TextView
         android:id="@+id/textView2"
@@ -72,37 +72,19 @@
         android:id="@+id/btnOccupancy"
         android:layout_width="200dp"
         android:layout_height="50dp"
+
+
         android:layout_marginStart="106dp"
-
         android:layout_marginTop="10dp"
-
-
         android:layout_marginEnd="105dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/shape_bottom_rounded"
         android:text="Occupancy"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnNoiseLevel" />
-
-    <Button
-        android:id="@+id/btnSettings"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-
-        android:layout_marginStart="106dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="105dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/shape_bottom_rounded"
-        android:text="Settings"
-        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/btnFavorites"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOccupancy" />
+        app:layout_constraintTop_toBottomOf="@+id/btnNoiseLevel" />
 
     <Button
         android:id="@+id/btnHours"

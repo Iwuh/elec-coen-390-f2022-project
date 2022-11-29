@@ -25,9 +25,9 @@
         android:id="@+id/btnNoiseLevel"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginStart="106dp"
 
-        android:layout_marginTop="124dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="105dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/shape_bottom_rounded"
@@ -42,11 +42,10 @@
         android:id="@+id/btnOccupancy"
         android:layout_width="200dp"
         android:layout_height="50dp"
+
+
         android:layout_marginStart="106dp"
-
         android:layout_marginTop="10dp"
-
-
         android:layout_marginEnd="105dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/shape_bottom_rounded"
@@ -58,36 +57,18 @@
         app:layout_constraintTop_toBottomOf="@+id/btnNoiseLevel" />
 
     <Button
-        android:id="@+id/btnSettings"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-
-        android:layout_marginStart="106dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="105dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/shape_bottom_rounded"
-        android:text="Settings"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnHours"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSensorsConnected" />
-
-    <Button
         android:id="@+id/btnSensorsConnected"
         android:layout_width="200dp"
         android:layout_height="50dp"
+
         android:layout_marginStart="106dp"
-
         android:layout_marginTop="10dp"
-
         android:layout_marginEnd="105dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/shape_bottom_rounded"
         android:text="View Sensors"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
+        app:layout_constraintBottom_toTopOf="@+id/btnHours"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOccupancy" />
@@ -96,14 +77,12 @@
         android:id="@+id/btnHours"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginStart="154dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginBottom="249dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="106dp"
         android:background="@drawable/shape_bottom_rounded"
         android:text="HOURS"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSensorsConnected" />
 </androidx.constraintlayout.widget.ConstraintLayout>

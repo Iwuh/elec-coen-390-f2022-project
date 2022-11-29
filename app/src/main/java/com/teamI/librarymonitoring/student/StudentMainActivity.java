@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.HoursActivity;
 import com.teamI.librarymonitoring.IOpenDataResponseListener;
 import com.teamI.librarymonitoring.OpenDataApiHelper;
@@ -19,11 +22,11 @@ import com.teamI.librarymonitoring.SharedPreferenceUtility;
 import com.teamI.librarymonitoring.datacontainers.ServiceHours;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StudentMainActivity extends AppCompatActivity {
 
-    protected Button btnSettings;
     protected Button btnOccupancy;
     protected Button btnNoiseLevel;
     protected Button btnFavorites;
@@ -36,7 +39,7 @@ public class StudentMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
-        // for testing purposes
+
 
         boolean bHasAgreedToPrivacy = SharedPreferenceUtility.getPrivacyConsent(this);
         if(!bHasAgreedToPrivacy){
@@ -44,7 +47,6 @@ public class StudentMainActivity extends AppCompatActivity {
             // the privacy activity closes the app if the user does not consent
         }
 
-        btnSettings = (Button) findViewById(R.id.btnSettings);
         btnOccupancy = (Button) findViewById(R.id.btnOccupancy);
         btnNoiseLevel = (Button) findViewById(R.id.btnNoiseLevel);
         btnFavorites = (Button) findViewById(R.id.btnFavorites);
@@ -87,14 +89,6 @@ public class StudentMainActivity extends AppCompatActivity {
             }
         }
         );
-
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(StudentMainActivity.this, StudentSettingsActivity.class));
-            }
-        }
-        );
         btnFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,5 +112,19 @@ public class StudentMainActivity extends AppCompatActivity {
 
         private void startPrivacyActivity(){
             startActivity(new Intent(StudentMainActivity.this, PrivacyActivity.class));
+        }
+
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu){
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem menuItem){
+            if(menuItem.getItemId() == R.id.action_settings){
+                startActivity(new Intent(StudentMainActivity.this, StudentSettingsActivity.class));
+            }
+            return super.onOptionsItemSelected(menuItem);
         }
     }
