@@ -194,7 +194,7 @@ public class OpenDataApiHelper {
 
                                 OccupancyData occupancyDataGreyNuns = new OccupancyData();
                                 temp = response.getJSONObject("GreyNuns");
-                                occupancyDataGreyNuns.setLibraryName("GreyNuns");
+                                occupancyDataGreyNuns.setLibraryName("Grey Nuns");
                                 occupancyDataGreyNuns.setOccupancy(temp.getInt("Occupancy"));
                                 SimpleDateFormat greyNunsDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                 greyNunsDate.setTimeZone(TimeZone.getTimeZone("Etc/GMT+4"));
