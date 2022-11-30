@@ -1,6 +1,8 @@
 # BiblioBuddy
 
-ELEC/COEN 390 Project, Concordia University, Fall 2022
+Term project for ELEC 390 (Electrical Engineering Product Design Project) / COEN 390 (Computer Engineering Product Design Project)
+
+Concordia University, Fall 2022
 
 ## What is it?
 BiblioBuddy is a solution that allows library users to view real-time occupancy levels of the different Concordia Library reading rooms as well as the average noise level in those rooms.
