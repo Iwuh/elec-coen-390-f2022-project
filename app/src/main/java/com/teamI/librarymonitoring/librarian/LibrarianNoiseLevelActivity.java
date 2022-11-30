@@ -5,7 +5,6 @@ import static com.teamI.helper.FirebaseHelper.EdmontonN;
 import static com.teamI.helper.FirebaseHelper.OttawaN;
 import static com.teamI.helper.FirebaseHelper.TorontoN;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,20 +14,16 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.teamI.helper.FirebaseHelper;
+import com.teamI.librarymonitoring.NoiseSensorReadingRecyclerViewAdapter;
 import com.teamI.librarymonitoring.R;
-import com.teamI.librarymonitoring.SensorReadingRecyclerViewAdapter;
-import com.teamI.librarymonitoring.datacontainers.SensorReading;
+import com.teamI.librarymonitoring.OccupancySensorReadingRecyclerViewAdapter;
+import com.teamI.librarymonitoring.datacontainers.NoiseSensorReading;
+import com.teamI.librarymonitoring.datacontainers.OccupancySensorReading;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +32,7 @@ import java.util.List;
 public class LibrarianNoiseLevelActivity extends AppCompatActivity {
 
     protected RecyclerView readings_noise_librarian_RecyclerView;
-    protected SensorReadingRecyclerViewAdapter sensorReadingRecyclerViewAdapter;
+    protected NoiseSensorReadingRecyclerViewAdapter noiseSensorReadingRecyclerViewAdapter;
     protected FloatingActionButton FAB_noisedetails;
     protected Handler refreshHandler;
     protected static final int msBetweenUpdates = 20000;
@@ -89,12 +84,12 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
     }
 
     protected void populateRecyclerView(){
-        List<SensorReading> lstSensorReadings = getSensorReadings();
+        List<NoiseSensorReading> lstSensorReadings = getSensorReadings();
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        sensorReadingRecyclerViewAdapter = new SensorReadingRecyclerViewAdapter(lstSensorReadings);
+        noiseSensorReadingRecyclerViewAdapter = new NoiseSensorReadingRecyclerViewAdapter(lstSensorReadings);
         readings_noise_librarian_RecyclerView = findViewById(R.id.readingsNoiseLibrarianRecyclerView);
         readings_noise_librarian_RecyclerView.setLayoutManager(llm);
-        readings_noise_librarian_RecyclerView.setAdapter(sensorReadingRecyclerViewAdapter);
+        readings_noise_librarian_RecyclerView.setAdapter(noiseSensorReadingRecyclerViewAdapter);
 
         // need to remove the decoration. Else, the recyclerview keeps growing until it does not fit on the page
         if(readings_noise_librarian_RecyclerView.getItemDecorationCount() != 0){
@@ -104,18 +99,19 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
         readings_noise_librarian_RecyclerView.addItemDecoration(new DividerItemDecoration(readings_noise_librarian_RecyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }
 
-    private List<SensorReading> getSensorReadings(){
+    private List<NoiseSensorReading> getSensorReadings(){
         // TODO: get real sensor readings here
+        // TODO: the unit is not dB anymore! Map the floatAvg value to the noise level
         // for now, populate a list of dummy sensor readings
-        List<SensorReading> lstSensorReadings = new ArrayList<SensorReading>();
-        lstSensorReadings.add(new SensorReading("Toronto Reading Room", ""+TorontoN, "dB"));
-        lstSensorReadings.add(new SensorReading("Edmonton Reading Room", ""+EdmontonN, "dB"));
-        lstSensorReadings.add(new SensorReading("Ottawa Reading Room", ""+OttawaN, "dB"));
-        lstSensorReadings.add(new SensorReading("Calgary Reading Room", ""+CalgaryN, "dB"));
-        lstSensorReadings.add(new SensorReading("Vancouver Reading Room", "69", "dB"));
-        lstSensorReadings.add(new SensorReading("Montreal Reading Room", "62", "dB"));
-        lstSensorReadings.add(new SensorReading("Moncton Reading Room", "90", "dB"));
-        lstSensorReadings.add(new SensorReading("Regina Reading Room", "5", "dB"));
+        List<NoiseSensorReading> lstSensorReadings = new ArrayList<NoiseSensorReading>();
+        lstSensorReadings.add(new NoiseSensorReading("Toronto Reading Room", TorontoN));
+        lstSensorReadings.add(new NoiseSensorReading("Edmonton Reading Room", EdmontonN));
+        lstSensorReadings.add(new NoiseSensorReading("Ottawa Reading Room", OttawaN));
+        lstSensorReadings.add(new NoiseSensorReading("Calgary Reading Room", CalgaryN));
+        lstSensorReadings.add(new NoiseSensorReading("Vancouver Reading Room", 69d));
+        lstSensorReadings.add(new NoiseSensorReading("Montreal Reading Room", 20d));
+        lstSensorReadings.add(new NoiseSensorReading("Moncton Reading Room", 30d));
+        lstSensorReadings.add(new NoiseSensorReading("Regina Reading Room", 50d));
         return lstSensorReadings;
     }
 
