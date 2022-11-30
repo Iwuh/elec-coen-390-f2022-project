@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".librarian.LibrarianMainActivity">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -80,9 +81,25 @@
         android:layout_marginStart="105dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="106dp"
+
         android:background="@drawable/shape_bottom_rounded"
         android:text="HOURS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/btnSensorsConnected" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+
+    <Button
+        android:id="@+id/btnAnnouncements"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="105dp"
+        android:background="@drawable/shape_bottom_rounded"
+        android:text="Send Announcements"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnHours" />
 </androidx.constraintlayout.widget.ConstraintLayout>

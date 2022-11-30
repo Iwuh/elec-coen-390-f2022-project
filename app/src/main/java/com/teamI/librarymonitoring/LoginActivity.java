@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()) {
+                            SharedPreferenceUtility.setIsLibrarian(LoginActivity.this);
                             mProgressDialogue.dismiss();
 
                             Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
