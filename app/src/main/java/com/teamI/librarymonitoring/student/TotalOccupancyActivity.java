@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
+import android.text.format.DateUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,20 +19,17 @@ import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
 import com.teamI.librarymonitoring.datacontainers.OccupancyData;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.teamI.librarymonitoring.datacontainers.OccupancyData;
-
-import java.util.ArrayList;
-
 import java.util.List;
 
 public class TotalOccupancyActivity extends AppCompatActivity {
 
-    TextView librarycapacity_textview;
+    TextView libraryoccupancy_textview;
     private List<OccupancyData> occupancyData;
 
 
@@ -44,7 +38,7 @@ public class TotalOccupancyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total_occupancy);
 
-        librarycapacity_textview = (TextView) findViewById(R.id.libraryoccupancy_textview);
+        libraryoccupancy_textview = (TextView) findViewById(R.id.libraryoccupancy_textview);
 
         occupancyData = new ArrayList<OccupancyData>();
 
@@ -92,17 +86,27 @@ public class TotalOccupancyActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse() {
-                    String totaloccupancy = occupancyData.get(0).getLibraryName() + ": " + occupancyData.get(0).getOccupancy() + " people\n" + occupancyData.get(0).getLastRecordTime()
-                            + "\n\n" + occupancyData.get(1).getLibraryName() + ": " + occupancyData.get(1).getOccupancy() + " people\n" + occupancyData.get(1).getLastRecordTime()
-                            + "\n\n" + occupancyData.get(2).getLibraryName() + ": " + occupancyData.get(2).getOccupancy() + " people\n" + occupancyData.get(2).getLastRecordTime();
+                    String totaloccupancy = occupancyData.get(0).getLibraryName() + ": " + occupancyData.get(0).getOccupancy() + " people\n" + getReadableStringFromDate(occupancyData.get(0).getLastRecordTime())
+                            + "\n\n" + occupancyData.get(1).getLibraryName() + ": " + occupancyData.get(1).getOccupancy() + " people\n" + getReadableStringFromDate(occupancyData.get(1).getLastRecordTime())
+                            + "\n\n" + occupancyData.get(2).getLibraryName() + ": " + occupancyData.get(2).getOccupancy() + " people\n" + getReadableStringFromDate(occupancyData.get(2).getLastRecordTime());
                     System.out.println(totaloccupancy);
-                    librarycapacity_textview.setText(totaloccupancy);
+                    libraryoccupancy_textview.setText(totaloccupancy);
                     Date date = new Date();
-                    SharedPreferenceUtility.setOccupancyTimeStamp(librarycapacity_textview.getContext(), date);
+                    SharedPreferenceUtility.setOccupancyTimeStamp(libraryoccupancy_textview.getContext(), date);
                 }
             });
 
 
+        }
+
+        private String getReadableStringFromDate(Date dateToDisplay){
+
+            if(DateUtils.isToday(dateToDisplay.getTime())){
+                DateFormat df = new SimpleDateFormat("h:mm aa");
+                return "Today, " + df.format(dateToDisplay);
+            }
+            DateFormat df = new SimpleDateFormat("MM/dd, hh:mm aa");
+            return df.format(dateToDisplay);
         }
     }
 

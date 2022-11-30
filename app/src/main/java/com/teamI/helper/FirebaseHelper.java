@@ -34,7 +34,7 @@ public class FirebaseHelper {
     public static Double TorontoN;
     public static Double EdmontonN;
     public static Double CalgaryN;
-    public static String VancouverN;
+    public static Double VancouverN;
     public static String OttawaO;
     public static String TorontoO;
     public static String EdmontonO;

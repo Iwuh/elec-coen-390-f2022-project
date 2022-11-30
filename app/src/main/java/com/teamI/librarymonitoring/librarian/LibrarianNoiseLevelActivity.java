@@ -35,7 +35,7 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
     protected NoiseSensorReadingRecyclerViewAdapter noiseSensorReadingRecyclerViewAdapter;
     protected FloatingActionButton FAB_noisedetails;
     protected Handler refreshHandler;
-    protected static final int msBetweenUpdates = 20000;
+    protected static final int msBetweenUpdates = 15000;
 
 
     @SuppressLint("SetTextI18n")
@@ -105,13 +105,13 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
         // for now, populate a list of dummy sensor readings
         List<NoiseSensorReading> lstSensorReadings = new ArrayList<NoiseSensorReading>();
         lstSensorReadings.add(new NoiseSensorReading("Toronto Reading Room", TorontoN));
-        lstSensorReadings.add(new NoiseSensorReading("Edmonton Reading Room", EdmontonN));
-        lstSensorReadings.add(new NoiseSensorReading("Ottawa Reading Room", OttawaN));
+        lstSensorReadings.add(new NoiseSensorReading("Edmonton Reading Room",EdmontonN));
+        lstSensorReadings.add(new NoiseSensorReading("Ottawa Reading Room",  OttawaN));
         lstSensorReadings.add(new NoiseSensorReading("Calgary Reading Room", CalgaryN));
         lstSensorReadings.add(new NoiseSensorReading("Vancouver Reading Room", 69d));
         lstSensorReadings.add(new NoiseSensorReading("Montreal Reading Room", 20d));
-        lstSensorReadings.add(new NoiseSensorReading("Moncton Reading Room", 30d));
-        lstSensorReadings.add(new NoiseSensorReading("Regina Reading Room", 50d));
+        lstSensorReadings.add(new NoiseSensorReading("Moncton Reading Room", 140d));
+        lstSensorReadings.add(new NoiseSensorReading("Regina Reading Room", 100d));
         return lstSensorReadings;
     }
 

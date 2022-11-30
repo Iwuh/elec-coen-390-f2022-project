@@ -83,12 +83,12 @@ public class LibrarianSettingsActivity extends AppCompatActivity {
 
     private int getNumberOfNoiseSensors() {
         // TODO: get actual number of noise sensors
-        return 0;
+        return 1;
     }
 
     private int getNumberOfOccupancySensors() {
         // TODO: get actual number of occupancy sensors
-        return 0;
+        return 1;
     }
 
 
