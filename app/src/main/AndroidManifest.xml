@@ -17,21 +17,24 @@
         <activity
             android:name=".student.LibraryDesktopDetailsActivity"
             android:parentActivityName=".student.ComputerUseActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".RegistrationActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -39,7 +42,8 @@
         <activity
             android:name=".student.TotalOccupancyActivity"
             android:exported="false"
-            android:parentActivityName=".student.StudentOccupancyActivity">
+            android:parentActivityName=".student.StudentOccupancyActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -47,7 +51,8 @@
         <activity
             android:name=".student.ComputerUseActivity"
             android:parentActivityName=".student.StudentMainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -62,21 +67,24 @@
 
         <activity
             android:name=".HoursActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".CreditActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".PrivacyActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -84,7 +92,8 @@
         <activity
             android:name=".student.StudentFavoritesActivity"
             android:exported="false"
-            android:parentActivityName=".student.StudentMainActivity">
+            android:parentActivityName=".student.StudentMainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -92,14 +101,16 @@
         <activity
             android:name=".student.StudentSettingsActivity"
             android:exported="false"
-            android:parentActivityName=".student.StudentMainActivity">
+            android:parentActivityName=".student.StudentMainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".roledivision.RoleChoiceActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -107,14 +118,16 @@
         <activity
             android:name=".student.Rules_and_RegulationActivity"
             android:exported="false"
-            android:parentActivityName=".student.StudentSettingsActivity">
+            android:parentActivityName=".student.StudentSettingsActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".splash.Splash"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -128,7 +141,8 @@
         <activity
             android:name=".student.StudentOccupancyActivity"
             android:exported="false"
-            android:parentActivityName=".student.StudentMainActivity">
+            android:parentActivityName=".student.StudentMainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -136,14 +150,16 @@
         <activity
             android:name=".student.StudentNoiseLevelActivity"
             android:exported="false"
-            android:parentActivityName=".student.StudentMainActivity">
+            android:parentActivityName=".student.StudentMainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".student.StudentMainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -151,7 +167,8 @@
         <activity
             android:name=".librarian.LibrarianSensorsConnectedActivity"
             android:exported="false"
-            android:parentActivityName=".librarian.LibrarianMainActivity">
+            android:parentActivityName=".librarian.LibrarianMainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -159,7 +176,8 @@
         <activity
             android:name=".librarian.LibrarianSettingsActivity"
             android:exported="false"
-            android:parentActivityName=".librarian.LibrarianMainActivity">
+            android:parentActivityName=".librarian.LibrarianMainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -167,7 +185,8 @@
         <activity
             android:name=".librarian.LibrarianOccupancyActivity"
             android:exported="false"
-            android:parentActivityName=".librarian.LibrarianMainActivity">
+            android:parentActivityName=".librarian.LibrarianMainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -175,14 +194,16 @@
         <activity
             android:name=".librarian.LibrarianNoiseLevelActivity"
             android:exported="false"
-            android:parentActivityName=".librarian.LibrarianMainActivity">
+            android:parentActivityName=".librarian.LibrarianMainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".librarian.LibrarianMainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
 
             <!--
                 <intent-filter>
