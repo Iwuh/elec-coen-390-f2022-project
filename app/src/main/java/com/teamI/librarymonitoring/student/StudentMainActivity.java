@@ -131,25 +131,6 @@ public class StudentMainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.student_activity_menu,menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(/*@NonNull*/ MenuItem item) {
-
-        switch(item.getItemId()){
-            case R.id.student_settings:
-                startActivity(new Intent(StudentMainActivity.this, StudentSettingsActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
         private void startPrivacyActivity(){
             startActivity(new Intent(StudentMainActivity.this, PrivacyActivity.class));
@@ -157,13 +138,13 @@ public class StudentMainActivity extends AppCompatActivity {
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu){
-            getMenuInflater().inflate(R.menu.menu_main, menu);
+            getMenuInflater().inflate(R.menu.student_activity_menu, menu);
             return true;
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem menuItem){
-            if(menuItem.getItemId() == R.id.action_settings){
+            if(menuItem.getItemId() == R.id.action_settings_student){
                 startActivity(new Intent(StudentMainActivity.this, StudentSettingsActivity.class));
             }
             return super.onOptionsItemSelected(menuItem);

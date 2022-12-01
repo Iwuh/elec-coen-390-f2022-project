@@ -32,7 +32,7 @@ public class LibrarianOccupancyActivity extends AppCompatActivity {
     protected OccupancySensorReadingRecyclerViewAdapter occupancySensorReadingRecyclerViewAdapter;
     protected FloatingActionButton fBtnOccupancyDetails;
     protected Handler refreshHandler;
-    protected final static int msBetweenUpdates = 20000;
+    protected final static int msBetweenUpdates = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

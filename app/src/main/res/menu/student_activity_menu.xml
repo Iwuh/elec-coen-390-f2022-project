@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/student_settings" android:title="Settings" app:showAsAction="never"/>
-    <!-- <item android:id="@+id/original_Event" android:title="Return to Original" app:showAsAction="never"/> -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_settings_student"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="settings"
+        app:showAsAction="ifRoom"/>
 </menu>

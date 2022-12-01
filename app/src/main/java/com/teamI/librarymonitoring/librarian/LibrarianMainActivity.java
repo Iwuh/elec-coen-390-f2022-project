@@ -1,14 +1,11 @@
 package com.teamI.librarymonitoring.librarian;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-
-import android.view.MenuInflater;
 
 import android.view.MenuItem;
 import android.view.View;
@@ -16,17 +13,9 @@ import android.widget.Button;
 
 import com.teamI.helper.FirebaseHelper;
 import com.teamI.librarymonitoring.HoursActivity;
-import com.teamI.librarymonitoring.PassAnnouncementInterface;
 import com.teamI.librarymonitoring.PrivacyActivity;
 import com.teamI.librarymonitoring.R;
 import com.teamI.librarymonitoring.SharedPreferenceUtility;
-import com.teamI.librarymonitoring.datacontainers.Announcement;
-import com.teamI.librarymonitoring.splash.Splash;
-
-import com.teamI.librarymonitoring.student.StudentMainActivity;
-import com.teamI.librarymonitoring.student.StudentSettingsActivity;
-
-import com.teamI.librarymonitoring.student.PassDataInterface;
 
 
 public class LibrarianMainActivity extends AppCompatActivity{
@@ -126,26 +115,6 @@ public class LibrarianMainActivity extends AppCompatActivity{
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.librarian_activity_menu,menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(/*@NonNull*/ MenuItem item) {
-
-        switch(item.getItemId()){
-            case R.id.sentannouncements:
-                goToAnnouncemtnActivity();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     private void startPrivacyActivity(){
         startActivity(new Intent(LibrarianMainActivity.this, PrivacyActivity.class));
@@ -154,19 +123,22 @@ public class LibrarianMainActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.librarian_activity_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem){
-        if(menuItem.getItemId() == R.id.action_settings){
+        if(menuItem.getItemId() == R.id.action_settings_librarian){
             startActivity(new Intent(LibrarianMainActivity.this, LibrarianSettingsActivity.class));
+        }
+        else if(menuItem.getItemId() == R.id.sentannouncements){
+            goToAnnouncementActivity();
         }
         return super.onOptionsItemSelected(menuItem);
     }
 
-    private void goToAnnouncemtnActivity() {
+    private void goToAnnouncementActivity() {
         Intent intent = new Intent(LibrarianMainActivity.this, AnnouncementsActivity.class);
         startActivity(intent);
     }
