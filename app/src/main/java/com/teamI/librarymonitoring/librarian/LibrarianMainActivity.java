@@ -126,7 +126,8 @@ public class LibrarianMainActivity extends AppCompatActivity{
 
     }
 
-    @Override
+    // TODO merge librarian_activity_menu and menu_main
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.librarian_activity_menu,menu);
@@ -135,7 +136,7 @@ public class LibrarianMainActivity extends AppCompatActivity{
     }
 
     @Override
-    public boolean onOptionsItemSelected(/*@NonNull*/ MenuItem item) {
+    public boolean onOptionsItemSelected(*//*@NonNull*//* MenuItem item) {
 
         switch(item.getItemId()){
             case R.id.sentannouncements:
@@ -144,7 +145,8 @@ public class LibrarianMainActivity extends AppCompatActivity{
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
+
 
 
     private void startPrivacyActivity(){

@@ -131,7 +131,8 @@ public class StudentMainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+    // TODO merge student_activity_menu and menu_main
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.student_activity_menu,menu);
@@ -140,7 +141,7 @@ public class StudentMainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(/*@NonNull*/ MenuItem item) {
+    public boolean onOptionsItemSelected(*//*@NonNull*//* MenuItem item) {
 
         switch(item.getItemId()){
             case R.id.student_settings:
@@ -149,7 +150,7 @@ public class StudentMainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
         private void startPrivacyActivity(){
             startActivity(new Intent(StudentMainActivity.this, PrivacyActivity.class));

@@ -24,23 +24,9 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AnnouncementRecyclerViewAdapter"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        <activity
             android:name=".librarian.AnnouncementsActivity"
             android:exported="false"
             android:parentActivityName=".librarian.LibrarianMainActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".student.LibraryDesktopDetailsActivity"
-            android:exported="false"
-            android:parentActivityName=".student.ComputerUseActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
