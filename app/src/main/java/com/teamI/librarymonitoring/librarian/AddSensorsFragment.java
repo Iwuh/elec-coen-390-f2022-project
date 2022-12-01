@@ -56,8 +56,7 @@ public class AddSensorsFragment extends DialogFragment {
                     Toast.makeText(getContext(),"Please fill text", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                passDataInterface.DataReceived(add_sensor);
+                
 
                 dismiss();
             }
