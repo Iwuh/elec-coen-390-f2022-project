@@ -35,7 +35,7 @@ public class LibrarianNoiseLevelActivity extends AppCompatActivity {
     protected NoiseSensorReadingRecyclerViewAdapter noiseSensorReadingRecyclerViewAdapter;
     protected FloatingActionButton FAB_noisedetails;
     protected Handler refreshHandler;
-    protected static final int msBetweenUpdates = 15000;
+    protected static final int msBetweenUpdates = 5000;
 
 
     @SuppressLint("SetTextI18n")

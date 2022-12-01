@@ -115,28 +115,6 @@ public class LibrarianMainActivity extends AppCompatActivity{
 
     }
 
-    // TODO merge librarian_activity_menu and menu_main
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.librarian_activity_menu,menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(*//*@NonNull*//* MenuItem item) {
-
-        switch(item.getItemId()){
-            case R.id.sentannouncements:
-                goToAnnouncemtnActivity();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
-
-
 
     private void startPrivacyActivity(){
         startActivity(new Intent(LibrarianMainActivity.this, PrivacyActivity.class));

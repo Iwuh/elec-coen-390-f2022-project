@@ -29,7 +29,7 @@ public class StudentNoiseLevelActivity extends AppCompatActivity {
     protected RecyclerView readings_noise_student_RecyclerView;
     protected NoiseSensorReadingRecyclerViewAdapter noiseSensorReadingRecyclerViewAdapter;
     protected Handler refreshHandler;
-    protected static final int msBetweenUpdates = 15000;
+    protected static final int msBetweenUpdates = 5000;
 
 
     @Override
